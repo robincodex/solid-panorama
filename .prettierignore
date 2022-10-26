@@ -1,0 +1,6 @@
+build
+coverage
+**/dist
+**/vue_example
+.github
+package.json

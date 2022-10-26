@@ -1,0 +1,10 @@
+{
+  "name": "solid-panorama",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "RobinCode <xv.robincode@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@moddota/panorama-types": "^1.21.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "include": ["**/*.ts"],
+    "compilerOptions": {
+        "rootDir": ".",
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "allowJs": true,
+        "inlineSourceMap": true,
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "strict": true,
+        "types": ["@moddota/panorama-types"],
+        "target": "ES2017",
+        "lib": ["ES2017"]
+    }
+}
