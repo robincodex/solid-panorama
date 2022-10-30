@@ -3,27 +3,63 @@ import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 
-module.exports = [
-    {
-        input: 'packages/runtime/src/index.ts',
-        output: {
-            dir: 'dist/runtime',
-            sourcemap: false,
-            format: 'es'
-        },
-        external: [],
-        plugins: [
-            rollupTypescript(require('./tsconfig.json').compilerOptions),
-            commonjs({ extensions: ['.js', '.ts'] }),
-            nodeResolve(),
-            copy({
-                targets: [
-                    {
-                        src: 'packages/runtime/package.json',
-                        dest: 'dist/runtime'
-                    }
-                ]
-            })
-        ]
-    }
-];
+const runtimeConfig = {
+    input: 'packages/runtime/src/index.ts',
+    output: {
+        dir: 'dist/runtime',
+        sourcemap: false,
+        format: 'es'
+    },
+    external: [],
+    plugins: [
+        rollupTypescript(require('./tsconfig.json').compilerOptions),
+        commonjs({ extensions: ['.js', '.ts'] }),
+        nodeResolve({
+            moduleDirectories: ['node_modules', 'packages']
+        }),
+        copy({
+            targets: [
+                {
+                    src: 'packages/runtime/package.json',
+                    dest: 'dist/runtime'
+                }
+            ]
+        })
+    ]
+};
+
+const jsxConfig = {
+    input: 'packages/babel-plugin-jsx-panorama-expressions/src/index.js',
+    external: [
+        '@babel/plugin-syntax-jsx',
+        '@babel/helper-module-imports',
+        '@babel/types',
+        'html-entities'
+    ],
+    output: {
+        dir: 'dist/babel-plugin-jsx-panorama-expressions',
+        format: 'cjs',
+        exports: 'auto'
+    },
+    plugins: [
+        nodeResolve({
+            moduleDirectories: ['node_modules', 'packages']
+        }),
+        copy({
+            targets: [
+                {
+                    src: 'packages/babel-plugin-jsx-panorama-expressions/package.json',
+                    dest: 'dist/babel-plugin-jsx-panorama-expressions'
+                }
+            ]
+        })
+    ]
+};
+
+if (process.env['OnlyBuildRuntime']) {
+    module.exports = runtimeConfig;
+} else if (process.env['OnlyBuildJSX']) {
+    module.exports = jsxConfig;
+} else {
+    module.exports = [runtimeConfig, jsxConfig];
+}
