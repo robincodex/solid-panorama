@@ -1,4 +1,4 @@
-/// <reference path="../node_modules/@moddota/panorama-types/index.d.ts" />
+/// <reference path="../../node_modules/@moddota/panorama-types/index.d.ts" />
 //@ts-check
 
 import {
