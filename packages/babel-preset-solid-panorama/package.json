@@ -1,6 +1,6 @@
 {
     "name": "babel-preset-solid-panorama",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Solid.js babel preset for Valve's Panorama UI.",
     "engines": {
         "node": ">=16.0.0"
@@ -14,5 +14,7 @@
         "type": "git",
         "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
     },
-    "dependencies": {}
+    "dependencies": {
+        "babel-plugin-jsx-panorama-expressions": "^0.1.0"
+    }
 }
