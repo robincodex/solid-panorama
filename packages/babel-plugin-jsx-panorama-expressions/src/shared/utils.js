@@ -77,7 +77,7 @@ export function getTagName(tag) {
 
 export function isComponent(tagName) {
     if (panorama_elements.includes(tagName)) {
-        return true;
+        return false;
     }
     return (
         (tagName[0] && tagName[0].toLowerCase() !== tagName[0]) ||
