@@ -6,4 +6,6 @@ explorations
 TODOs.md
 *.log
 .idea
-dist
+dist/**/*.js
+dist/**/*.json
+!dist/**/*.d.ts
