@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
+        "rootDir": ".",
         "target": "ESNext",
         "strict": true,
         "allowJs": true,

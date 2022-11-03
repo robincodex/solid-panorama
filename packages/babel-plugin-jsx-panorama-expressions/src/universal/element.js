@@ -282,47 +282,47 @@ function transformChildren(path, results) {
         Wrap the usage with a component that would render this element, eg. Canvas`);
         }
         if (child.id) {
-            let insertNode = registerImportMethod(
-                path,
-                'insertNode',
-                getRendererConfig(path, 'universal').moduleName
-            );
-            let insert = child.id;
-            if (child.text) {
-                let createTextNode = registerImportMethod(
-                    path,
-                    'createTextNode',
-                    getRendererConfig(path, 'universal').moduleName
-                );
-                if (multi) {
-                    results.decl.push(
-                        t.variableDeclarator(
-                            child.id,
-                            t.callExpression(createTextNode, [
-                                t.templateLiteral(
-                                    [
-                                        t.templateElement({
-                                            raw: child.template
-                                        })
-                                    ],
-                                    []
-                                )
-                            ])
-                        )
-                    );
-                } else
-                    insert = t.callExpression(createTextNode, [
-                        t.templateLiteral(
-                            [t.templateElement({ raw: child.template })],
-                            []
-                        )
-                    ]);
-            }
-            appends.push(
-                t.expressionStatement(
-                    t.callExpression(insertNode, [results.id, insert])
-                )
-            );
+            // let insertNode = registerImportMethod(
+            //     path,
+            //     'insertNode',
+            //     getRendererConfig(path, 'universal').moduleName
+            // );
+            // let insert = child.id;
+            // if (child.text) {
+            //     let createTextNode = registerImportMethod(
+            //         path,
+            //         'createTextNode',
+            //         getRendererConfig(path, 'universal').moduleName
+            //     );
+            //     if (multi) {
+            //         results.decl.push(
+            //             t.variableDeclarator(
+            //                 child.id,
+            //                 t.callExpression(createTextNode, [
+            //                     t.templateLiteral(
+            //                         [
+            //                             t.templateElement({
+            //                                 raw: child.template
+            //                             })
+            //                         ],
+            //                         []
+            //                     )
+            //                 ])
+            //             )
+            //         );
+            //     } else
+            //         insert = t.callExpression(createTextNode, [
+            //             t.templateLiteral(
+            //                 [t.templateElement({ raw: child.template })],
+            //                 []
+            //             )
+            //         ]);
+            // }
+            // appends.push(
+            //     t.expressionStatement(
+            //         t.callExpression(insertNode, [results.id, insert])
+            //     )
+            // );
             results.decl.push(...child.decl);
             results.exprs.push(...child.exprs);
             results.dynamics.push(...child.dynamics);

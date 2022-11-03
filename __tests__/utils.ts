@@ -1,6 +1,6 @@
 import * as babel from '@babel/core';
 // @ts-ignore
-import jsxTransform from '../packages/babel-plugin-jsx-panorama-expressions/src/index.js';
+import jsxTransform from '../packages/babel-plugin-jsx-panorama-expressions/src/index';
 
 export function parser(code: string) {
     const result = babel.transformSync(code, {

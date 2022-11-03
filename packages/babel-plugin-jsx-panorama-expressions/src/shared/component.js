@@ -245,7 +245,11 @@ export default function transformComponent(path) {
             t.callExpression(registerImportMethod(path, 'mergeProps'), props)
         ];
     }
-    const componentArgs = [tagId, props[0]];
+    let parentID = null;
+    if (path.parentPath && path.parentPath.__id) {
+        parentID = path.parentPath.__id;
+    }
+    const componentArgs = [tagId, props[0], parentID ?? t.nullLiteral()];
     exprs.push(
         t.callExpression(
             registerImportMethod(path, 'createComponent'),

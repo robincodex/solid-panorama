@@ -15,7 +15,8 @@ export const {
     setProp,
     mergeProps
 } = createRenderer({
-    createElement(type) {
+    // @ts-ignore
+    createElement(type, props, parent) {
         return $.CreatePanel(type, $.GetContextPanel(), '');
     },
     createTextNode(value) {

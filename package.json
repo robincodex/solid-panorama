@@ -12,7 +12,7 @@
         "lint:prettier": "prettier --check .",
         "write-prettier": "prettier --write .",
         "test": "jest --verbose",
-        "test-update": "jest --verbose --updateSnapshot"
+        "test-update": "jest --updateSnapshot"
     },
     "dependencies": {
         "@babel/core": "^7.19.6",
