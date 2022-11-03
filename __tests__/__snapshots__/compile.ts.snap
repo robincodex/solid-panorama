@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compile parse 1`] = `
+"import { insert as _$insert } from "@solid-panorama/runtime";
+import { createTextNode as _$createTextNode } from "@solid-panorama/runtime";
+import { createComponent as _$createComponent } from "@solid-panorama/runtime";
+import { insertNode as _$insertNode } from "@solid-panorama/runtime";
+import { setProp as _$setProp } from "@solid-panorama/runtime";
+import { createElement as _$createElement } from "@solid-panorama/runtime";
+import { render } from 'solid-panorama-runtime';
+function Item(props) {
+  return (() => {
+    const _el$ = _$createElement("Panel", {
+        "class": "root"
+      }, null),
+      _el$2 = _$createElement("Label", {
+        text: "Testing"
+      }, _el$),
+      _el$3 = _$createElement("Panel", {
+        "class": "buttons"
+      }, _el$),
+      _el$4 = _$createElement("Button", {}, _el$3),
+      _el$5 = _$createElement("Button", {}, _el$3),
+      _el$6 = _$createElement("Button", {}, _el$3);
+    _$insertNode(_el$, _el$2);
+    _$insertNode(_el$, _el$3);
+    _$setProp(_el$, "class", "root");
+    _$setProp(_el$2, "text", "Testing");
+    _$insertNode(_el$3, _el$4);
+    _$insertNode(_el$3, _el$5);
+    _$insertNode(_el$3, _el$6);
+    _$setProp(_el$3, "class", "buttons");
+    return _el$;
+  })();
+}
+function HelloWorld() {
+  return (() => {
+    const _el$7 = _$createElement("Panel", {}, null),
+      _el$8 = _$createTextNode(\`Hello World!\`);
+    _$insertNode(_el$7, _el$8);
+    _$insert(_el$7, _$createComponent(Item, {
+      show: true
+    }), null);
+    return _el$7;
+  })();
+}
+render(() => _$createComponent(HelloWorld, {}), $('#app'));"
+`;

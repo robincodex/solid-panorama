@@ -11,6 +11,7 @@ import {
     canNativeSpread
 } from '../shared/utils';
 import { transformNode } from '../shared/transform';
+import { getElementProps } from '../shared/component';
 
 export function transformElement(path, info) {
     let tagName = getTagName(path.node),
@@ -23,6 +24,12 @@ export function transformElement(path, info) {
             tagName,
             renderer: 'universal'
         };
+    const props = getElementProps(path);
+
+    let parentID = null;
+    if (path.parentPath && path.parentPath.__id) {
+        parentID = path.parentPath.__id;
+    }
 
     results.decl.push(
         t.variableDeclarator(
@@ -33,10 +40,11 @@ export function transformElement(path, info) {
                     'createElement',
                     getRendererConfig(path, 'universal').moduleName
                 ),
-                [t.stringLiteral(tagName)]
+                [t.stringLiteral(tagName), props, parentID ?? t.nullLiteral()]
             )
         )
     );
+    path.__id = results.id;
 
     transformAttributes(path, results);
     transformChildren(path, results);

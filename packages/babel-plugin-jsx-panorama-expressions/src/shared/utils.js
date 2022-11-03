@@ -76,14 +76,7 @@ export function getTagName(tag) {
 }
 
 export function isComponent(tagName) {
-    if (panorama_elements.includes(tagName)) {
-        return false;
-    }
-    return (
-        (tagName[0] && tagName[0].toLowerCase() !== tagName[0]) ||
-        tagName.includes('.') ||
-        /[^a-zA-Z]/.test(tagName[0])
-    );
+    return !panorama_elements.includes(tagName);
 }
 
 export function isDynamic(
