@@ -43,13 +43,16 @@ exports[`compile transform: normal 1`] = `
 "import { insert as _$insert } from "@solid-panorama/runtime";
 import { createComponent as _$createComponent } from "@solid-panorama/runtime";
 import { setProp as _$setProp } from "@solid-panorama/runtime";
+import { effect as _$effect } from "@solid-panorama/runtime";
+import { use as _$use } from "@solid-panorama/runtime";
 import { createElement as _$createElement } from "@solid-panorama/runtime";
 import { render } from 'solid-panorama-runtime';
 function Item(props) {
+  const [rootStyle, setRootStyle] = createSignal('root');
+  let root, btnA;
   return (() => {
     const _el$ = _$createElement("Panel", {
-        id: "root",
-        "class": "root"
+        id: "root"
       }, null),
       _el$2 = _$createElement("Label", {
         text: "Testing"
@@ -60,10 +63,10 @@ function Item(props) {
       _el$4 = _$createElement("Button", {}, _el$3),
       _el$5 = _$createElement("Button", {}, _el$3),
       _el$6 = _$createElement("Button", {}, _el$3);
-    _$setProp(_el$, "id", "root");
-    _$setProp(_el$, "class", "root");
-    _$setProp(_el$2, "text", "Testing");
-    _$setProp(_el$3, "class", "buttons");
+    const _ref$ = root;
+    typeof _ref$ === "function" ? _$use(_ref$, _el$) : root = _el$;
+    _$use(b => btnA = b, _el$4);
+    _$effect(_$p => _$setProp(_el$, "class", rootStyle().join(' '), _$p));
     return _el$;
   })();
 }

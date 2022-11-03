@@ -233,9 +233,13 @@ function transformAttributes(path, results) {
                     );
                 }
             } else {
-                results.exprs.push(
-                    t.expressionStatement(setAttr(attribute, elem, key, value))
-                );
+                if (!t.isStringLiteral(value)) {
+                    results.exprs.push(
+                        t.expressionStatement(
+                            setAttr(attribute, elem, key, value)
+                        )
+                    );
+                }
             }
         });
     if (spreadExpr) results.exprs.push(spreadExpr);

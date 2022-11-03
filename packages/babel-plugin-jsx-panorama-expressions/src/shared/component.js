@@ -384,54 +384,54 @@ export function getElementProps(path) {
                                 )) &&
                                 binding.kind === 'const';
                         if (!isFunction && t.isLVal(value.expression)) {
-                            const refIdentifier =
-                                path.scope.generateUidIdentifier('_ref$');
-                            runningObject.push(
-                                t.objectMethod(
-                                    'method',
-                                    t.identifier('ref'),
-                                    [t.identifier('r$')],
-                                    t.blockStatement([
-                                        t.variableDeclaration('const', [
-                                            t.variableDeclarator(
-                                                refIdentifier,
-                                                value.expression
-                                            )
-                                        ]),
-                                        t.expressionStatement(
-                                            t.conditionalExpression(
-                                                t.binaryExpression(
-                                                    '===',
-                                                    t.unaryExpression(
-                                                        'typeof',
-                                                        refIdentifier
-                                                    ),
-                                                    t.stringLiteral('function')
-                                                ),
-                                                t.callExpression(
-                                                    refIdentifier,
-                                                    [t.identifier('r$')]
-                                                ),
-                                                t.assignmentExpression(
-                                                    '=',
-                                                    value.expression,
-                                                    t.identifier('r$')
-                                                )
-                                            )
-                                        )
-                                    ])
-                                )
-                            );
+                            // const refIdentifier =
+                            //     path.scope.generateUidIdentifier('_ref$');
+                            // runningObject.push(
+                            //     t.objectMethod(
+                            //         'method',
+                            //         t.identifier('ref'),
+                            //         [t.identifier('r$')],
+                            //         t.blockStatement([
+                            //             t.variableDeclaration('const', [
+                            //                 t.variableDeclarator(
+                            //                     refIdentifier,
+                            //                     value.expression
+                            //                 )
+                            //             ]),
+                            //             t.expressionStatement(
+                            //                 t.conditionalExpression(
+                            //                     t.binaryExpression(
+                            //                         '===',
+                            //                         t.unaryExpression(
+                            //                             'typeof',
+                            //                             refIdentifier
+                            //                         ),
+                            //                         t.stringLiteral('function')
+                            //                     ),
+                            //                     t.callExpression(
+                            //                         refIdentifier,
+                            //                         [t.identifier('r$')]
+                            //                     ),
+                            //                     t.assignmentExpression(
+                            //                         '=',
+                            //                         value.expression,
+                            //                         t.identifier('r$')
+                            //                     )
+                            //                 )
+                            //             )
+                            //         ])
+                            //     )
+                            // );
                         } else if (
                             isFunction ||
                             t.isFunction(value.expression)
                         ) {
-                            runningObject.push(
-                                t.objectProperty(
-                                    t.identifier('ref'),
-                                    value.expression
-                                )
-                            );
+                            // runningObject.push(
+                            //     t.objectProperty(
+                            //         t.identifier('ref'),
+                            //         value.expression
+                            //     )
+                            // );
                         } else if (t.isCallExpression(value.expression)) {
                             const refIdentifier =
                                 path.scope.generateUidIdentifier('_ref$');
@@ -474,30 +474,30 @@ export function getElementProps(path) {
                             checkTags: true
                         })
                     ) {
-                        let expr =
-                            config.wrapConditionals &&
-                            config.generate !== 'ssr' &&
-                            (t.isLogicalExpression(value.expression) ||
-                                t.isConditionalExpression(value.expression))
-                                ? transformCondition(
-                                      attribute.get('value').get('expression'),
-                                      true
-                                  )
-                                : t.arrowFunctionExpression(
-                                      [],
-                                      value.expression
-                                  );
-                        runningObject.push(
-                            t.objectMethod(
-                                'get',
-                                id,
-                                [],
-                                t.blockStatement([
-                                    t.returnStatement(expr.body)
-                                ]),
-                                !t.isValidIdentifier(key)
-                            )
-                        );
+                        // let expr =
+                        //     config.wrapConditionals &&
+                        //     config.generate !== 'ssr' &&
+                        //     (t.isLogicalExpression(value.expression) ||
+                        //         t.isConditionalExpression(value.expression))
+                        //         ? transformCondition(
+                        //               attribute.get('value').get('expression'),
+                        //               true
+                        //           )
+                        //         : t.arrowFunctionExpression(
+                        //               [],
+                        //               value.expression
+                        //           );
+                        // runningObject.push(
+                        //     t.objectMethod(
+                        //         'get',
+                        //         id,
+                        //         [],
+                        //         t.blockStatement([
+                        //             t.returnStatement(expr.body)
+                        //         ]),
+                        //         !t.isValidIdentifier(key)
+                        //     )
+                        // );
                     } else
                         runningObject.push(
                             t.objectProperty(id, value.expression)

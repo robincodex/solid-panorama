@@ -7,11 +7,13 @@ describe('compile', function () {
             import { render } from 'solid-panorama-runtime';
 
             function Item(props) {
+                const [rootStyle, setRootStyle] = createSignal('root');
+                let root, btnA
                 return (
-                    <Panel id="root" class="root">
+                    <Panel id="root" ref={root} class={rootStyle().join(' ')}>
                         <Label text="Testing" />
                         <Panel class="buttons">
-                            <Button />
+                            <Button ref={(b) => btnA = b} />
                             <Button />
                             <Button />
                         </Panel>
