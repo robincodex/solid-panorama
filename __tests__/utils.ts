@@ -8,7 +8,7 @@ export function parser(code: string) {
             [
                 jsxTransform,
                 Object.assign({
-                    moduleName: '@solid-panorama/runtime',
+                    moduleName: 'solid-panorama-runtime',
                     builtIns: [
                         'For',
                         'Show',

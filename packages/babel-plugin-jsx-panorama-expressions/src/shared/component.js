@@ -498,10 +498,11 @@ export function getElementProps(path) {
                         //         !t.isValidIdentifier(key)
                         //     )
                         // );
-                    } else
+                    } else {
                         runningObject.push(
                             t.objectProperty(id, value.expression)
                         );
+                    }
                 else runningObject.push(t.objectProperty(id, value));
             }
         });

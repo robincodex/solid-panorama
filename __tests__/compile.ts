@@ -8,13 +8,14 @@ describe('compile', function () {
 
             function Item(props) {
                 const [rootStyle, setRootStyle] = createSignal('root');
+                let visible = true
                 let root, btnA
                 return (
                     <Panel id="root" ref={root} class={rootStyle().join(' ')}>
                         <Label text="Testing" />
                         <Panel class="buttons">
                             <Button ref={(a) => btnA = a} />
-                            <Button />
+                            <Button visible={visible} />
                             <Button />
                         </Panel>
                     </Panel>
@@ -24,7 +25,7 @@ describe('compile', function () {
             function HelloWorld() {
                 return (
                     <Panel>
-                        Hello World!
+                        <Item />
                         <Item show />
                     </Panel>
                 );
@@ -89,6 +90,33 @@ describe('compile', function () {
             function HelloWorld() {
                 return (
                     <Button style={{width:'12px', height: 12}} />
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('transform: textNode', function () {
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+            
+            function HelloWorld() {
+                return (
+                    <Panel>
+                        <Panel>
+                            Welcome My Game
+                        </Panel>
+                        <Panel>
+                            {\`<strong>Welcome</strong> My Game\`}
+                        </Panel>
+                        <Panel>
+                            <Label text="Welcome" />
+                            #addon_game_name
+                            <Label text="(～￣▽￣)～" />
+                        </Panel>
+                    </Panel>
                 );
             }
             

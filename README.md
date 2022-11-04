@@ -17,4 +17,33 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 
 ## 不支持 Fragment
 
-形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持。
+形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持，也许以后可以，至少目前对 babel 的理解太浅，尚不知如何做。
+
+## 支持文本节点
+
+在 HTML 中`<div> Hi </div>`这类情况下`Hi`会渲染成文本节点，也就是 textNode，
+
+文本节点会自动创建 Label，并且默认启用 html 渲染，如果包含 HTML 标签，需要用字符串。
+
+需要注意的是如果文本是本地化开头的字段，比如`#addon_game_name`，此类以`#`开头的文本会自动调用`$.Localize`，但是不能参杂其它文本。
+
+例如，以下是正确的写法：
+
+```jsx
+// 纯文本
+<Panel>
+    Welcome My Game
+</Panel>
+
+// 带HTML标签
+<Panel>
+    {`<strong>Welcome</strong> My Game`}
+</Panel>
+
+// 拼接本地化字段
+<Panel>
+    <Label text="Welcome" />
+    #addon_game_name
+    <Label text="(～￣▽￣)～" />
+</Panel>
+```

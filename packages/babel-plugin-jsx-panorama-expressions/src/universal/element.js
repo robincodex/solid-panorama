@@ -291,42 +291,41 @@ function transformChildren(path, results) {
             //     'insertNode',
             //     getRendererConfig(path, 'universal').moduleName
             // );
-            // let insert = child.id;
-            // if (child.text) {
-            //     let createTextNode = registerImportMethod(
-            //         path,
-            //         'createTextNode',
-            //         getRendererConfig(path, 'universal').moduleName
-            //     );
-            //     if (multi) {
-            //         results.decl.push(
-            //             t.variableDeclarator(
-            //                 child.id,
-            //                 t.callExpression(createTextNode, [
-            //                     t.templateLiteral(
-            //                         [
-            //                             t.templateElement({
-            //                                 raw: child.template
-            //                             })
-            //                         ],
-            //                         []
-            //                     )
-            //                 ])
-            //             )
-            //         );
-            //     } else
-            //         insert = t.callExpression(createTextNode, [
-            //             t.templateLiteral(
-            //                 [t.templateElement({ raw: child.template })],
-            //                 []
-            //             )
-            //         ]);
-            // }
-            // appends.push(
-            //     t.expressionStatement(
-            //         t.callExpression(insertNode, [results.id, insert])
-            //     )
-            // );
+            let insert = child.id;
+            if (child.text) {
+                let createTextNode = registerImportMethod(
+                    path,
+                    'createTextNode',
+                    getRendererConfig(path, 'universal').moduleName
+                );
+                if (multi) {
+                    results.decl.push(
+                        t.variableDeclarator(
+                            child.id,
+                            t.callExpression(createTextNode, [
+                                t.templateLiteral(
+                                    [
+                                        t.templateElement({
+                                            raw: child.template
+                                        })
+                                    ],
+                                    []
+                                ),
+                                results.id
+                            ])
+                        )
+                    );
+                } else {
+                    insert = t.callExpression(createTextNode, [
+                        t.templateLiteral(
+                            [t.templateElement({ raw: child.template })],
+                            []
+                        ),
+                        results.id
+                    ]);
+                    appends.push(t.expressionStatement(insert));
+                }
+            }
             results.decl.push(...child.decl);
             results.exprs.push(...child.exprs);
             results.dynamics.push(...child.dynamics);
