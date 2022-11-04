@@ -89,6 +89,18 @@ function HelloWorld() {
 render(() => _$createComponent(HelloWorld, {}, null), $('#app'));"
 `;
 
+exports[`compile transform: snippet 1`] = `
+"import { createComponent as _$createComponent } from "solid-panorama-runtime";
+import { createElement as _$createElement } from "solid-panorama-runtime";
+import { render } from 'solid-panorama-runtime';
+function HelloWorld() {
+  return _$createElement("Button", {
+    snippet: "templateA"
+  }, null);
+}
+render(() => _$createComponent(HelloWorld, {}, null), $('#app'));"
+`;
+
 exports[`compile transform: style 1`] = `
 "import { createComponent as _$createComponent } from "solid-panorama-runtime";
 import { setProp as _$setProp } from "solid-panorama-runtime";

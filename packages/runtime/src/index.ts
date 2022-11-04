@@ -15,13 +15,17 @@ export const {
 } = createRenderer({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
-        const { id, ..._props } = props;
-        return $.CreatePanelWithProperties(
+        const { id, snippet, ..._props } = props;
+        const el = $.CreatePanelWithProperties(
             type,
             parent || $.GetContextPanel(),
             id || '',
             _props
         );
+        if (snippet) {
+            el.BLoadLayoutSnippet(snippet);
+        }
+        return el;
     },
     // @ts-ignore
     createTextNode(value: string, parent?: Panel) {

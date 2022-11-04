@@ -124,4 +124,19 @@ describe('compile', function () {
         `);
         expect(result).toMatchSnapshot();
     });
+
+    test('transform: snippet', function () {
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+            
+            function HelloWorld() {
+                return (
+                    <Button snippet="templateA" />
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
 });

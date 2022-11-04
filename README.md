@@ -63,3 +63,7 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
     <Label text="(～￣▽￣)～" />
 </Panel>
 ```
+
+## snippet 属性
+
+专门给 PUI 定制的属性，自动载入 snippet，`<Panel snippet="MyBtton" />`
