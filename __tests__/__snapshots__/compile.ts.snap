@@ -65,7 +65,7 @@ function Item(props) {
       _el$6 = _$createElement("Button", {}, _el$3);
     const _ref$ = root;
     typeof _ref$ === "function" ? _$use(_ref$, _el$) : root = _el$;
-    _$use(b => btnA = b, _el$4);
+    _$use(a => btnA = a, _el$4);
     _$effect(_$p => _$setProp(_el$, "class", rootStyle().join(' '), _$p));
     return _el$;
   })();

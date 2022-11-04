@@ -2,6 +2,8 @@
 
 尚在实验阶段
 
+魔改了编译，针对 PUI 的 API 进行了优化，比如`createElement`加入属性和父元素两个参数，就极大减少了过多的 API 调用，也解决了无法调用`$.CreatePanelWithProperties`的问题。
+
 ## style
 
 需要注意 PUI 内元素的 style 跟 web 是不同的，PUI 的 style 是只能对单个 css 属性进行读写，style 不能进行遍历，
@@ -12,3 +14,7 @@
 ## 事件
 
 PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝大多数情况下也不需要向上冒泡，所以不会支持事件冒泡的功能，如果用 capture 类的事件会抛出错误。
+
+## 不支持 Fragment
+
+形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持。

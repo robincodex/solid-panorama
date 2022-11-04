@@ -13,7 +13,7 @@ describe('compile', function () {
                     <Panel id="root" ref={root} class={rootStyle().join(' ')}>
                         <Label text="Testing" />
                         <Panel class="buttons">
-                            <Button ref={(b) => btnA = b} />
+                            <Button ref={(a) => btnA = a} />
                             <Button />
                             <Button />
                         </Panel>
@@ -33,6 +33,26 @@ describe('compile', function () {
             render(() => <HelloWorld />, $('#app'));        
         `);
         expect(result).toMatchSnapshot();
+    });
+
+    test('transform: fragment', function () {
+        expect(() => {
+            parser(`
+                import { render } from 'solid-panorama-runtime';
+                
+                function HelloWorld() {
+                    return (
+                        <>
+                            <Button />
+                            <Button />
+                            <Button />
+                        </>
+                    );
+                }
+                
+                render(() => <HelloWorld />, $('#app'));        
+            `);
+        }).toThrow();
     });
 
     test('transform: for each', function () {
