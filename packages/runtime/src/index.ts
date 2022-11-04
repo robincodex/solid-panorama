@@ -67,6 +67,12 @@ export const {
             applyClassNames(node, value, prev || '');
         } else if (name === 'classList') {
             updateClassList(node, value);
+        } else if (name === 'style') {
+            applyStyles(node, value, prev);
+        } else if (name.startsWith('on')) {
+            setPanelEvent(node, name as PanelEvent, value);
+        } else {
+            node.SetAttributeString(name, String(value));
         }
     },
 
@@ -152,4 +158,29 @@ function updateClassList(node: Panel, state: Record<string, boolean>) {
     for (const k in state) {
         node.SetHasClass(k, state[k] === true);
     }
+}
+
+function applyStyles(
+    node: Panel,
+    styles: Record<string, string>,
+    prev?: Record<string, string>
+) {
+    prev = prev || {};
+    for (const k in prev) {
+        if (!styles[k]) {
+            node.style[k as keyof VCSSStyleDeclaration] = null;
+        }
+    }
+    for (const k in styles) {
+        // @ts-ignore
+        node.style[k] = styles[k];
+    }
+}
+
+function setPanelEvent(node: Panel, event: PanelEvent, handle: any) {
+    if (!handle) {
+        node.ClearPanelEvent(event);
+        return;
+    }
+    node.SetPanelEvent(event, handle);
 }

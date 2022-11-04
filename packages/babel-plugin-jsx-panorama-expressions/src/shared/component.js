@@ -365,6 +365,9 @@ export function getElementProps(path) {
                 const value = node.value || t.booleanLiteral(true),
                     id = convertJSXIdentifier(node.name),
                     key = id.name;
+                if (key === 'style') {
+                    return;
+                }
                 if (hasChildren && key === 'children') return;
                 if (t.isJSXExpressionContainer(value))
                     if (key === 'ref') {

@@ -96,12 +96,7 @@ import { createElement as _$createElement } from "solid-panorama-runtime";
 import { render } from 'solid-panorama-runtime';
 function HelloWorld() {
   return (() => {
-    const _el$ = _$createElement("Button", {
-      style: {
-        width: '12px',
-        height: 12
-      }
-    }, null);
+    const _el$ = _$createElement("Button", {}, null);
     _$setProp(_el$, "style", {
       width: '12px',
       height: 12
