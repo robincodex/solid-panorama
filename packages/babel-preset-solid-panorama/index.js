@@ -6,7 +6,7 @@ module.exports = function (context, options = {}) {
             jsxTransform,
             Object.assign(
                 {
-                    moduleName: '@solid-panorama/runtime',
+                    moduleName: 'solid-panorama-runtime',
                     builtIns: [
                         'For',
                         'Show',

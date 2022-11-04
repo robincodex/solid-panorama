@@ -15,6 +15,7 @@
         "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
     },
     "peerDependencies": {
-        "babel-plugin-jsx-panorama-expressions": "^0.1.0"
+        "babel-plugin-jsx-panorama-expressions": "^0.1.0",
+        "solid-panorama-runtime": "^0.1.0"
     }
 }
