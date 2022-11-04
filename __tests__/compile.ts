@@ -77,7 +77,22 @@ describe('compile', function () {
                 </Panel>;
             };
             
-            render(() => <App />, document.getElementById("app"));   
+            render(() => <App />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('transform: style', function () {
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+            
+            function HelloWorld() {
+                return (
+                    <Button style={{width:'12px', height: 12}} />
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
         `);
         expect(result).toMatchSnapshot();
     });
