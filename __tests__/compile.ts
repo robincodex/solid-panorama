@@ -11,9 +11,9 @@ describe('compile', function () {
                 let visible = true
                 let root, btnA
                 return (
-                    <Panel id="root" ref={root} class={rootStyle().join(' ')}>
+                    <Panel id="root" ref={root} className={rootStyle().join(' ')}>
                         <Label text="Testing" />
-                        <Panel class="buttons">
+                        <Panel className="buttons">
                             <Button ref={(a) => btnA = a} />
                             <Button visible={visible} />
                             <Button />

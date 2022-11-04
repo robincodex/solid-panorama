@@ -1,7 +1,5 @@
 import { createRenderer } from 'solid-js/universal';
 
-const PROPERTIES = new Set(['className', 'textContent']);
-
 export const {
     render,
     effect,
@@ -16,23 +14,78 @@ export const {
     mergeProps
 } = createRenderer({
     // @ts-ignore
-    createElement(type, props, parent) {
-        return $.CreatePanel(type, $.GetContextPanel(), '');
+    createElement(type: string, props: any, parent?: Panel) {
+        const { id, ..._props } = props;
+        return $.CreatePanelWithProperties(
+            type,
+            parent || $.GetContextPanel(),
+            id || '',
+            _props
+        );
     },
-    createTextNode(value) {
-        return $.CreatePanelWithProperties('Label', $.GetContextPanel(), '', {
-            text: value
-        });
+    // @ts-ignore
+    createTextNode(value: string, parent?: Panel) {
+        if (typeof value !== 'string') {
+            value = String(value);
+        }
+        if (value[0] === '#') {
+            value = $.Localize(value);
+        }
+        return $.CreatePanelWithProperties(
+            'Label',
+            parent || $.GetContextPanel(),
+            '',
+            {
+                text: value,
+                html: 'true'
+            }
+        );
     },
-    replaceText(textNode, value) {},
-    setProperty(node, name, value) {},
-    insertNode(parent, node, anchor) {},
-    isTextNode(node) {
+
+    replaceText(textNode: LabelPanel, value) {
+        if (!textNode || !textNode.IsValid()) {
+            return;
+        }
+        if (value[0] === '#') {
+            value = $.Localize(value);
+        }
+        textNode.text = value;
+    },
+
+    isTextNode(node: LabelPanel) {
+        if (!node || !node.IsValid()) {
+            return false;
+        }
         return node.paneltype === 'Label';
     },
-    removeNode(parent, node) {},
+
+    setProperty(node: Panel, name, value: any, prev?: any) {
+        if (!node || !node.IsValid()) {
+            return;
+        }
+        if (name === 'className') {
+        }
+    },
+
+    insertNode(parent: Panel, node: Panel, anchor?: Panel) {
+        if (!parent || !parent.IsValid() || !node || !node.IsValid()) {
+            return;
+        }
+        node.SetParent(parent);
+        if (anchor && anchor.IsValid()) {
+            parent.MoveChildBefore(node, anchor);
+        }
+    },
+
+    removeNode(parent: Panel, node: Panel) {
+        if (!parent || !parent.IsValid() || !node || !node.IsValid()) {
+            return;
+        }
+        node.DeleteAsync(0);
+    },
+
     getParentNode(node: Panel) {
-        if (!node) {
+        if (!node || !node.IsValid()) {
             return;
         }
         const parent = node.GetParent();
@@ -40,19 +93,25 @@ export const {
             return parent;
         }
     },
-    getFirstChild(node) {
+    getFirstChild(node: Panel) {
+        if (!node || !node.IsValid()) {
+            return;
+        }
         const child = node.GetChild(0);
         if (!child) {
             return;
         }
         return child;
     },
-    getNextSibling(node) {
-        const child = node.GetChild(0);
-        if (!child) {
+    getNextSibling(node: Panel) {
+        if (!node || !node.IsValid()) {
             return;
         }
-        return child;
+        const parent = node.GetParent();
+        if (!parent) {
+            return;
+        }
+        return parent.GetChild(parent.GetChildIndex(node) + 1);
     }
 });
 
@@ -67,3 +126,5 @@ export {
     Index,
     ErrorBoundary
 } from 'solid-js';
+
+function applyClassNames(names: string) {}
