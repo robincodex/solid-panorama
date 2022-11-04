@@ -61,7 +61,7 @@ function Item(props) {
         text: "Testing"
       }, _el$),
       _el$3 = _$createElement("Panel", {
-        "class": "buttons"
+        className: "buttons"
       }, _el$),
       _el$4 = _$createElement("Button", {}, _el$3),
       _el$5 = _$createElement("Button", {
@@ -72,7 +72,7 @@ function Item(props) {
     typeof _ref$ === "function" ? _$use(_ref$, _el$) : root = _el$;
     _$use(a => btnA = a, _el$4);
     _$setProp(_el$5, "visible", visible);
-    _$effect(_$p => _$setProp(_el$, "class", rootStyle().join(' '), _$p));
+    _$effect(_$p => _$setProp(_el$, "className", rootStyle().join(' '), _$p));
     return _el$;
   })();
 }

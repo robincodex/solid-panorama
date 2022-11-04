@@ -11,6 +11,25 @@
 
 总之为了最好的性能最好是这样写`<Panel style={{width:'12px'}}>`
 
+## class
+
+`class`和`className`两个属性都是支持的，由于 solid.js 提供`classList`属性可按`true | false`动态添加，所以也提供类似的功能，三个属性可同时存在。
+
+```jsx
+<Button
+    class={current() === 'foo' ? 'selected' : ''}
+    onClick={() => setCurrent('foo')}
+>
+    foo
+</Button>
+
+<Button
+  class="my-button"
+  classList={{selected: current() === 'foo'}}
+  onClick={() => setCurrent('foo')}
+>foo</Button>
+```
+
 ## 事件
 
 PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝大多数情况下也不需要向上冒泡，所以不会支持事件冒泡的功能，如果用 capture 类的事件会抛出错误。

@@ -63,7 +63,10 @@ export const {
         if (!node || !node.IsValid()) {
             return;
         }
-        if (name === 'className') {
+        if (name === 'class' || name === 'className') {
+            applyClassNames(node, value, prev || '');
+        } else if (name === 'classList') {
+            updateClassList(node, value);
         }
     },
 
@@ -127,4 +130,26 @@ export {
     ErrorBoundary
 } from 'solid-js';
 
-function applyClassNames(names: string) {}
+const splitClassName = /\s+/;
+
+function applyClassNames(node: Panel, names: string, prev: string) {
+    const nameList = names.split(splitClassName);
+    const oldList = prev.split(splitClassName);
+    for (let i = oldList.length - 1; i >= 0; i--) {
+        const name = oldList[i];
+        if (nameList.includes(name)) {
+            continue;
+        } else {
+            node.RemoveClass(name);
+        }
+    }
+    for (const name of nameList) {
+        node.AddClass(name);
+    }
+}
+
+function updateClassList(node: Panel, state: Record<string, boolean>) {
+    for (const k in state) {
+        node.SetHasClass(k, state[k] === true);
+    }
+}
