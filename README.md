@@ -69,3 +69,17 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 ## snippet 属性
 
 专门给 PUI 定制的属性，自动载入 snippet，`<Panel snippet="MyBtton" />`
+
+## vars 和 dialogVariables
+
+两者是一样的，`dialogVariables` 是为了兼容[ark120202/react-panorama](https://github.com/ark120202/react-panorama)
+
+-   当值为`string`时，调用`SetDialogVariable`，如果以`#`开头则调用`SetDialogVariableLocString`
+-   当值为`number`时，调用`SetDialogVariableInt`
+-   当值为`Date`时，调用`SetDialogVariableTime`
+
+针对 Label 做了一些调整，vars 和 dialogVariablesh 会先写入，然后再写入`Label.text`, 如果 text 以`#`开头会调用`$.Localize(text, Label)`。
+
+```jsx
+<Label vars={{ name: 'X.X' }} text="#name_of_x" />
+```

@@ -16,13 +16,26 @@ export const {
 } = createRenderer({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
-        const { id, snippet, ..._props } = props;
+        const { id, snippet, vars, dialogVariables, text, ..._props } = props;
         const el = $.CreatePanelWithProperties(
             type,
             parent || $.GetContextPanel(),
             id || '',
             _props
         );
+        if (vars) {
+            setDialogVariables(el, vars, {});
+        }
+        if (dialogVariables) {
+            setDialogVariables(el, dialogVariables, {});
+        }
+        if (text && el.paneltype === 'Label') {
+            if (text[0] === '#') {
+                (el as LabelPanel).text = $.Localize(text, el);
+            } else {
+                (el as LabelPanel).text = text;
+            }
+        }
         if (snippet) {
             el.BLoadLayoutSnippet(snippet);
         }
@@ -74,6 +87,8 @@ export const {
             updateClassList(node, value);
         } else if (name === 'style') {
             applyStyles(node, value, prev);
+        } else if (name === 'vars' || name === 'dialogVariables') {
+            setDialogVariables(node, value, prev);
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {
@@ -196,4 +211,39 @@ function setPanelEvent(node: Panel, event: PanelEvent, handle: any) {
         return;
     }
     node.SetPanelEvent(event, handle);
+}
+
+const PANORAMA_INVALID_DATE = 2 ** 52;
+
+function setDialogVariables(
+    node: Panel,
+    vars: Record<string, string | number | Date>,
+    prev: Record<string, string | number | Date>
+) {
+    for (const key in prev) {
+        if (!vars[key]) {
+            const value = prev[key];
+            if (typeof value === 'string') {
+                node.SetDialogVariable(key, `[!s:${key}]`);
+            } else if (typeof value === 'number') {
+                node.SetDialogVariableInt(key, NaN);
+            } else {
+                node.SetDialogVariableTime(key, PANORAMA_INVALID_DATE);
+            }
+        }
+    }
+    for (const key in vars) {
+        const value = vars[key];
+        if (typeof value === 'string') {
+            if (value[0] === '#') {
+                node.SetDialogVariableLocString(key, value);
+            } else {
+                node.SetDialogVariable(key, value);
+            }
+        } else if (typeof value === 'number') {
+            node.SetDialogVariableInt(key, value);
+        } else {
+            node.SetDialogVariableTime(key, Math.floor(value.getTime() / 1000));
+        }
+    }
 }
