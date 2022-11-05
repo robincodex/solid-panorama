@@ -4,7 +4,7 @@ import { StyleKeyAutoConvertToPixelList } from './config';
 const hasOwn = Object.prototype.hasOwnProperty;
 
 export const {
-    render,
+    render: _render,
     effect,
     memo,
     createComponent,
@@ -15,7 +15,7 @@ export const {
     spread,
     setProp,
     mergeProps
-} = createRenderer({
+} = createRenderer<Panel>({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
         const { id, snippet, vars, dialogVariables, text, ..._props } = props;
@@ -153,9 +153,33 @@ export const {
         if (!parent) {
             return;
         }
-        return parent.GetChild(parent.GetChildIndex(node) + 1);
+        const el = parent.GetChild(parent.GetChildIndex(node) + 1);
+        if (!el) {
+            return;
+        }
+        return el;
     }
 });
+
+const renderPanoramaSymbol = Symbol('render');
+
+declare global {
+    interface Panel {
+        __renderPanoramaSymbol: Symbol;
+    }
+}
+
+export function render(code: () => Panel, container: Panel) {
+    if (container.__renderPanoramaSymbol) {
+        if (container.__renderPanoramaSymbol === renderPanoramaSymbol) {
+            $.Msg('render() can only be called once');
+            return;
+        }
+        container.__renderPanoramaSymbol = renderPanoramaSymbol;
+        container.RemoveAndDeleteChildren();
+    }
+    return _render(code, container);
+}
 
 // Forward Solid control flow
 export {
