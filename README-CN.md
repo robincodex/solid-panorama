@@ -15,6 +15,8 @@ yarn add solid.js \
          babel-preset-solid-panorama
 ```
 
+## 使用
+
 babel.config.js
 
 ```js

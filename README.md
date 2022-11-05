@@ -127,7 +127,7 @@ For example, the following is the correct way to write it:
 
 Specially properties for panorama, automatically loaded snippet，`<Panel snippet="MyBtton" />`
 
-### vars 和 dialogVariables
+### vars and dialogVariables
 
 Both are the same, `dialogVariables` is for compatibility [ark120202/react-panorama](https://github.com/ark120202/react-panorama)
 
