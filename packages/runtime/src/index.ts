@@ -93,36 +93,6 @@ export const {
         return node.paneltype === 'Label';
     },
 
-    setProperty(node: Panel, name, value: any, prev?: any) {
-        if (!node || !node.IsValid()) {
-            return;
-        }
-        if (name === 'class' || name === 'className') {
-            applyClassNames(node, value, prev || '');
-        } else if (name === 'classList') {
-            updateClassList(node, value);
-        } else if (name === 'style') {
-            applyStyles(node, value, prev);
-        } else if (name === 'vars' || name === 'dialogVariables') {
-            setDialogVariables(node, value, prev);
-        } else if (name === 'inputnamespace') {
-            node.SetInputNamespace(value || '');
-        } else if (name === 'draggable') {
-            node.SetDraggable(value === true);
-        } else if (name === 'acceptsfocus') {
-            node.SetAcceptsFocus(value === true);
-        } else if (name.startsWith('on')) {
-            setPanelEvent(node, name as PanelEvent, value);
-        } else {
-            if (hasOwn.call(node, name)) {
-                // @ts-ignore
-                node[name] = value;
-            } else {
-                node.SetAttributeString(name, String(value));
-            }
-        }
-    },
-
     insertNode(parent: Panel, node: Panel, anchor?: Panel) {
         if (!parent || !parent.IsValid() || !node || !node.IsValid()) {
             return;
@@ -172,6 +142,36 @@ export const {
             return;
         }
         return el;
+    },
+
+    setProperty(node: Panel, name, value: any, prev?: any) {
+        if (!node || !node.IsValid()) {
+            return;
+        }
+        if (name === 'class' || name === 'className') {
+            applyClassNames(node, value, prev || '');
+        } else if (name === 'classList') {
+            updateClassList(node, value);
+        } else if (name === 'style') {
+            applyStyles(node, value, prev);
+        } else if (name === 'vars' || name === 'dialogVariables') {
+            setDialogVariables(node, value, prev);
+        } else if (name === 'inputnamespace') {
+            node.SetInputNamespace(value || '');
+        } else if (name === 'draggable') {
+            node.SetDraggable(value === true);
+        } else if (name === 'acceptsfocus') {
+            node.SetAcceptsFocus(value === true);
+        } else if (name.startsWith('on')) {
+            setPanelEvent(node, name as PanelEvent, value);
+        } else {
+            if (hasOwn.call(node, name)) {
+                // @ts-ignore
+                node[name] = value;
+            } else {
+                node.SetAttributeString(name, String(value));
+            }
+        }
     }
 });
 

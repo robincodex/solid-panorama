@@ -27,6 +27,7 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     draggable?: boolean;
     enabled?: boolean;
     visible?: boolean;
+    checked?: boolean;
 
     ref?: T | ((element: T) => void);
 
