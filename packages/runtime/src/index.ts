@@ -14,7 +14,9 @@ export const {
     insert,
     spread,
     setProp,
-    mergeProps
+    mergeProps,
+    // @ts-ignore
+    use
 } = createRenderer<Panel>({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
