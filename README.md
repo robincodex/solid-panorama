@@ -1,8 +1,61 @@
 # Solid.js for Valve's Panorama UI
 
-尚在实验阶段
+[简体中文](./README-CN.md)
 
-魔改了编译，针对 PUI 的 API 进行了优化，比如`createElement`加入属性和父元素两个参数，就极大减少了过多的 API 调用，也解决了无法调用`$.CreatePanelWithProperties`的问题。
+[solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example)
+
+> Still in the experimental stage
+
+The compiler has been modified and the API of panorama has been optimized.  
+For example, adding attribute and parent element to `createElement` greatly reduces the number of API calls and solves the problem that `$. CreatePanelWithProperties` cannot be called.
+
+## Installation
+
+```
+yarn add solid.js \
+         solid-panorama-runtime \
+         babel-plugin-jsx-panorama-expressions \
+         babel-preset-solid-panorama
+```
+
+## Usage
+
+babel.config.js
+
+```js
+module.exports = {
+    targets: 'node 8.2',
+    presets: [
+        '@babel/preset-env',
+        '@babel/preset-typescript',
+        [
+            'babel-preset-solid-panorama',
+            {
+                moduleName: 'solid-panorama-runtime',
+                generate: 'universal'
+            }
+        ]
+    ],
+    plugins: ['@babel/plugin-transform-typescript']
+};
+```
+
+app.tsx
+
+```tsx
+import { onMount } from 'solid-js';
+import { render } from 'solid-panorama-runtime';
+
+function HelloWorld() {
+    let root: Panel | undefined;
+    onMount(() => {
+        $.Msg(root);
+    });
+    return <Panel ref={root}>Hello World!</Panel>;
+}
+
+render(() => <HelloWorld />, $('#app'));
+```
 
 ## About react-panorama
 
@@ -10,13 +63,13 @@ Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/r
 
 ## style
 
-对 style 进行了兼容，如果 style 是字符串，在 PUI 里 style 末尾不写分号会弹出错误，所以在编译时会解析自动加上分号。
+The style is compatible. If the style is a string, an error will pop up if the semicolon is not written at the end of the style. Therefore, the semicolon will be automatically added to the parsing during compilation.
 
-当 style 是 Object 时，某些属性可以赋值数字，会自动转换成 px，支持列表可查看：[packages/runtime/src/config.ts](https://github.com/RobinCodeX/solid-panorama/blob/master/packages/runtime/src/config.ts#L1)
+When style is Object, some attributes can be assigned numbers, which will be automatically converted to px. The support list can be viewed：[packages/runtime/src/config.ts](https://github.com/RobinCodeX/solid-panorama/blob/master/packages/runtime/src/config.ts#L1)
 
 ## class
 
-`class`和`className`两个属性都是支持的，由于 solid.js 提供`classList`属性可按`true | false`动态添加，所以也提供类似的功能，三个属性可同时存在。
+Both `class` and `className` properties are supported, and since solid.js provides `classList` properties that can be added dynamically by `true | false`, it also provides similar functionality, and all three properties can exist at the same time.
 
 ```jsx
 <Button
@@ -33,38 +86,34 @@ Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/r
 >foo</Button>
 ```
 
-## 事件
+## Event
 
-PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝大多数情况下也不需要向上冒泡，所以不会支持事件冒泡的功能。
+Not support bubble event.
 
-对事件进行了优化，事件的回调函数第一个参数是元素本身。
+The event is optimized. The first parameter of the event callback is the element itself.
 
-<!-- ## 不支持 Fragment
+## Support Text Node
 
-形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持，也许以后可以，至少目前对 babel 的理解太浅，尚不知如何做。 -->
+In cases like `<div> Hi </div>` in HTML `Hi` will be rendered as a text node, i.e. textNode.
 
-## 支持文本节点
+The text node will automatically create Label and enable html rendering by default, if it contains HTML tags, you need to use string.
 
-在 HTML 中`<div> Hi </div>`这类情况下`Hi`会渲染成文本节点，也就是 textNode，
+Note that if the text is the text that begins with `#`, such as `#addon_game_name`, such will automatically call `$.Localize`, but can not be mixed with other text.
 
-文本节点会自动创建 Label，并且默认启用 html 渲染，如果包含 HTML 标签，需要用字符串。
-
-需要注意的是如果文本是以`#`开头的文本，比如`#addon_game_name`，此类会自动调用`$.Localize`，但是不能参杂其它文本。
-
-例如，以下是正确的写法：
+For example, the following is the correct way to write it:
 
 ```jsx
-// 纯文本
+// plain text
 <Panel>
     Welcome My Game
 </Panel>
 
-// 带HTML标签
+// includes html tag
 <Panel>
     {`<strong>Welcome</strong> My Game`}
 </Panel>
 
-// 拼接本地化字段
+// multiple text
 <Panel>
     <Label text="Welcome" />
     #addon_game_name
@@ -72,24 +121,34 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 </Panel>
 ```
 
-## snippet 属性
+# Custom Attribite
 
-专门给 PUI 定制的属性，自动载入 snippet，`<Panel snippet="MyBtton" />`
+### snippet
 
-## vars 和 dialogVariables
+Specially properties for panorama, automatically loaded snippet，`<Panel snippet="MyBtton" />`
 
-两者是一样的，`dialogVariables` 是为了兼容[ark120202/react-panorama](https://github.com/ark120202/react-panorama)
+### vars 和 dialogVariables
 
--   当值为`string`时，调用`SetDialogVariable`，如果以`#`开头则调用`SetDialogVariableLocString`
--   当值为`number`时，调用`SetDialogVariableInt`
--   当值为`Date`时，调用`SetDialogVariableTime`
+Both are the same, `dialogVariables` is for compatibility [ark120202/react-panorama](https://github.com/ark120202/react-panorama)
 
-针对 Label 做了一些调整，vars 和 dialogVariablesh 会先写入，然后再写入`Label.text`, 如果 text 以`#`开头会调用`$.Localize(text, Label)`。
+-   When value is `string`, call `SetDialogVariable`, if value start width `#` then call `SetDialogVariableLocString`
+-   When value is `number`, call `SetDialogVariableInt`
+-   When value is `Date`, call `SetDialogVariableTime`
+
+Some adjustments have been made for Label, `vars` and `dialogVariables` will be written first and after set to `Label.text`, if the text starts with `#` it will call `$.Localize(text, Label)`
 
 ```jsx
 <Label vars={{ name: 'X.X' }} text="#name_of_x" />
 ```
 
-## draggable
+### draggable
 
-调用`Panel.SetDraggable(draggable)`
+Call `Panel.SetDraggable(draggable)`
+
+### inputnamespace
+
+Call `Panel.SetInputNamespace(inputnamespace)`
+
+### acceptsfocus
+
+Call `Panel.SetAcceptsFocus(acceptsfocus)`
