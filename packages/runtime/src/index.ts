@@ -1,6 +1,8 @@
 import { createRenderer } from 'solid-js/universal';
 import { StyleKeyAutoConvertToPixelList } from './config';
 
+const hasOwn = Object.prototype.hasOwnProperty;
+
 export const {
     render,
     effect,
@@ -91,10 +93,19 @@ export const {
             setDialogVariables(node, value, prev);
         } else if (name === 'inputnamespace') {
             node.SetInputNamespace(value || '');
+        } else if (name === 'draggable') {
+            node.SetDraggable(value === true);
+        } else if (name === 'acceptsfocus') {
+            node.SetAcceptsFocus(value === true);
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {
-            node.SetAttributeString(name, String(value));
+            if (hasOwn.call(node, name)) {
+                // @ts-ignore
+                node[name] = value;
+            } else {
+                node.SetAttributeString(name, String(value));
+            }
         }
     },
 

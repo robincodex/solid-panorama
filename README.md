@@ -85,3 +85,7 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 ```jsx
 <Label vars={{ name: 'X.X' }} text="#name_of_x" />
 ```
+
+## draggable
+
+调用`Panel.SetDraggable(draggable)`

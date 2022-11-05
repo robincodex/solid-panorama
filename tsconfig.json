@@ -4,7 +4,6 @@
         "rootDir": ".",
         "noImplicitAny": true,
         "experimentalDecorators": true,
-        "allowJs": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
         "strict": true,

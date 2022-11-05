@@ -234,14 +234,17 @@ render(() => _$createComponent(HelloWorld, {}, null), $('#app'));"
 
 exports[`compile transform: vars 1`] = `
 "import { createComponent as _$createComponent } from "solid-panorama-runtime";
-import { setProp as _$setProp } from "solid-panorama-runtime";
 import { effect as _$effect } from "solid-panorama-runtime";
+import { setProp as _$setProp } from "solid-panorama-runtime";
 import { createElement as _$createElement } from "solid-panorama-runtime";
 import { render } from 'solid-panorama-runtime';
 function HelloWorld() {
   const [ability, setAbility] = createSignal("");
   return (() => {
-    const _el$ = _$createElement("Panel", {}, null);
+    const _el$ = _$createElement("Panel", {
+      hittest: true
+    }, null);
+    _$setProp(_el$, "hittest", true);
     _$effect(_$p => _$setProp(_el$, "vars", {
       name: 'robin',
       ability: ability()

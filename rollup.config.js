@@ -22,6 +22,10 @@ const runtimeConfig = {
                 {
                     src: 'packages/runtime/package.json',
                     dest: 'dist/runtime'
+                },
+                {
+                    src: 'packages/runtime/types/*',
+                    dest: 'dist/runtime'
                 }
             ]
         })

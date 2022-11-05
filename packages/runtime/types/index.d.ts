@@ -1,4 +1,9 @@
+/// <reference path="./style.d.ts" />
+/// <reference path="./utils.d.ts" />
+/// <reference path="./attributes.d.ts" />
+
 import { Renderer } from 'solid-js/universal/types/universal';
+import './elements';
 
 export const {
     render,
@@ -12,7 +17,7 @@ export const {
     spread,
     setProp,
     mergeProps
-}: Renderer<Panel>
+}: Renderer<Panel>;
 
 export {
     For,
