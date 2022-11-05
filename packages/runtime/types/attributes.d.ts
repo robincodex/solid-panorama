@@ -327,8 +327,3 @@ declare interface HTMLAttributes extends PanelAttributes<HTML> {
 declare interface CustomLayoutPanelAttributes extends PanelAttributes {
     layout: string;
 }
-
-declare interface GenericPanelAttributes extends PanelAttributes {
-    type: string;
-    [key: string]: any;
-}

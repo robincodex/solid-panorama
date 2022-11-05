@@ -1,5 +1,5 @@
 {
-    "include": ["**/*.ts"],
+    "include": ["packages/**/*.ts"],
     "compilerOptions": {
         "rootDir": ".",
         "noImplicitAny": true,
