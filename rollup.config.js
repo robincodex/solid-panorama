@@ -10,7 +10,10 @@ const runtimeConfig = {
         sourcemap: false,
         format: 'es'
     },
-    external: [],
+    external: [
+        'solid-js',
+        'solid-js/universal'
+    ],
     plugins: [
         rollupTypescript(require('./tsconfig.json').compilerOptions),
         commonjs({ extensions: ['.js', '.ts'] }),

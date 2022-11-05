@@ -1,6 +1,18 @@
 import { createRenderer } from 'solid-js/universal';
 import { StyleKeyAutoConvertToPixelList } from './config';
 
+// Forward Solid control flow
+export {
+    For,
+    Show,
+    Suspense,
+    SuspenseList,
+    Switch,
+    Match,
+    Index,
+    ErrorBoundary
+} from 'solid-js';
+
 const hasOwn = Object.prototype.hasOwnProperty;
 
 export const {
@@ -182,18 +194,6 @@ export function render(code: () => Panel, container: Panel) {
     }
     return _render(code, container);
 }
-
-// Forward Solid control flow
-export {
-    For,
-    Show,
-    Suspense,
-    SuspenseList,
-    Switch,
-    Match,
-    Index,
-    ErrorBoundary
-} from 'solid-js';
 
 const splitClassName = /\s+/;
 

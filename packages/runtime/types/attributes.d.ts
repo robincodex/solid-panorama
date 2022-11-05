@@ -18,7 +18,7 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     class?: string;
     className?: string;
     classList?: Record<string, boolean>;
-    style?: PanelStyle;
+    style?: Partial<PanelStyle>;
     hittest?: boolean;
     hittestchildren?: boolean;
     acceptsfocus?: boolean;
