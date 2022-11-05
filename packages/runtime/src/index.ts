@@ -89,6 +89,8 @@ export const {
             applyStyles(node, value, prev);
         } else if (name === 'vars' || name === 'dialogVariables') {
             setDialogVariables(node, value, prev);
+        } else if (name === 'inputnamespace') {
+            node.SetInputNamespace(value || '');
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {
@@ -210,7 +212,9 @@ function setPanelEvent(node: Panel, event: PanelEvent, handle: any) {
         node.ClearPanelEvent(event);
         return;
     }
-    node.SetPanelEvent(event, handle);
+    node.SetPanelEvent(event, function () {
+        handle(node);
+    });
 }
 
 const PANORAMA_INVALID_DATE = 2 ** 52;
@@ -218,8 +222,9 @@ const PANORAMA_INVALID_DATE = 2 ** 52;
 function setDialogVariables(
     node: Panel,
     vars: Record<string, string | number | Date>,
-    prev: Record<string, string | number | Date>
+    prev?: Record<string, string | number | Date>
 ) {
+    prev = prev || {};
     for (const key in prev) {
         if (!vars[key]) {
             const value = prev[key];
