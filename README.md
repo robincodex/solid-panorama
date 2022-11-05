@@ -6,7 +6,9 @@
 
 ## style
 
-仅支持 Object 格式，如`<Panel style={{width:'12px'}}>`
+对 style 进行了兼容，如果 style 是字符串，在 PUI 里 style 末尾不写分号会弹出错误，所以在编译时会解析自动加上分号。
+
+当 style 是 Object 时，某些属性可以赋值数字，会自动转换成 px，支持列表可查看：[packages/runtime/src/config.ts](https://github.com/RobinCodeX/solid-panorama/blob/master/packages/runtime/src/config.ts#L1)
 
 ## class
 
@@ -31,9 +33,9 @@
 
 PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝大多数情况下也不需要向上冒泡，所以不会支持事件冒泡的功能。
 
-## 不支持 Fragment
+<!-- ## 不支持 Fragment
 
-形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持，也许以后可以，至少目前对 babel 的理解太浅，尚不知如何做。
+形如`<> </>`就是 Fragment，由于会在编译时无法识别父元素所以不支持，也许以后可以，至少目前对 babel 的理解太浅，尚不知如何做。 -->
 
 ## 支持文本节点
 

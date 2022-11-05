@@ -37,23 +37,22 @@ describe('compile', function () {
     });
 
     test('transform: fragment', function () {
-        expect(() => {
-            parser(`
-                import { render } from 'solid-panorama-runtime';
-                
-                function HelloWorld() {
-                    return (
-                        <>
-                            <Button />
-                            <Button />
-                            <Button />
-                        </>
-                    );
-                }
-                
-                render(() => <HelloWorld />, $('#app'));        
-            `);
-        }).toThrow();
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+                    
+            function HelloWorld() {
+                return (
+                    <>
+                        <Button />
+                        <Button />
+                        <Button />
+                    </>
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));  
+        `);
+        expect(result).toMatchSnapshot();
     });
 
     test('transform: for each', function () {
@@ -86,10 +85,18 @@ describe('compile', function () {
     test('transform: style', function () {
         const result = parser(`
             import { render } from 'solid-panorama-runtime';
+
+            function Item(props) {
+                return <Panel class={props.style} />
+            }
             
             function HelloWorld() {
                 return (
-                    <Button style={{width:'12px', height: 12}} />
+                    <Panel>
+                        <Button style={{width:'12px', height: 12}} />
+                        <Button style="width:12px; height: 12px" />
+                        <Item style="red" />
+                    </Panel>
                 );
             }
             
@@ -132,6 +139,51 @@ describe('compile', function () {
             function HelloWorld() {
                 return (
                     <Button snippet="templateA" />
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('transform: spread operator', function () {
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+
+            function Item(props) {
+                return <Panel {...props} />
+            }
+            
+            function HelloWorld() {
+                return (
+                    <Item />
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('transform: dynamic', function () {
+        const result = parser(`
+            import { render } from 'solid-panorama-runtime';
+
+            const RedThing = () => <Panel style="color: red">Red Thing</Panel>;
+            const GreenThing = () => <Panel style="color: green">Green Thing</Panel>;
+            const BlueThing = () => <Panel style="color: blue">Blue Thing</Panel>;
+
+            const options = {
+                red: RedThing,
+                green: GreenThing,
+                blue: BlueThing
+            }
+            
+            function HelloWorld() {
+                const [selected, setSelected] = createSignal("red");
+                return (
+                    <Dynamic component={options[selected()]} />
                 );
             }
             

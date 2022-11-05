@@ -365,11 +365,8 @@ export function getElementProps(path) {
                 const value = node.value || t.booleanLiteral(true),
                     id = convertJSXIdentifier(node.name),
                     key = id.name;
-                if (key === 'style') {
-                    return;
-                }
                 if (hasChildren && key === 'children') return;
-                if (t.isJSXExpressionContainer(value))
+                if (t.isJSXExpressionContainer(value)) {
                     if (key === 'ref') {
                         if (config.generate === 'ssr') return;
                         // Normalize expressions for non-null and type-as
@@ -502,11 +499,29 @@ export function getElementProps(path) {
                         //     )
                         // );
                     } else {
-                        runningObject.push(
-                            t.objectProperty(id, value.expression)
-                        );
+                        if (key === 'style') {
+                            return;
+                        } else {
+                            runningObject.push(
+                                t.objectProperty(id, value.expression)
+                            );
+                        }
                     }
-                else runningObject.push(t.objectProperty(id, value));
+                } else {
+                    if (key === 'style' && t.isStringLiteral(value)) {
+                        const v =
+                            value.extra.rawValue
+                                .split(';')
+                                .map(v => v.trim())
+                                .filter(v => v !== '')
+                                .join('; ') + ';';
+                        runningObject.push(
+                            t.objectProperty(id, t.stringLiteral(v))
+                        );
+                    } else {
+                        runningObject.push(t.objectProperty(id, value));
+                    }
+                }
             }
         });
 

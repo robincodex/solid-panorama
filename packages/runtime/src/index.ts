@@ -1,4 +1,5 @@
 import { createRenderer } from 'solid-js/universal';
+import { StyleKeyAutoConvertToPixelList } from './config';
 
 export const {
     render,
@@ -166,8 +167,8 @@ function updateClassList(node: Panel, state: Record<string, boolean>) {
 
 function applyStyles(
     node: Panel,
-    styles: Record<string, string>,
-    prev?: Record<string, string>
+    styles: Record<string, string | number>,
+    prev?: Record<string, string | number>
 ) {
     prev = prev || {};
     for (const k in prev) {
@@ -176,6 +177,14 @@ function applyStyles(
         }
     }
     for (const k in styles) {
+        if (typeof styles[k] === 'number') {
+            if (StyleKeyAutoConvertToPixelList.includes(k)) {
+                // @ts-ignore
+                node.style[k] = `${styles[k]}px`;
+                continue;
+            }
+            throw new Error(`style key ${k} not support number`);
+        }
         // @ts-ignore
         node.style[k] = styles[k];
     }
