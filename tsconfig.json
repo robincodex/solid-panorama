@@ -1,14 +1,14 @@
 {
     "include": ["packages/**/*.ts"],
     "compilerOptions": {
-        "rootDir": ".",
+        "rootDir": "packages",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
         "strict": true,
-        "types": ["@moddota/panorama-types"],
-        "target": "ES2017",
-        "lib": ["ES2017"]
+        "types": ["@moddota/panorama-types", "@types/node"],
+        "target": "ESNext",
+        "lib": ["ESNext"]
     }
 }

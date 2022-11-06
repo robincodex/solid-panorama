@@ -1,0 +1,23 @@
+{
+    "name": "babel-plugin-panorama-all-in-jsx",
+    "version": "0.1.0",
+    "description": "",
+    "type": "module",
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "engineStrict": true,
+    "main": "index.js",
+    "license": "MIT",
+    "author": "RobinCode",
+    "homepage": "https://github.com/RobinCodeX/solid-panorama",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
+    },
+    "dependencies": {},
+    "peerDependencies": {
+        "@babel/core": "^7.0.0",
+        "babel-plugin-macros": "^3.1.0"
+    }
+}

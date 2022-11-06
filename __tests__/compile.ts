@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
-import { parser } from './utils';
+import { parseSolid } from './utils';
 
 describe('compile', function () {
     test('transform: normal', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
 
             function Item(props) {
@@ -37,7 +37,7 @@ describe('compile', function () {
     });
 
     test('transform: fragment', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
                     
             function HelloWorld() {
@@ -56,7 +56,7 @@ describe('compile', function () {
     });
 
     test('transform: for each', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from "solid-js/web";
             import { createSignal } from "solid-js";
             
@@ -83,7 +83,7 @@ describe('compile', function () {
     });
 
     test('transform: style', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
 
             function Item(props) {
@@ -106,7 +106,7 @@ describe('compile', function () {
     });
 
     test('transform: textNode', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
             
             function HelloWorld() {
@@ -133,7 +133,7 @@ describe('compile', function () {
     });
 
     test('transform: snippet', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
             
             function HelloWorld() {
@@ -148,7 +148,7 @@ describe('compile', function () {
     });
 
     test('transform: spread operator', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
 
             function Item(props) {
@@ -167,7 +167,7 @@ describe('compile', function () {
     });
 
     test('transform: dynamic', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
 
             const RedThing = () => <Panel style="color: red">Red Thing</Panel>;
@@ -193,7 +193,7 @@ describe('compile', function () {
     });
 
     test('transform: vars', function () {
-        const result = parser(`
+        const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
 
             function HelloWorld() {

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`xml_macro jsx 1`] = `
+""use strict";
+
+function Hi() {}"
+`;

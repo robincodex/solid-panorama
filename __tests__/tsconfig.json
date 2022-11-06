@@ -7,7 +7,12 @@
         "allowJs": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "lib": ["ESNext"]
+        "lib": ["ESNext"],
+        "paths": {
+            "@babel-plugin-panorama-all-in-jsx/*": [
+                "../dist/babel-plugin-panorama-all-in-jsx/*"
+            ]
+        }
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

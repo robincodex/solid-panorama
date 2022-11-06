@@ -1,8 +1,8 @@
 import * as babel from '@babel/core';
-// @ts-ignore
-import jsxTransform from '../packages/babel-plugin-jsx-panorama-expressions/src/index';
+import jsxTransform from '../dist/babel-plugin-jsx-panorama-expressions/index';
+import macros from 'babel-plugin-macros';
 
-export function parser(code: string) {
+export function parseSolid(code: string) {
     const result = babel.transformSync(code, {
         plugins: [
             [
@@ -27,6 +27,23 @@ export function parser(code: string) {
                 })
             ]
         ]
+    });
+    return result?.code;
+}
+
+export function parseMacros(code: string, filename?: string) {
+    const result = babel.transformSync(code, {
+        cwd: __dirname,
+        filename,
+        presets: [
+            [
+                '@babel/preset-env',
+                {
+                    targets: 'node 18.0'
+                }
+            ]
+        ],
+        plugins: [['@babel/plugin-syntax-jsx'], [macros]]
     });
     return result?.code;
 }

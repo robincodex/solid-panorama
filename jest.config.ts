@@ -166,7 +166,7 @@ export default {
     // transform: { '\\.ts$': ['ts-jest'] },
 
     transform: {
-        '.+\\.(j|t)sx?$': ['ts-jest', { tsconfig: '__tests__/tsconfig.json' }]
+        '.+\\.tsx?$': ['ts-jest', { tsconfig: '__tests__/tsconfig.json' }]
     }
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
