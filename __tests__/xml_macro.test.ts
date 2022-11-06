@@ -1,6 +1,6 @@
 import { parseMacros } from './utils';
 import { describe, expect, test } from '@jest/globals';
-import xml, {
+import {
     formatXML,
     getAllCacheXML,
     getXML

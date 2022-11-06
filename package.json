@@ -7,9 +7,9 @@
     "scripts": {
         "watch": "rollup -c -w --bundleConfigAsCjs",
         "build": "rollup -c --bundleConfigAsCjs",
-        "build:runtime": "cross-env OnlyBuildRuntime=yes rollup -c",
-        "build:jsx": "cross-env OnlyBuildJSX=yes rollup -c",
-        "build:macros": "cross-env OnlyBuildMacros=yes rollup -c",
+        "build:runtime": "cross-env OnlyBuildRuntime=yes npm run build",
+        "build:jsx": "cross-env OnlyBuildJSX=yes npm run build",
+        "build:macros": "cross-env OnlyBuildMacros=yes npm run build",
         "lint:prettier": "prettier --check .",
         "write-prettier": "prettier --write .",
         "test": "jest --verbose",

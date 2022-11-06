@@ -89,6 +89,10 @@ const macroConfig = {
                     src: 'packages/babel-plugin-panorama-all-in-jsx/types/*.d.ts',
                     dest: 'dist/babel-plugin-panorama-all-in-jsx'
                 },
+                {
+                    src: 'packages/babel-plugin-panorama-all-in-jsx/package.json',
+                    dest: 'dist/babel-plugin-panorama-all-in-jsx'
+                },
             ]
         })
     ]

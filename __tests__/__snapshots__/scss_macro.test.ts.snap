@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scss_macro pick scss 1`] = `
+""use strict";
+
+const ButtonStyle = "scope-5d2257e7";
+const obj = {
+  y: ""
+};
+obj.x = "";
+function Hi() {}"
+`;
+
+exports[`scss_macro pick scss 2`] = `
+"
+                color: #000;
+            "
+`;
+
+exports[`scss_macro pick scss 3`] = `
+{
+  "\\scss_macro.test.ts": "
+                color: #000;
+            ",
+}
+`;

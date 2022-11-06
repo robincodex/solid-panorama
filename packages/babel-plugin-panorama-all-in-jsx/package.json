@@ -7,7 +7,6 @@
         "node": ">=16.0.0"
     },
     "engineStrict": true,
-    "main": "index.js",
     "license": "MIT",
     "author": "RobinCode",
     "homepage": "https://github.com/RobinCodeX/solid-panorama",
