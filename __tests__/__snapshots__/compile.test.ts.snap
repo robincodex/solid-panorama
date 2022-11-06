@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compile transform: dynamic 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+const RedThing = () => (() => {
+  const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {
+    style: "color: red;"
+  }, null);
+  (0, _solidPanoramaRuntime.createTextNode)(\`Red Thing\`, _el$);
+  return _el$;
+})();
+const GreenThing = () => (() => {
+  const _el$3 = (0, _solidPanoramaRuntime.createElement)("Panel", {
+    style: "color: green;"
+  }, null);
+  (0, _solidPanoramaRuntime.createTextNode)(\`Green Thing\`, _el$3);
+  return _el$3;
+})();
+const BlueThing = () => (() => {
+  const _el$5 = (0, _solidPanoramaRuntime.createElement)("Panel", {
+    style: "color: blue;"
+  }, null);
+  (0, _solidPanoramaRuntime.createTextNode)(\`Blue Thing\`, _el$5);
+  return _el$5;
+})();
+const options = {
+  red: RedThing,
+  green: GreenThing,
+  blue: BlueThing
+};
+function HelloWorld() {
+  const [selected, setSelected] = createSignal("red");
+  return (0, _solidPanoramaRuntime.createComponent)(_solidPanoramaRuntime.Dynamic, {
+    get component() {
+      return options[selected()];
+    }
+  });
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: for each 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+var _web = require("solid-js/web");
+var _solidJs = require("solid-js");
+const App = () => {
+  const [list, setList] = (0, _solidJs.createSignal)(['A']);
+  function click() {
+    setList([...list(), "B"]);
+  }
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Button", {
+        onClick: click
+      }, _el$);
+    (0, _solidPanoramaRuntime.insert)(_el$, (0, _solidPanoramaRuntime.createComponent)(_solidPanoramaRuntime.For, {
+      get each() {
+        return list();
+      },
+      children: (item, index) => {
+        return (() => {
+          const _el$4 = (0, _solidPanoramaRuntime.createElement)("Label", {
+            text: item
+          }, null);
+          (0, _solidPanoramaRuntime.setProp)(_el$4, "text", item);
+          return _el$4;
+        })();
+      }
+    }), _el$2);
+    (0, _solidPanoramaRuntime.createTextNode)(\`Click\`, _el$2);
+    (0, _solidPanoramaRuntime.setProp)(_el$2, "onClick", click);
+    return _el$;
+  })();
+};
+(0, _web.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
+`;
+
+exports[`compile transform: fragment 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function HelloWorld() {
+  return [(0, _solidPanoramaRuntime.createElement)("Button", {}, null), (0, _solidPanoramaRuntime.createElement)("Button", {}, null), (0, _solidPanoramaRuntime.createElement)("Button", {}, null)];
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: normal 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function Item(props) {
+  const [rootStyle, setRootStyle] = createSignal('root');
+  let visible = true;
+  let root, btnA;
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {
+        id: "root"
+      }, null),
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Label", {
+        text: "Testing"
+      }, _el$),
+      _el$3 = (0, _solidPanoramaRuntime.createElement)("Panel", {
+        className: "buttons"
+      }, _el$),
+      _el$4 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$3),
+      _el$5 = (0, _solidPanoramaRuntime.createElement)("Button", {
+        visible: visible
+      }, _el$3),
+      _el$6 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$3);
+    const _ref$ = root;
+    typeof _ref$ === "function" ? (0, _solidPanoramaRuntime.use)(_ref$, _el$) : root = _el$;
+    (0, _solidPanoramaRuntime.use)(a => btnA = a, _el$4);
+    (0, _solidPanoramaRuntime.setProp)(_el$5, "visible", visible);
+    (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "className", rootStyle().join(' '), _$p));
+    return _el$;
+  })();
+}
+function HelloWorld() {
+  return (() => {
+    const _el$7 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null);
+    (0, _solidPanoramaRuntime.insert)(_el$7, (0, _solidPanoramaRuntime.createComponent)(Item, {}), null);
+    (0, _solidPanoramaRuntime.insert)(_el$7, (0, _solidPanoramaRuntime.createComponent)(Item, {
+      show: true
+    }), null);
+    return _el$7;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: snippet 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function HelloWorld() {
+  return (0, _solidPanoramaRuntime.createElement)("Button", {
+    snippet: "templateA"
+  }, null);
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: spread operator 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function Item(props) {
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", props, null);
+    (0, _solidPanoramaRuntime.spread)(_el$, props, false);
+    return _el$;
+  })();
+}
+function HelloWorld() {
+  return (0, _solidPanoramaRuntime.createComponent)(Item, {});
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: style 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function Item(props) {
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null);
+    (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "class", props.style, _$p));
+    return _el$;
+  })();
+}
+function HelloWorld() {
+  return (() => {
+    const _el$2 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
+      _el$3 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$2),
+      _el$4 = (0, _solidPanoramaRuntime.createElement)("Button", {
+        style: "width:12px; height: 12px;"
+      }, _el$2);
+    (0, _solidPanoramaRuntime.setProp)(_el$3, "style", {
+      width: '12px',
+      height: 12
+    });
+    (0, _solidPanoramaRuntime.insert)(_el$2, (0, _solidPanoramaRuntime.createComponent)(Item, {
+      style: "red"
+    }), null);
+    return _el$2;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: textNode 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function HelloWorld() {
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, _el$),
+      _el$4 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, _el$),
+      _el$6 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, _el$),
+      _el$7 = (0, _solidPanoramaRuntime.createElement)("Label", {
+        text: "Welcome"
+      }, _el$6),
+      _el$8 = (0, _solidPanoramaRuntime.createTextNode)(\`#addon_game_name\`, _el$6),
+      _el$9 = (0, _solidPanoramaRuntime.createElement)("Label", {
+        text: "(～￣▽￣)～"
+      }, _el$6);
+    (0, _solidPanoramaRuntime.createTextNode)(\`Welcome My Game\`, _el$2);
+    (0, _solidPanoramaRuntime.createTextNode)(\`<strong>Welcome</strong> My Game\`, _el$4);
+    return _el$;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
+exports[`compile transform: vars 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function HelloWorld() {
+  const [ability, setAbility] = createSignal("");
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null);
+    (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "vars", {
+      name: 'robin',
+      ability: ability()
+    }, _$p));
+    return _el$;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;

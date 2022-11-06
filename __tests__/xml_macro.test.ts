@@ -1,12 +1,16 @@
 import { parseMacros } from './utils';
 import { describe, expect, test } from '@jest/globals';
-import xml from '@babel-plugin-panorama-all-in-jsx/xml.macro';
+import xml, {
+    formatXML,
+    getAllCacheXML,
+    getXML
+} from '../packages/babel-plugin-panorama-all-in-jsx/xml.macro';
 
 describe('xml_macro', function () {
-    test('jsx', function () {
+    test('convert jsx to xml', function () {
         const result = parseMacros(
             `
-            import xml from '../dist/babel-plugin-panorama-all-in-jsx/xml.macro';
+            import xml from '../packages/babel-plugin-panorama-all-in-jsx/xml.macro';
             
             xml(
                 <root>
@@ -34,5 +38,13 @@ describe('xml_macro', function () {
             __filename
         );
         expect(result).toMatchSnapshot();
+
+        expect(formatXML(getXML(__filename)!)).toMatchSnapshot();
+        const cache = Object.assign({}, getAllCacheXML());
+        for (const filename in cache) {
+            cache[filename.replace(__dirname, '')] = cache[filename];
+            delete cache[filename];
+        }
+        expect(cache).toMatchSnapshot();
     });
 });

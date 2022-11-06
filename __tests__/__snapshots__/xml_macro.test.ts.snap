@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`xml_macro convert jsx to xml 1`] = `
+""use strict";
+
+function Hi() {}"
+`;
+
+exports[`xml_macro convert jsx to xml 2`] = `
+"<root>
+  <styles>
+    <include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+    <include src="file://{resources}/styles/custom_game/hud_main.css"/>
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/hud_main.js"/>
+  </scripts>
+  <Panel>
+    <Panel id="app"/>
+  </Panel>
+</root>"
+`;
+
+exports[`xml_macro convert jsx to xml 3`] = `
+{
+  "\\xml_macro.test.ts": {
+    "attributes": {},
+    "elements": [
+      {
+        "attributes": {},
+        "elements": [
+          {
+            "attributes": {
+              "src": "s2r://panorama/styles/dotastyles.vcss_c",
+            },
+            "name": "include",
+            "type": "element",
+          },
+          {
+            "attributes": {
+              "src": "file://{resources}/styles/custom_game/hud_main.css",
+            },
+            "name": "include",
+            "type": "element",
+          },
+        ],
+        "name": "styles",
+        "type": "element",
+      },
+      {
+        "attributes": {},
+        "elements": [
+          {
+            "attributes": {
+              "src": "file://{resources}/scripts/custom_game/hud_main.js",
+            },
+            "name": "include",
+            "type": "element",
+          },
+        ],
+        "name": "scripts",
+        "type": "element",
+      },
+      {
+        "attributes": {},
+        "elements": [
+          {
+            "attributes": {
+              "id": "app",
+            },
+            "name": "Panel",
+            "type": "element",
+          },
+        ],
+        "name": "Panel",
+        "type": "element",
+      },
+    ],
+    "name": "root",
+    "type": "element",
+  },
+}
+`;

@@ -12,8 +12,8 @@
         "build:macros": "cross-env OnlyBuildMacros=yes rollup -c",
         "lint:prettier": "prettier --check .",
         "write-prettier": "prettier --write .",
-        "test": "npm run build --silent && jest --verbose",
-        "test-update": "npm run --silent build && jest --updateSnapshot"
+        "test": "jest --verbose",
+        "test-update": "jest --verbose --updateSnapshot"
     },
     "dependencies": {
         "@babel/core": "^7.20.2",

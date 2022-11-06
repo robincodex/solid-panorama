@@ -1,18 +1,14 @@
 {
     "compilerOptions": {
+        "rootDir": "../",
         "module": "CommonJS",
-        "rootDir": ".",
         "target": "ESNext",
         "strict": true,
         "allowJs": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "lib": ["ESNext"],
-        "paths": {
-            "@babel-plugin-panorama-all-in-jsx/*": [
-                "../dist/babel-plugin-panorama-all-in-jsx/*"
-            ]
-        }
+        "isolatedModules": true,
+        "lib": ["ESNext"]
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

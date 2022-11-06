@@ -1,5 +1,5 @@
 import * as babel from '@babel/core';
-import jsxTransform from '../dist/babel-plugin-jsx-panorama-expressions/index';
+import jsxTransform from '../packages/babel-plugin-jsx-panorama-expressions/src/index';
 import macros from 'babel-plugin-macros';
 
 export function parseSolid(code: string) {

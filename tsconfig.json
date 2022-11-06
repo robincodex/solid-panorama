@@ -2,6 +2,7 @@
     "include": ["packages/**/*.ts"],
     "compilerOptions": {
         "rootDir": "packages",
+        "baseUrl": ".",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "moduleResolution": "Node",

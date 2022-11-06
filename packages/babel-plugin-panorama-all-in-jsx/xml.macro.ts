@@ -7,7 +7,7 @@ const xmlCache: Record<string, xmljs.Element> = {};
 
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
-        throw Error('Not found filename');
+        return;
     }
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isCallExpression()) {
@@ -21,12 +21,6 @@ export default createMacro(function ({ references, state, babel }) {
         }
         const result = convertJSXtoXML(el);
         xmlCache[state.filename] = result;
-        console.log(
-            xmljs.js2xml(
-                { elements: [result] },
-                { compact: false, spaces: '  ' }
-            )
-        );
         path.parentPath?.remove();
     }
 });
