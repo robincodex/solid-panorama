@@ -53,4 +53,12 @@ declare global {
     const HTML: ParentComponent<HTMLAttributes>;
 
     const CustomLayoutPanel: ParentComponent<CustomLayoutPanelAttributes>;
+
+    // Special elements for babel-plugin-panorama-all-in-jsx
+    const root: ParentComponent<{}>;
+    const styles: ParentComponent<{}>;
+    const scripts: ParentComponent<{}>;
+    const include: ParentComponent<{ src: string }>;
+    const snippets: ParentComponent<{}>;
+    const snippet: ParentComponent<{ name: string }>;
 }
