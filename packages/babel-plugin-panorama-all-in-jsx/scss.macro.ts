@@ -5,10 +5,15 @@ import { createHash } from 'crypto';
 
 const scssCache: Record<string, string> = {};
 
+function normalizedPath(p: string) {
+    return p.replace(/\\/g, '/');
+}
+
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
         return;
     }
+    const filename = normalizedPath(state.filename);
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isTaggedTemplateExpression()) {
             path.parentPath?.remove();
@@ -23,17 +28,19 @@ export default createMacro(function ({ references, state, babel }) {
         if (t.isIdentifier(varPath.node.id)) {
             varName = varPath.node.id.name;
         }
+        if (path.scope.path.isFunctionDeclaration()) {
+            varName = (path.scope.path.node.id?.name || '') + '-' + varName;
+        }
         const quasi = path.parentPath.node.quasi;
         path.parentPath.replaceWith(
-            t.stringLiteral('scope-' + generateCssID(state.filename, varName))
+            t.stringLiteral('styled-' + generateCssID(filename, varName))
         );
-        scssCache[state.filename] = quasi.quasis[0].value.raw;
+        scssCache[filename] = quasi.quasis[0].value.raw;
     }
 });
 
 function generateCssID(filename: string, varName: string): string {
     filename = filename.replace(process.cwd(), '');
-    console.log(filename);
     const h = createHash('sha256')
         .update(filename + varName)
         .digest('hex');

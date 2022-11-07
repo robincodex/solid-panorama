@@ -3,24 +3,17 @@
 exports[`scss_macro pick scss 1`] = `
 ""use strict";
 
-const ButtonStyle = "scope-5d2257e7";
+const ButtonStyle = "styled-f06d058f";
+const ButtonStyle2 = "styled-edcd3409";
 const obj = {
   y: ""
 };
 obj.x = "";
-function Hi() {}"
+function Hi() {
+  const ButtonStyle = "styled-4a17711f";
+}"
 `;
 
-exports[`scss_macro pick scss 2`] = `
-"
-                color: #000;
-            "
-`;
+exports[`scss_macro pick scss 2`] = `undefined`;
 
-exports[`scss_macro pick scss 3`] = `
-{
-  "\\scss_macro.test.ts": "
-                color: #000;
-            ",
-}
-`;
+exports[`scss_macro pick scss 3`] = `{}`;

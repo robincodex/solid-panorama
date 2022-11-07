@@ -5,10 +5,15 @@ import xmljs from 'xml-js';
 
 const xmlCache: Record<string, xmljs.Element> = {};
 
+function normalizedPath(p: string) {
+    return p.replace(/\\/g, '/');
+}
+
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
         return;
     }
+    const filename = normalizedPath(state.filename);
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isCallExpression()) {
             path.parentPath?.remove();
@@ -20,7 +25,7 @@ export default createMacro(function ({ references, state, babel }) {
             continue;
         }
         const result = convertJSXtoXML(el);
-        xmlCache[state.filename] = result;
+        xmlCache[filename] = result;
         path.parentPath?.remove();
     }
 });

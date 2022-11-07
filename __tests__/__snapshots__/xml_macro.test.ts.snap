@@ -23,7 +23,7 @@ exports[`xml_macro convert jsx to xml 2`] = `
 
 exports[`xml_macro convert jsx to xml 3`] = `
 {
-  "\\xml_macro.test.ts": {
+  "xml_macro.test.ts": {
     "attributes": {},
     "elements": [
       {

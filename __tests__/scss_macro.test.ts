@@ -15,6 +15,10 @@ describe('scss_macro', function () {
                 color: #000;
             \`
 
+            const ButtonStyle2 = css\`
+                color: #000;
+            \`
+
             const obj = {y: css\`color: #000;\`}
 
             obj.x = css\`
@@ -28,7 +32,9 @@ describe('scss_macro', function () {
             css(<root></root>)
 
             function Hi() {
-
+                const ButtonStyle = css\`
+                    color: #000;
+                \`
             }
         `,
             __filename

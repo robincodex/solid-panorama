@@ -39,10 +39,13 @@ describe('xml_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(formatXML(getXML(__filename)!)).toMatchSnapshot();
+        expect(
+            formatXML(getXML(__filename.replace(/\\/g, '/'))!)
+        ).toMatchSnapshot();
         const cache = Object.assign({}, getAllCacheXML());
+        const dir = __dirname.replace(/\\/g, '/') + '/';
         for (const filename in cache) {
-            cache[filename.replace(__dirname, '')] = cache[filename];
+            cache[filename.replace(dir, '')] = cache[filename];
             delete cache[filename];
         }
         expect(cache).toMatchSnapshot();

@@ -17,6 +17,7 @@
     "dependencies": {},
     "peerDependencies": {
         "@babel/core": "^7.0.0",
-        "babel-plugin-macros": "^3.1.0"
+        "babel-plugin-macros": "^3.1.0",
+        "xml-js": "^1.6.11"
     }
 }
