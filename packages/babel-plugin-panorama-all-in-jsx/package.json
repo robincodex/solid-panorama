@@ -1,8 +1,7 @@
 {
     "name": "babel-plugin-panorama-all-in-jsx",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "",
-    "type": "module",
     "engines": {
         "node": ">=16.0.0"
     },
