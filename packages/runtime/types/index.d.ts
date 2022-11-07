@@ -29,3 +29,16 @@ export {
     Index,
     ErrorBoundary
 } from 'solid-js';
+
+declare module 'solid-js' {
+    namespace JSX {
+        interface IntrinsicElements {
+            root: {};
+            styles: {};
+            scripts: {};
+            include: { src: string };
+            snippets: {};
+            snippet: { name: string };
+        }
+    }
+}
