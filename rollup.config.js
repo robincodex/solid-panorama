@@ -67,7 +67,7 @@ const jsxConfig = {
 const macroConfig = {
     input: [
         'packages/babel-plugin-panorama-all-in-jsx/xml.macro.ts',
-        'packages/babel-plugin-panorama-all-in-jsx/scss.macro.ts'
+        'packages/babel-plugin-panorama-all-in-jsx/css.macro.ts'
     ],
     output: {
         dir: 'dist/babel-plugin-panorama-all-in-jsx',
