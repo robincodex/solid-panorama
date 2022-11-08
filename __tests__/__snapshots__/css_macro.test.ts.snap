@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`css_macro pick css 1`] = `
+""use strict";
+
+const ButtonStyle = "styled-2ddf6594";
+const ButtonStyle2 = "styled-fa5e1688";
+const obj = {
+  y: ""
+};
+obj.x = "";
+function Hi() {
+  const ButtonStyle = "styled-da0f1a7a";
+}"
+`;
+
+exports[`css_macro pick css 2`] = `
+".styled-2ddf6594 {
+                color: #000;
+            }
+.styled-fa5e1688 {
+                color: #000;
+            }
+.styled-da0f1a7a {
+                    color: #000;
+                }
+"
+`;
+
+exports[`css_macro pick css 3`] = `
+{
+  "css_macro.test.ts": ".styled-2ddf6594 {
+                color: #000;
+            }
+.styled-fa5e1688 {
+                color: #000;
+            }
+.styled-da0f1a7a {
+                    color: #000;
+                }
+",
+}
+`;

@@ -3,13 +3,13 @@ import { describe, expect, test } from '@jest/globals';
 import {
     getAllCacheScss,
     getScss
-} from '../packages/babel-plugin-panorama-all-in-jsx/scss.macro';
+} from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
 
-describe('scss_macro', function () {
-    test('pick scss', function () {
+describe('css_macro', function () {
+    test('pick css', function () {
         const result = parseMacros(
             `
-            import css from '../packages/babel-plugin-panorama-all-in-jsx/scss.macro';
+            import css from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
             
             const ButtonStyle = css\`
                 color: #000;
@@ -41,10 +41,11 @@ describe('scss_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(getScss(__filename)!).toMatchSnapshot();
+        expect(getScss(__filename.replace(/\\/g, '/'))!).toMatchSnapshot();
         const cache = Object.assign({}, getAllCacheScss());
+        const dir = __dirname.replace(/\\/g, '/') + '/';
         for (const filename in cache) {
-            cache[filename.replace(__dirname, '')] = cache[filename];
+            cache[filename.replace(dir, '')] = cache[filename];
             delete cache[filename];
         }
         expect(cache).toMatchSnapshot();

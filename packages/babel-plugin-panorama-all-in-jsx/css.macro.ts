@@ -14,6 +14,7 @@ export default createMacro(function ({ references, state, babel }) {
         return;
     }
     const filename = normalizedPath(state.filename);
+    scssCache[filename] = '';
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isTaggedTemplateExpression()) {
             path.parentPath?.remove();
@@ -32,10 +33,9 @@ export default createMacro(function ({ references, state, babel }) {
             varName = (path.scope.path.node.id?.name || '') + '-' + varName;
         }
         const quasi = path.parentPath.node.quasi;
-        path.parentPath.replaceWith(
-            t.stringLiteral('styled-' + generateCssID(filename, varName))
-        );
-        scssCache[filename] = quasi.quasis[0].value.raw;
+        const id = 'styled-' + generateCssID(filename, varName);
+        path.parentPath.replaceWith(t.stringLiteral(id));
+        scssCache[filename] += `.${id} {${quasi.quasis[0].value.raw}}\n`;
     }
 });
 
