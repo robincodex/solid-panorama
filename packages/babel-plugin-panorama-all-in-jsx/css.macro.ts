@@ -5,15 +5,11 @@ import { createHash } from 'crypto';
 
 const scssCache: Record<string, string> = {};
 
-function normalizedPath(p: string) {
-    return p.replace(/\\/g, '/');
-}
-
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
         return;
     }
-    const filename = normalizedPath(state.filename);
+    const filename = state.filename;
     scssCache[filename] = '';
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isTaggedTemplateExpression()) {

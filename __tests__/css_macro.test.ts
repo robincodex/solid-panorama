@@ -4,6 +4,7 @@ import {
     getAllCacheScss,
     getScss
 } from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
+import path from 'path';
 
 describe('css_macro', function () {
     test('pick css', function () {
@@ -41,9 +42,9 @@ describe('css_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(getScss(__filename.replace(/\\/g, '/'))!).toMatchSnapshot();
+        expect(getScss(__filename)!).toMatchSnapshot();
         const cache = Object.assign({}, getAllCacheScss());
-        const dir = __dirname.replace(/\\/g, '/') + '/';
+        const dir = __dirname + path.sep;
         for (const filename in cache) {
             cache[filename.replace(dir, '')] = cache[filename];
             delete cache[filename];

@@ -3,25 +3,25 @@
 exports[`css_macro pick css 1`] = `
 ""use strict";
 
-const ButtonStyle = "styled-2ddf6594";
-const ButtonStyle2 = "styled-fa5e1688";
+const ButtonStyle = "styled-8893f079";
+const ButtonStyle2 = "styled-ca5755e8";
 const obj = {
   y: ""
 };
 obj.x = "";
 function Hi() {
-  const ButtonStyle = "styled-da0f1a7a";
+  const ButtonStyle = "styled-b934b0d3";
 }"
 `;
 
 exports[`css_macro pick css 2`] = `
-".styled-2ddf6594 {
+".styled-8893f079 {
                 color: #000;
             }
-.styled-fa5e1688 {
+.styled-ca5755e8 {
                 color: #000;
             }
-.styled-da0f1a7a {
+.styled-b934b0d3 {
                     color: #000;
                 }
 "
@@ -29,13 +29,13 @@ exports[`css_macro pick css 2`] = `
 
 exports[`css_macro pick css 3`] = `
 {
-  "css_macro.test.ts": ".styled-2ddf6594 {
+  "css_macro.test.ts": ".styled-8893f079 {
                 color: #000;
             }
-.styled-fa5e1688 {
+.styled-ca5755e8 {
                 color: #000;
             }
-.styled-da0f1a7a {
+.styled-b934b0d3 {
                     color: #000;
                 }
 ",

@@ -5,6 +5,7 @@ import {
     getAllCacheXML,
     getXML
 } from '../packages/babel-plugin-panorama-all-in-jsx/xml.macro';
+import path from 'path';
 
 describe('xml_macro', function () {
     test('convert jsx to xml', function () {
@@ -39,11 +40,9 @@ describe('xml_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(
-            formatXML(getXML(__filename.replace(/\\/g, '/'))!)
-        ).toMatchSnapshot();
+        expect(formatXML(getXML(__filename)!)).toMatchSnapshot();
         const cache = Object.assign({}, getAllCacheXML());
-        const dir = __dirname.replace(/\\/g, '/') + '/';
+        const dir = __dirname + path.sep;
         for (const filename in cache) {
             cache[filename.replace(dir, '')] = cache[filename];
             delete cache[filename];
