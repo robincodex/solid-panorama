@@ -11,6 +11,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: yarn --frozen-lockfile
       - run: yarn build:macros
+      - run: cp packages/babel-plugin-panorama-all-in-jsx/README.md dist/babel-plugin-panorama-all-in-jsx/
       - run: yarn publish dist/babel-plugin-panorama-all-in-jsx --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

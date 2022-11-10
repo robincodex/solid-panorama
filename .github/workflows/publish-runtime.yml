@@ -11,6 +11,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: yarn --frozen-lockfile
       - run: yarn build:runtime
+      - run: cp README.md dist/runtime/
       - run: yarn publish dist/runtime --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
