@@ -7,6 +7,9 @@ const ButtonStyle = "styled-8893f079";
 
 // class: GlobalButton
 const ButtonStyle2 = "GlobalButton";
+
+// Global style
+
 const obj = {
   y: ""
 };
@@ -23,6 +26,15 @@ exports[`css_macro pick css 2`] = `
 .GlobalButton {
                 color: #000;
             }
+
+                .Group {
+                    flow-children: right;
+                }
+            
+.y { y: 0px; }
+
+                .x { x: 0px; }
+            
 .styled-b934b0d3 {
                     color: #000;
                 }
@@ -37,6 +49,15 @@ exports[`css_macro pick css 3`] = `
 .GlobalButton {
                 color: #000;
             }
+
+                .Group {
+                    flow-children: right;
+                }
+            
+.y { y: 0px; }
+
+                .x { x: 0px; }
+            
 .styled-b934b0d3 {
                     color: #000;
                 }

@@ -20,11 +20,18 @@ describe('css_macro', function () {
             const ButtonStyle2 = css\`
                 color: #000;
             \`
+            
+            // Global style
+            css\`
+                .Group {
+                    flow-children: right;
+                }
+            \`
 
-            const obj = {y: css\`color: #000;\`}
+            const obj = {y: css\`.y { y: 0px; }\`}
 
             obj.x = css\`
-                color: #000;
+                .x { x: 0px; }
             \`
 
             css

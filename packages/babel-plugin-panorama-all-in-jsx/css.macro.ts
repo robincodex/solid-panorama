@@ -20,7 +20,15 @@ export default createMacro(function ({ references, state, babel }) {
         }
         const varPath = path.parentPath.parentPath;
         if (!varPath || !varPath.isVariableDeclarator()) {
-            path.parentPath.replaceWith(t.stringLiteral(''));
+            const quasi = path.parentPath.node.quasi;
+            if (quasi.quasis[0].value.raw.trim()) {
+                scssCache[filename] += quasi.quasis[0].value.raw + '\n';
+            }
+            if (path.parentPath.parentPath.isExpressionStatement()) {
+                path.parentPath.parentPath.remove();
+            } else {
+                path.parentPath.replaceWith(t.stringLiteral(''));
+            }
             continue;
         }
         let varName = '';
@@ -34,7 +42,6 @@ export default createMacro(function ({ references, state, babel }) {
             for (const comment of leadingComments) {
                 const result = classCommentMather.exec(comment.value);
                 if (result && result.length >= 2) {
-                    console.log(result[1]);
                     varName = result[1];
                     isForceClass = true;
                     break;
