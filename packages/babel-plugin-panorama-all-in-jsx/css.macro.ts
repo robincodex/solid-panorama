@@ -5,6 +5,8 @@ import { createHash } from 'crypto';
 
 const scssCache: Record<string, string> = {};
 
+const classCommentMather = /class:\s*([\w\d_-]+)/;
+
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
         return;
@@ -25,11 +27,28 @@ export default createMacro(function ({ references, state, babel }) {
         if (t.isIdentifier(varPath.node.id)) {
             varName = varPath.node.id.name;
         }
+
+        const leadingComments = varPath.parentPath.node.leadingComments;
+        let isForceClass = false;
+        if (leadingComments) {
+            for (const comment of leadingComments) {
+                const result = classCommentMather.exec(comment.value);
+                if (result && result.length >= 2) {
+                    console.log(result[1]);
+                    varName = result[1];
+                    isForceClass = true;
+                    break;
+                }
+            }
+        }
+
         if (path.scope.path.isFunctionDeclaration()) {
             varName = (path.scope.path.node.id?.name || '') + '-' + varName;
         }
         const quasi = path.parentPath.node.quasi;
-        const id = 'styled-' + generateCssID(filename, varName);
+        const id = isForceClass
+            ? varName
+            : 'styled-' + generateCssID(filename, varName);
         path.parentPath.replaceWith(t.stringLiteral(id));
         scssCache[filename] += `.${id} {${quasi.quasis[0].value.raw}}\n`;
     }

@@ -16,6 +16,7 @@ describe('css_macro', function () {
                 color: #000;
             \`
 
+            // class: GlobalButton
             const ButtonStyle2 = css\`
                 color: #000;
             \`

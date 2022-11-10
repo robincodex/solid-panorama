@@ -4,7 +4,9 @@ exports[`css_macro pick css 1`] = `
 ""use strict";
 
 const ButtonStyle = "styled-8893f079";
-const ButtonStyle2 = "styled-ca5755e8";
+
+// class: GlobalButton
+const ButtonStyle2 = "GlobalButton";
 const obj = {
   y: ""
 };
@@ -18,7 +20,7 @@ exports[`css_macro pick css 2`] = `
 ".styled-8893f079 {
                 color: #000;
             }
-.styled-ca5755e8 {
+.GlobalButton {
                 color: #000;
             }
 .styled-b934b0d3 {
@@ -32,7 +34,7 @@ exports[`css_macro pick css 3`] = `
   "css_macro.test.ts": ".styled-8893f079 {
                 color: #000;
             }
-.styled-ca5755e8 {
+.GlobalButton {
                 color: #000;
             }
 .styled-b934b0d3 {
