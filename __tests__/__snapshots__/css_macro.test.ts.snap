@@ -3,7 +3,7 @@
 exports[`css_macro pick css 1`] = `
 ""use strict";
 
-const ButtonStyle = "styled-8893f079";
+const ButtonStyle = "styled-d078a2d0";
 
 // class: GlobalButton
 const ButtonStyle2 = "GlobalButton";
@@ -11,16 +11,16 @@ const ButtonStyle2 = "GlobalButton";
 // Global style
 
 const obj = {
-  y: ""
+  y: "styled-37422008"
 };
-obj.x = "";
+obj.x = "styled-8fe9c9a3";
 function Hi() {
-  const ButtonStyle = "styled-b934b0d3";
+  const ButtonStyle = "styled-e9cdcd6a";
 }"
 `;
 
 exports[`css_macro pick css 2`] = `
-".styled-8893f079 {
+".styled-d078a2d0 {
                 color: #000;
             }
 .GlobalButton {
@@ -31,11 +31,11 @@ exports[`css_macro pick css 2`] = `
                     flow-children: right;
                 }
             
-.y { y: 0px; }
-
-                .x { x: 0px; }
-            
-.styled-b934b0d3 {
+.styled-37422008 {y: 0px;}
+.styled-8fe9c9a3 {
+                x: 0px;
+            }
+.styled-e9cdcd6a {
                     color: #000;
                 }
 "
@@ -43,7 +43,7 @@ exports[`css_macro pick css 2`] = `
 
 exports[`css_macro pick css 3`] = `
 {
-  "css_macro.test.ts": ".styled-8893f079 {
+  "css_macro.test.ts": ".styled-d078a2d0 {
                 color: #000;
             }
 .GlobalButton {
@@ -54,11 +54,11 @@ exports[`css_macro pick css 3`] = `
                     flow-children: right;
                 }
             
-.y { y: 0px; }
-
-                .x { x: 0px; }
-            
-.styled-b934b0d3 {
+.styled-37422008 {y: 0px;}
+.styled-8fe9c9a3 {
+                x: 0px;
+            }
+.styled-e9cdcd6a {
                     color: #000;
                 }
 ",

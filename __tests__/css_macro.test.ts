@@ -28,10 +28,10 @@ describe('css_macro', function () {
                 }
             \`
 
-            const obj = {y: css\`.y { y: 0px; }\`}
+            const obj = {y: css\`y: 0px;\`}
 
             obj.x = css\`
-                .x { x: 0px; }
+                x: 0px;
             \`
 
             css

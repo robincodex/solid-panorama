@@ -4,6 +4,7 @@ import * as t from '@babel/types';
 import { createHash } from 'crypto';
 
 const scssCache: Record<string, string> = {};
+const scssIndex: Record<string, number> = {};
 
 const classCommentMather = /class:\s*([\w\d_-]+)/;
 
@@ -13,45 +14,39 @@ export default createMacro(function ({ references, state, babel }) {
     }
     const filename = state.filename;
     scssCache[filename] = '';
+    scssIndex[filename] = 0;
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isTaggedTemplateExpression()) {
             path.parentPath?.remove();
             continue;
         }
-        const varPath = path.parentPath.parentPath;
-        if (!varPath || !varPath.isVariableDeclarator()) {
+        if (path.parentPath.parentPath.isExpressionStatement()) {
             const quasi = path.parentPath.node.quasi;
             if (quasi.quasis[0].value.raw.trim()) {
                 scssCache[filename] += quasi.quasis[0].value.raw + '\n';
             }
-            if (path.parentPath.parentPath.isExpressionStatement()) {
-                path.parentPath.parentPath.remove();
-            } else {
-                path.parentPath.replaceWith(t.stringLiteral(''));
-            }
+            path.parentPath.parentPath.remove();
             continue;
         }
-        let varName = '';
-        if (t.isIdentifier(varPath.node.id)) {
-            varName = varPath.node.id.name;
-        }
 
-        const leadingComments = varPath.parentPath.node.leadingComments;
+        let varName = (++scssIndex[filename]).toString();
         let isForceClass = false;
-        if (leadingComments) {
-            for (const comment of leadingComments) {
-                const result = classCommentMather.exec(comment.value);
-                if (result && result.length >= 2) {
-                    varName = result[1];
-                    isForceClass = true;
-                    break;
+        const varPath = path.parentPath.parentPath;
+        if (varPath && varPath.isVariableDeclarator()) {
+            const leadingComments = varPath.parentPath.node.leadingComments;
+
+            if (leadingComments) {
+                for (const comment of leadingComments) {
+                    const result = classCommentMather.exec(comment.value);
+                    if (result && result.length >= 2) {
+                        varName = result[1];
+                        isForceClass = true;
+                        break;
+                    }
                 }
             }
         }
 
-        if (path.scope.path.isFunctionDeclaration()) {
-            varName = (path.scope.path.node.id?.name || '') + '-' + varName;
-        }
         const quasi = path.parentPath.node.quasi;
         const id = isForceClass
             ? varName
