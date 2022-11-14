@@ -1,4 +1,4 @@
-name: Publish babel-plugin-panorama-all-in-jsx
+name: Publish panorama-all-in-jsx
 on: workflow_dispatch
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: yarn --frozen-lockfile
       - run: yarn build:macros
-      - run: cp packages/babel-plugin-panorama-all-in-jsx/README.md dist/babel-plugin-panorama-all-in-jsx/
-      - run: yarn publish dist/babel-plugin-panorama-all-in-jsx --access public
+      - run: cp packages/panorama-all-in-jsx/README.md dist/panorama-all-in-jsx/
+      - run: yarn publish dist/panorama-all-in-jsx --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

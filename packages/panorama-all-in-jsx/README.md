@@ -9,7 +9,7 @@
 xml 是基于 jsx 实现的，将 jsx 转换成 xml，需要注意这里不支持动态的变量等，你需要把这部分当作一个 xml 文件去写。
 
 ```jsx
-import xml from 'babel-plugin-panorama-all-in-jsx/xml.macro';
+import xml from 'solid-panorama-all-in-jsx/xml.macro';
 
 xml(
     <root>
@@ -35,7 +35,7 @@ function getAllCacheXML(): Record<string, xmljs.Element>;
 function formatXML(root: xmljs.Element): string;
 
 // 例如
-import { getAllCacheXML } from 'babel-plugin-panorama-all-in-jsx/xml.macro';
+import { getAllCacheXML } from 'solid-panorama-all-in-jsx/xml.macro';
 console.log(getAllCacheXML());
 ```
 
@@ -50,7 +50,7 @@ console.log(getAllCacheXML());
 > 如果你用的 VSCode，建议安装 [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components)，可以高亮 css 部分的代码
 
 ```jsx
-import css from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
+import css from '../packages/solid-panorama-all-in-jsx/css.macro';
 import { OtherButton } from './other_button';
 
 // 局部样式，这种写法会创建一个class id，如 styled-b934b0d3，根据路径和当前的顺序生成

@@ -66,11 +66,11 @@ const jsxConfig = {
 
 const macroConfig = {
     input: [
-        'packages/babel-plugin-panorama-all-in-jsx/xml.macro.ts',
-        'packages/babel-plugin-panorama-all-in-jsx/css.macro.ts'
+        'packages/panorama-all-in-jsx/xml.macro.ts',
+        'packages/panorama-all-in-jsx/css.macro.ts'
     ],
     output: {
-        dir: 'dist/babel-plugin-panorama-all-in-jsx',
+        dir: 'dist/panorama-all-in-jsx',
         sourcemap: false,
         format: 'cjs',
         exports: 'auto'
@@ -86,12 +86,12 @@ const macroConfig = {
         copy({
             targets: [
                 {
-                    src: 'packages/babel-plugin-panorama-all-in-jsx/types/*.d.ts',
-                    dest: 'dist/babel-plugin-panorama-all-in-jsx'
+                    src: 'packages/panorama-all-in-jsx/types/*.d.ts',
+                    dest: 'dist/panorama-all-in-jsx'
                 },
                 {
-                    src: 'packages/babel-plugin-panorama-all-in-jsx/package.json',
-                    dest: 'dist/babel-plugin-panorama-all-in-jsx'
+                    src: 'packages/panorama-all-in-jsx/package.json',
+                    dest: 'dist/panorama-all-in-jsx'
                 },
             ]
         })
