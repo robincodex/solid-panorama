@@ -1,8 +1,8 @@
 import { parseMacros } from './utils';
 import { describe, expect, test } from '@jest/globals';
 import {
-    getAllCacheScss,
-    getScss
+    getAllCacheCSS,
+    getCSS
 } from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
 import path from 'path';
 
@@ -11,20 +11,37 @@ describe('css_macro', function () {
         const result = parseMacros(
             `
             import css from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
+            import { CommonButtonStyle } from './css_a';
             
             const ButtonStyle = css\`
                 color: #000;
             \`
 
             // class: GlobalButton
-            const ButtonStyle2 = css\`
+            let ButtonStyle2 = css\`
                 color: #000;
             \`
-            
+
+            var ButtonStyle3 = css\`
+                color: #000;
+            \`
+
             // Global style
             css\`
                 .Group {
                     flow-children: right;
+                    \${ButtonStyle} {
+                        flow-children: right;
+                    }
+                    \${ButtonStyle2} {
+                        flow-children: right;
+                    }
+                    \${ButtonStyle3} {
+                        flow-children: right;
+                    }
+                    \${CommonButtonStyle} {
+                        flow-children: right;
+                    }
                 }
             \`
 
@@ -50,8 +67,8 @@ describe('css_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(getScss(__filename)!).toMatchSnapshot();
-        const cache = Object.assign({}, getAllCacheScss());
+        expect(getCSS(__filename)!).toMatchSnapshot();
+        const cache = Object.assign({}, getAllCacheCSS());
         const dir = __dirname + path.sep;
         for (const filename in cache) {
             cache[filename.replace(dir, '')] = cache[filename];

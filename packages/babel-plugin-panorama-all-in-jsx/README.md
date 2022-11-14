@@ -41,14 +41,19 @@ console.log(getAllCacheXML());
 
 # CSS
 
-如果你使用过 styled-component，那应该会比较容易理解，不过目前支持的功能并不如 styled-component，后续会依据情况调整。
+使用规则：仅支持静态数据，不支持任何动态，如字符串处理、调用函数等。
 
-> 如果你用的 VSCode，建议安装 [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components)
+因为 PUI 不支持动态创建 css，所以这个插件所做的是把静态数据合成一个文件，然后替换成一个 class id（非全局样式），css 的模板字符串里支持引入其它由 `css.macro` 创建的 ID。
+
+> 这个插件只是简单的合成代码，并没有进行编译，所以你可以根据自己的需求在打包工具内使用 scss 或者 less
+
+> 如果你用的 VSCode，建议安装 [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components)，可以高亮 css 部分的代码
 
 ```jsx
 import css from '../packages/babel-plugin-panorama-all-in-jsx/css.macro';
+import { OtherButton } from './other_button';
 
-// 局部样式，这种写法会创建一个class id，如 styled-b934b0d3，根据路径和变量名生成
+// 局部样式，这种写法会创建一个class id，如 styled-b934b0d3，根据路径和当前的顺序生成
 const ButtonStyle = css`
     color: #000;
 `;
@@ -63,6 +68,12 @@ const ButtonStyle2 = css`
 css`
     .Group {
         flow-children: right;
+
+        ${ButtonStyle},
+        ${ButtonStyle2},
+        ${OtherButton} {
+            color: #fff;
+        }
     }
 `;
 
@@ -80,6 +91,6 @@ render(() => <App />, $('#app'));
 ## API
 
 ```ts
-function getScss(filename: string): string | undefined;
-function getAllCacheScss(): Record<string, string>;
+function getCSS(filename: string): string | undefined;
+function getAllCacheCSS(): Record<string, string>;
 ```

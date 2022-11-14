@@ -3,39 +3,55 @@
 exports[`css_macro pick css 1`] = `
 ""use strict";
 
-const ButtonStyle = "styled-d078a2d0";
+var _css_a = require("./css_a");
+const ButtonStyle = "styled-20b58232";
 
 // class: GlobalButton
-const ButtonStyle2 = "GlobalButton";
+let ButtonStyle2 = "GlobalButton";
+var ButtonStyle3 = "styled-2236c04d";
 
 // Global style
 
 const obj = {
-  y: "styled-37422008"
+  y: "styled-b2319bc3"
 };
-obj.x = "styled-8fe9c9a3";
+obj.x = "styled-a5e9a065";
 function Hi() {
-  const ButtonStyle = "styled-e9cdcd6a";
+  const ButtonStyle = "styled-dc648c0d";
 }"
 `;
 
 exports[`css_macro pick css 2`] = `
-".styled-d078a2d0 {
+".styled-20b58232 {
                 color: #000;
             }
 .GlobalButton {
                 color: #000;
             }
+.styled-2236c04d {
+                color: #000;
+            }
 
                 .Group {
                     flow-children: right;
+                    .styled-20b58232 {
+                        flow-children: right;
+                    }
+                    .GlobalButton {
+                        flow-children: right;
+                    }
+                    .styled-2236c04d {
+                        flow-children: right;
+                    }
+                    .styled-49cba726 {
+                        flow-children: right;
+                    }
                 }
-            
-.styled-37422008 {y: 0px;}
-.styled-8fe9c9a3 {
+            .styled-b2319bc3 {y: 0px;}
+.styled-a5e9a065 {
                 x: 0px;
             }
-.styled-e9cdcd6a {
+.styled-dc648c0d {
                     color: #000;
                 }
 "
@@ -43,22 +59,40 @@ exports[`css_macro pick css 2`] = `
 
 exports[`css_macro pick css 3`] = `
 {
-  "css_macro.test.ts": ".styled-d078a2d0 {
+  "css_a.ts": ".styled-49cba726 {
+    color: #000;
+}
+",
+  "css_macro.test.ts": ".styled-20b58232 {
                 color: #000;
             }
 .GlobalButton {
                 color: #000;
             }
+.styled-2236c04d {
+                color: #000;
+            }
 
                 .Group {
                     flow-children: right;
+                    .styled-20b58232 {
+                        flow-children: right;
+                    }
+                    .GlobalButton {
+                        flow-children: right;
+                    }
+                    .styled-2236c04d {
+                        flow-children: right;
+                    }
+                    .styled-49cba726 {
+                        flow-children: right;
+                    }
                 }
-            
-.styled-37422008 {y: 0px;}
-.styled-8fe9c9a3 {
+            .styled-b2319bc3 {y: 0px;}
+.styled-a5e9a065 {
                 x: 0px;
             }
-.styled-e9cdcd6a {
+.styled-dc648c0d {
                     color: #000;
                 }
 ",

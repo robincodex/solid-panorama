@@ -149,6 +149,7 @@ export default {
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     testPathIgnorePatterns: [
         '__tests__/utils.ts',
+        '__tests__/css_a.ts',
         join(__dirname, 'node_modules')
     ],
 
