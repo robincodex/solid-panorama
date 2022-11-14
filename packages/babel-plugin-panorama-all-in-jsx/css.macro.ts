@@ -9,7 +9,7 @@ import { existsSync } from 'fs';
 
 const cssCache: Record<string, string> = {};
 const cssIndex: Record<string, number> = {};
-const cssFileClassName: Record<string, Record<string, string>> = {};
+let cssFileClassName: Record<string, Record<string, string>> = {};
 
 const classCommentMather = /class:\s*([\w\d_-]+)/;
 
@@ -17,9 +17,12 @@ export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
         return;
     }
+    cssFileClassName = {};
     const filename = state.filename;
+    const className: Record<string, string> = {};
     cssCache[filename] = '';
     cssIndex[filename] = 0;
+    cssFileClassName[filename] = className;
     for (const path of references.default) {
         if (!path.parentPath || !path.parentPath.isTaggedTemplateExpression()) {
             path.parentPath?.remove();
@@ -61,10 +64,6 @@ export default createMacro(function ({ references, state, babel }) {
             : 'styled-' + generateCssID(filename, index);
 
         if (varName) {
-            if (!cssFileClassName[filename]) {
-                cssFileClassName[filename] = {};
-            }
-            const className = cssFileClassName[filename];
             className[varName] = id;
         }
 
