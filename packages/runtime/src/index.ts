@@ -1,5 +1,6 @@
 import { createRenderer } from 'solid-js/universal';
 import { StyleKeyAutoConvertToPixelList } from './config';
+import { setDragEvent } from './event';
 import {
     setCustomTooltip,
     setCustomTooltipParams,
@@ -18,7 +19,7 @@ export {
     ErrorBoundary
 } from 'solid-js';
 
-export * from './event';
+export { useGameEvent } from './event';
 
 const hasOwn = Object.prototype.hasOwnProperty;
 
@@ -175,6 +176,14 @@ export const {
             setCustomTooltip(node, value);
         } else if (name === 'custom_tooltip_params') {
             setCustomTooltipParams(node, value);
+        } else if (
+            name === 'onDragStart' ||
+            name === 'onDragEnd' ||
+            name === 'onDragEnter' ||
+            name === 'onDragDrop' ||
+            name === 'onDragLeave'
+        ) {
+            setDragEvent(node, name, value);
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {

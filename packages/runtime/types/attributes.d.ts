@@ -53,6 +53,19 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     onmoveup?: EventHandler<T>;
     oncancel?: EventHandler<T>;
     ontabforward?: EventHandler<T>;
+
+    // custom events
+    onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
+    onDragEnd?: (source: Panel, draggedPanel: Panel) => void;
+    onDragEnter?: (target: Panel, draggedPanel: Panel) => void;
+    onDragDrop?: (target: Panel, draggedPanel: Panel) => void;
+    onDragLeave?: (target: Panel, draggedPanel: Panel) => void;
+}
+
+declare interface IDragCallbacks {
+    displayPanel: Panel;
+    offsetX: number;
+    offsetY: number;
 }
 
 declare interface LabelLikeAttributes<T extends Panel>

@@ -207,3 +207,23 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 ### custom_tooltip_params
 
 类型：`Record<string, string | number>`
+
+### 拖拽事件
+
+```ts
+onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
+onDragEnd?: (source: Panel, draggedPanel: Panel) => void;
+onDragEnter?: (target: Panel, draggedPanel: Panel) => void;
+onDragDrop?: (target: Panel, draggedPanel: Panel) => void;
+onDragLeave?: (target: Panel, draggedPanel: Panel) => void;
+```
+
+如果设置了`onDragStart`，会自动调用`SetDraggable(true)`，所以可以不用`draggable`属性。
+
+```tsx
+function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
+    // ...
+}
+
+<Panel onDragStart={onItemDragStart} />;
+```
