@@ -5,6 +5,15 @@
 import { Renderer } from 'solid-js/universal/types/universal';
 import './elements';
 
+export function useGameEvent<
+    T extends keyof GameEventDeclarations,
+    D extends NetworkedData<GameEventDeclarations[T]>
+>(eventName: T, callback: (event: D) => void, deps?: any): void;
+export function useGameEvent<
+    T extends keyof CustomGameEventDeclarations,
+    D extends NetworkedData<CustomGameEventDeclarations[T]>
+>(eventName: T, callback: (event: D) => void, deps?: any): void;
+
 export const {
     render,
     effect,

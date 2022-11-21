@@ -31,6 +31,14 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
 
     ref?: T | ((element: T) => void);
 
+    // tooltip
+    tooltip_text?: string;
+    /**
+     * [tooltip name, xml file path]
+     */
+    custom_tooltip?: [string, string];
+    custom_tooltip_params?: Record<string, string | number>;
+
     onload?: EventHandler<T>;
     onfocus?: EventHandler<T>;
     onactivate?: EventHandler<T>;

@@ -1,5 +1,10 @@
 import { createRenderer } from 'solid-js/universal';
 import { StyleKeyAutoConvertToPixelList } from './config';
+import {
+    setCustomTooltip,
+    setCustomTooltipParams,
+    setTooltipText
+} from './tooltip';
 
 // Forward Solid control flow
 export {
@@ -12,6 +17,8 @@ export {
     Index,
     ErrorBoundary
 } from 'solid-js';
+
+export * from './event';
 
 const hasOwn = Object.prototype.hasOwnProperty;
 
@@ -162,6 +169,12 @@ export const {
             node.SetDraggable(value === true);
         } else if (name === 'acceptsfocus') {
             node.SetAcceptsFocus(value === true);
+        } else if (name === 'tooltip_text') {
+            setTooltipText(node, value);
+        } else if (name === 'custom_tooltip') {
+            setCustomTooltip(node, value);
+        } else if (name === 'custom_tooltip_params') {
+            setCustomTooltipParams(node, value);
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {

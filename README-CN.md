@@ -118,13 +118,21 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 </Panel>
 ```
 
-# 自定义属性
+## 自定义属性
 
 ### snippet
 
-专门给 PUI 定制的属性，自动载入 snippet，`<Panel snippet="MyBtton" />`
+类型：`string`
+
+专门给 PUI 定制的属性，自动载入 snippet
+
+```jsx
+<Panel snippet="MyBtton" />
+```
 
 ### vars 和 dialogVariables
+
+类型：`Record<string, string | number | Date>`
 
 两者是一样的，`dialogVariables` 是为了兼容[ark120202/react-panorama](https://github.com/ark120202/react-panorama)
 
@@ -135,17 +143,67 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 针对 Label 做了一些调整，vars 和 dialogVariables 会先写入，然后再写入`Label.text`, 如果 text 以`#`开头会调用`$.Localize(text, Label)`。
 
 ```jsx
-<Label vars={{ name: 'X.X' }} text="#name_of_x" />
+<Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
 ```
 
 ### draggable
 
+类型：`boolean`
+
 调用`Panel.SetDraggable(draggable)`
+
+```jsx
+<Panel draggable />
+```
 
 ### inputnamespace
 
+类型：`string`
+
 调用`Panel.SetInputNamespace(inputnamespace)`
+
+```jsx
+<Panel inputnamespace="" />
+```
 
 ### acceptsfocus
 
+类型：`boolean`
+
 调用`Panel.SetAcceptsFocus(acceptsfocus)`
+
+```jsx
+<Panel acceptsfocus={false} />
+```
+
+### tooltip_text
+
+类型：`string`
+
+自动设置`onmouseover="DOTAShowTextTooltip(<token>)"`和`onmouseout="DOTAHideTextTooltip()"`
+
+> 注意：不能与 onmouseover 和 onmouseout 事件同时存在
+
+```jsx
+<Panel tooltip_text="#addon_game_name" />
+```
+
+### custom_tooltip
+
+类型：`[string, string]`
+
+对应`[<tooltip name>, <xml file path>]`
+
+自动设置`onmouseover="UIShowCustomLayoutParametersTooltip()"`和`onmouseout="UIHideCustomLayoutTooltip()"`
+
+> 注意：不能与 onmouseover 和 onmouseout 事件同时存在
+
+```jsx
+<Panel custom_tooltip={['Item', 'file://{resources}/layout/custom_game/tooltip_example.xml']} custom_tooltip_params={{ name: 'item_xxx' }} />
+// OR
+<Panel custom_tooltip={['Item', 'tooltip_example']} custom_tooltip_params={{ name: 'item_xxx' }} />
+```
+
+### custom_tooltip_params
+
+类型：`Record<string, string | number>`
