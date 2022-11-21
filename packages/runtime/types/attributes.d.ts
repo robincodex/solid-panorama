@@ -57,9 +57,9 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     // custom events
     onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
     onDragEnd?: (source: Panel, draggedPanel: Panel) => void;
-    onDragEnter?: (target: Panel, draggedPanel: Panel) => void;
-    onDragDrop?: (target: Panel, draggedPanel: Panel) => void;
-    onDragLeave?: (target: Panel, draggedPanel: Panel) => void;
+    onDragEnter?: (source: Panel, draggedPanel: Panel) => void;
+    onDragDrop?: (source: Panel, draggedPanel: Panel) => void;
+    onDragLeave?: (source: Panel, draggedPanel: Panel) => void;
 }
 
 declare interface IDragCallbacks {

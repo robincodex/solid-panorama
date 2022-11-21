@@ -213,9 +213,9 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 ```ts
 onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
 onDragEnd?: (source: Panel, draggedPanel: Panel) => void;
-onDragEnter?: (target: Panel, draggedPanel: Panel) => void;
-onDragDrop?: (target: Panel, draggedPanel: Panel) => void;
-onDragLeave?: (target: Panel, draggedPanel: Panel) => void;
+onDragEnter?: (source: Panel, draggedPanel: Panel) => void;
+onDragDrop?: (source: Panel, draggedPanel: Panel) => void;
+onDragLeave?: (source: Panel, draggedPanel: Panel) => void;
 ```
 
 如果设置了`onDragStart`，会自动调用`SetDraggable(true)`，所以可以不用`draggable`属性。
