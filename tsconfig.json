@@ -3,13 +3,14 @@
     "compilerOptions": {
         "rootDir": "packages",
         "baseUrl": ".",
+        "removeComments": true,
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
         "strict": true,
         "types": ["@moddota/panorama-types", "@types/node"],
-        "target": "ESNext",
-        "lib": ["ESNext"]
+        "target": "ES2017",
+        "lib": ["ES2017"]
     }
 }
