@@ -146,36 +146,6 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 <Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
 ```
 
-### draggable
-
-类型：`boolean`
-
-调用`Panel.SetDraggable(draggable)`
-
-```jsx
-<Panel draggable />
-```
-
-### inputnamespace
-
-类型：`string`
-
-调用`Panel.SetInputNamespace(inputnamespace)`
-
-```jsx
-<Panel inputnamespace="" />
-```
-
-### acceptsfocus
-
-类型：`boolean`
-
-调用`Panel.SetAcceptsFocus(acceptsfocus)`
-
-```jsx
-<Panel acceptsfocus={false} />
-```
-
 ### tooltip_text
 
 类型：`string`

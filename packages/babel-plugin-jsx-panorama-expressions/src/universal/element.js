@@ -12,6 +12,7 @@ import {
 } from '../shared/utils';
 import { transformNode } from '../shared/transform';
 import { getElementProps } from '../shared/component';
+import { CustomProperties } from '../props';
 
 export function transformElement(path, info) {
     let tagName = getTagName(path.node),
@@ -226,14 +227,28 @@ function transformAttributes(path, results) {
                         value: value.expression
                     });
                 } else {
-                    results.exprs.push(
-                        t.expressionStatement(
-                            setAttr(attribute, elem, key, value.expression)
-                        )
-                    );
+                    if (
+                        !t.isStringLiteral(value.expression) &&
+                        !t.isBooleanLiteral(value.expression) &&
+                        !t.isNumericLiteral(value.expression)
+                    ) {
+                        results.exprs.push(
+                            t.expressionStatement(
+                                setAttr(attribute, elem, key, value.expression)
+                            )
+                        );
+                    }
                 }
             } else {
-                if (!t.isStringLiteral(value)) {
+                if (value === null) {
+                    return
+                }
+                if (
+                    (!t.isStringLiteral(value) &&
+                        !t.isNumericLiteral(value) &&
+                        !t.isBooleanLiteral(value)) ||
+                    CustomProperties.includes(key)
+                ) {
                     results.exprs.push(
                         t.expressionStatement(
                             setAttr(attribute, elem, key, value)

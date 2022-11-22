@@ -47,6 +47,9 @@ export const {
             id || '',
             _props
         );
+        if (snippet) {
+            el.BLoadLayoutSnippet(snippet);
+        }
         if (vars) {
             setDialogVariables(el, vars, {});
         }
@@ -59,9 +62,6 @@ export const {
             } else {
                 (el as LabelPanel).text = text;
             }
-        }
-        if (snippet) {
-            el.BLoadLayoutSnippet(snippet);
         }
         return el;
     },

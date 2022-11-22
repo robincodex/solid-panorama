@@ -1,6 +1,7 @@
 import * as t from '@babel/types';
 import { addNamed } from '@babel/helper-module-imports';
 import panorama_elements from '../panorama_elements';
+import { NodePath } from '@babel/core';
 
 export const reservedNameSpaces = new Set([
     'class',
@@ -424,4 +425,28 @@ export function canNativeSpread(key, { checkNameSpaces } = {}) {
     // TODO: figure out how to detect definitely function ref
     if (key === 'ref') return false;
     return true;
+}
+
+/**
+ * @param {NodePath} path
+ * @param {import('@babel/types').Identifier} identifier
+ */
+export function identifierIsFunction(path, identifier) {
+    const binding = path.scope.getBinding(identifier.name);
+    if (!binding) {
+        return false;
+    }
+    if (binding.path.isFunctionDeclaration()) {
+        return true;
+    }
+    if (binding.path.isVariableDeclarator()) {
+        const init = binding.path.node.init;
+        if (init) {
+            return (
+                t.isArrowFunctionExpression(init) ||
+                t.isFunctionExpression(init)
+            );
+        }
+    }
+    return false;
 }

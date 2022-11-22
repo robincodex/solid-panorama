@@ -140,15 +140,3 @@ Some adjustments have been made for Label, `vars` and `dialogVariables` will be 
 ```jsx
 <Label vars={{ name: 'X.X' }} text="#name_of_x" />
 ```
-
-### draggable
-
-Call `Panel.SetDraggable(draggable)`
-
-### inputnamespace
-
-Call `Panel.SetInputNamespace(inputnamespace)`
-
-### acceptsfocus
-
-Call `Panel.SetAcceptsFocus(acceptsfocus)`

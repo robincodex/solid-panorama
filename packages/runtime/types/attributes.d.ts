@@ -14,6 +14,8 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
      */
     dialogVariables?: Record<string, string | number | Date>;
 
+    snippet?: string;
+
     id?: string;
     class?: string;
     className?: string;

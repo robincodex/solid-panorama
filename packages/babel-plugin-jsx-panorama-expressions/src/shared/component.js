@@ -7,9 +7,11 @@ import {
     filterChildren,
     trimWhitespace,
     transformCondition,
-    convertJSXIdentifier
+    convertJSXIdentifier,
+    identifierIsFunction
 } from './utils';
 import { transformNode, getCreateTemplate } from './transform';
+import { AllowInitializePropperties, CustomProperties } from '../props';
 
 function convertComponentIdentifier(node) {
     if (t.isJSXIdentifier(node)) {
@@ -362,6 +364,12 @@ export function getElementProps(path) {
                     id = convertJSXIdentifier(node.name),
                     key = id.name;
                 if (hasChildren && key === 'children') return;
+                if (
+                    CustomProperties.includes(key) &&
+                    !AllowInitializePropperties.includes(key)
+                ) {
+                    return;
+                }
                 if (t.isJSXExpressionContainer(value)) {
                     if (key === 'ref') {
                         if (config.generate === 'ssr') return;
@@ -470,31 +478,42 @@ export function getElementProps(path) {
                             checkTags: true
                         })
                     ) {
-                        // let expr =
-                        //     config.wrapConditionals &&
-                        //     config.generate !== 'ssr' &&
-                        //     (t.isLogicalExpression(value.expression) ||
-                        //         t.isConditionalExpression(value.expression))
-                        //         ? transformCondition(
-                        //               attribute.get('value').get('expression'),
-                        //               true
-                        //           )
-                        //         : t.arrowFunctionExpression(
-                        //               [],
-                        //               value.expression
-                        //           );
-                        // runningObject.push(
-                        //     t.objectMethod(
-                        //         'get',
-                        //         id,
-                        //         [],
-                        //         t.blockStatement([
-                        //             t.returnStatement(expr.body)
-                        //         ]),
-                        //         !t.isValidIdentifier(key)
-                        //     )
-                        // );
+                        if (t.isArrowFunctionExpression(value.expression)) {
+                            return;
+                        }
+                        let expr =
+                            config.wrapConditionals &&
+                            config.generate !== 'ssr' &&
+                            (t.isLogicalExpression(value.expression) ||
+                                t.isConditionalExpression(value.expression))
+                                ? transformCondition(
+                                      attribute.get('value').get('expression'),
+                                      true
+                                  )
+                                : t.arrowFunctionExpression(
+                                      [],
+                                      value.expression
+                                  );
+                        runningObject.push(
+                            t.objectMethod(
+                                'get',
+                                id,
+                                [],
+                                t.blockStatement([
+                                    t.returnStatement(expr.body)
+                                ]),
+                                !t.isValidIdentifier(key)
+                            )
+                        );
                     } else {
+                        const isFunction =
+                            t.isArrowFunctionExpression(value.expression) ||
+                            t.isFunctionExpression(value.expression) ||
+                            identifierIsFunction(path, value.expression);
+
+                        if (isFunction) {
+                            return;
+                        }
                         if (key === 'style') {
                             return;
                         } else {

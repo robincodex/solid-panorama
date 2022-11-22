@@ -199,11 +199,90 @@ describe('compile', function () {
             function HelloWorld() {
                 const [ability, setAbility] = createSignal("");
                 return (
-                    <Panel vars={{name: 'robin', ability: ability()}} />
+                    <Panel>
+                        <Panel vars={{name: 'robin'}} />
+                        <Panel vars={{name: 'robin', ability: ability()}} dialogVariables={{}} />
+                    </Panel>
                 );
             }
             
             render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('custom properties: initialize', function () {
+        const result = parseSolid(`
+            import { render } from 'solid-panorama-runtime';
+
+            function App() {
+                let root
+
+                function onDragEnd() {}
+
+                const onDragDrop = () => {}
+
+                const onDragLeave = function() {}
+
+                return (
+                    <Panel 
+                        snippet="Button"
+                        id="RootPanel"
+                        class="root" 
+                        hittest={false} 
+                        ref={root} 
+                        tooltip_text="#addon_game_name"
+                        custom_tooltip="tootip_example"
+                        custom_tooltip_params={{name: 'test'}}
+                        className="root"
+                        classList={{root: false}}
+                        enabled={false}
+                        visible={false}
+                        checked={false}
+                        hittestchildren={false}
+                        acceptsfocus={false}
+                        tabindex={0}
+                        inputnamespace=""
+                        draggable
+
+                        onactivate={() => {}}
+                        onDragStart={() => {}}
+                        onDragEnd={onDragEnd}
+                        onDragDrop={onDragDrop}
+                        onDragEnter={function() {}}
+                        onDragLeave={onDragLeave}
+                        >
+                    </Panel>
+                );
+            }
+            
+            render(() => <App />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
+    test('custom properties: dynamic', function () {
+        const result = parseSolid(`
+            import { render } from 'solid-panorama-runtime';
+
+            function App() {
+                let [enabled] = createSignal(false);
+                let [myStyle] = createSignal('');
+
+                return (
+                    <Panel
+                        class={myStyle()}
+                        className={myStyle()}
+                        hittest={enabled()}
+                        enabled={enabled()}
+                        visible={enabled()}
+                        checked={enabled()}
+                        >
+                    </Panel>
+                );
+            }
+            
+            render(() => <App />, $('#app'));
         `);
         expect(result).toMatchSnapshot();
     });

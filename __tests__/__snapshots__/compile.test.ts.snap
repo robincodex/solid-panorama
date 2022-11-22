@@ -1,5 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`compile custom properties: dynamic 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function App() {
+  let [enabled] = createSignal(false);
+  let [myStyle] = createSignal('');
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {
+      get ["class"]() {
+        return myStyle();
+      },
+      get hittest() {
+        return enabled();
+      }
+    }, null);
+    (0, _solidPanoramaRuntime.effect)(_p$ => {
+      const _v$ = myStyle(),
+        _v$2 = myStyle(),
+        _v$3 = enabled(),
+        _v$4 = enabled(),
+        _v$5 = enabled(),
+        _v$6 = enabled();
+      _v$ !== _p$._v$ && (_p$._v$ = (0, _solidPanoramaRuntime.setProp)(_el$, "class", _v$, _p$._v$));
+      _v$2 !== _p$._v$2 && (_p$._v$2 = (0, _solidPanoramaRuntime.setProp)(_el$, "className", _v$2, _p$._v$2));
+      _v$3 !== _p$._v$3 && (_p$._v$3 = (0, _solidPanoramaRuntime.setProp)(_el$, "hittest", _v$3, _p$._v$3));
+      _v$4 !== _p$._v$4 && (_p$._v$4 = (0, _solidPanoramaRuntime.setProp)(_el$, "enabled", _v$4, _p$._v$4));
+      _v$5 !== _p$._v$5 && (_p$._v$5 = (0, _solidPanoramaRuntime.setProp)(_el$, "visible", _v$5, _p$._v$5));
+      _v$6 !== _p$._v$6 && (_p$._v$6 = (0, _solidPanoramaRuntime.setProp)(_el$, "checked", _v$6, _p$._v$6));
+      return _p$;
+    }, {
+      _v$: undefined,
+      _v$2: undefined,
+      _v$3: undefined,
+      _v$4: undefined,
+      _v$5: undefined,
+      _v$6: undefined
+    });
+    return _el$;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
+`;
+
+exports[`compile custom properties: initialize 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function App() {
+  let root;
+  function onDragEnd() {}
+  const onDragDrop = () => {};
+  const onDragLeave = function () {};
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {
+      snippet: "Button",
+      id: "RootPanel",
+      "class": "root",
+      hittest: false,
+      hittestchildren: false,
+      acceptsfocus: false,
+      tabindex: 0,
+      inputnamespace: "",
+      draggable: true
+    }, null);
+    const _ref$ = root;
+    typeof _ref$ === "function" ? (0, _solidPanoramaRuntime.use)(_ref$, _el$) : root = _el$;
+    (0, _solidPanoramaRuntime.setProp)(_el$, "tooltip_text", "#addon_game_name");
+    (0, _solidPanoramaRuntime.setProp)(_el$, "custom_tooltip", "tootip_example");
+    (0, _solidPanoramaRuntime.setProp)(_el$, "custom_tooltip_params", {
+      name: 'test'
+    });
+    (0, _solidPanoramaRuntime.setProp)(_el$, "className", "root");
+    (0, _solidPanoramaRuntime.setProp)(_el$, "classList", {
+      root: false
+    });
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onactivate", () => {});
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onDragStart", () => {});
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onDragEnd", onDragEnd);
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onDragDrop", onDragDrop);
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onDragEnter", function () {});
+    (0, _solidPanoramaRuntime.setProp)(_el$, "onDragLeave", onDragLeave);
+    return _el$;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
+`;
+
 exports[`compile transform: dynamic 1`] = `
 ""use strict";
 
@@ -54,9 +142,7 @@ const App = () => {
   }
   return (() => {
     const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
-      _el$2 = (0, _solidPanoramaRuntime.createElement)("Button", {
-        onClick: click
-      }, _el$);
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$);
     (0, _solidPanoramaRuntime.insert)(_el$, (0, _solidPanoramaRuntime.createComponent)(_solidPanoramaRuntime.For, {
       get each() {
         return list();
@@ -104,16 +190,13 @@ function Item(props) {
       _el$2 = (0, _solidPanoramaRuntime.createElement)("Label", {
         text: "Testing"
       }, _el$),
-      _el$3 = (0, _solidPanoramaRuntime.createElement)("Panel", {
-        className: "buttons"
-      }, _el$),
+      _el$3 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, _el$),
       _el$4 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$3),
-      _el$5 = (0, _solidPanoramaRuntime.createElement)("Button", {
-        visible: visible
-      }, _el$3),
+      _el$5 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$3),
       _el$6 = (0, _solidPanoramaRuntime.createElement)("Button", {}, _el$3);
     const _ref$ = root;
     typeof _ref$ === "function" ? (0, _solidPanoramaRuntime.use)(_ref$, _el$) : root = _el$;
+    (0, _solidPanoramaRuntime.setProp)(_el$3, "className", "buttons");
     (0, _solidPanoramaRuntime.use)(a => btnA = a, _el$4);
     (0, _solidPanoramaRuntime.setProp)(_el$5, "visible", visible);
     (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "className", rootStyle().join(' '), _$p));
@@ -168,7 +251,11 @@ exports[`compile transform: style 1`] = `
 var _solidPanoramaRuntime = require("solid-panorama-runtime");
 function Item(props) {
   return (() => {
-    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null);
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {
+      get ["class"]() {
+        return props.style;
+      }
+    }, null);
     (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "class", props.style, _$p));
     return _el$;
   })();
@@ -225,8 +312,26 @@ var _solidPanoramaRuntime = require("solid-panorama-runtime");
 function HelloWorld() {
   const [ability, setAbility] = createSignal("");
   return (() => {
-    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null);
-    (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$, "vars", {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Panel", {
+        vars: {
+          name: 'robin'
+        }
+      }, _el$),
+      _el$3 = (0, _solidPanoramaRuntime.createElement)("Panel", {
+        get vars() {
+          return {
+            name: 'robin',
+            ability: ability()
+          };
+        },
+        dialogVariables: {}
+      }, _el$);
+    (0, _solidPanoramaRuntime.setProp)(_el$2, "vars", {
+      name: 'robin'
+    });
+    (0, _solidPanoramaRuntime.setProp)(_el$3, "dialogVariables", {});
+    (0, _solidPanoramaRuntime.effect)(_$p => (0, _solidPanoramaRuntime.setProp)(_el$3, "vars", {
       name: 'robin',
       ability: ability()
     }, _$p));

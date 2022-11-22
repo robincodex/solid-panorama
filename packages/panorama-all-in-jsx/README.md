@@ -8,7 +8,7 @@
 
 xml 是基于 jsx 实现的，将 jsx 转换成 xml，属性的值仅支持字符串、数字、布尔值这三种常量，不支持调用函数或者引用其它声明的变量等。
 
-如代码所示，`hittest={false}`会转换为`hittest="false"`，`tab-index={0}`会转换为`tab-index="0"`，
+如代码所示，`hittest={false}`会转换为`hittest="false"`，`tabindex={0}`会转换为`tabindex="0"`，
 
 你需要把这部分当作一个 xml 文件去写。
 
@@ -24,7 +24,7 @@ xml(
         <scripts>
             <include src="file://{resources}/scripts/custom_game/hud_main.js" />
         </scripts>
-        <Panel hittest={false} tab-index={0}>
+        <Panel hittest={false} tabindex={0}>
             <Panel id="app" />
         </Panel>
     </root>
