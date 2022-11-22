@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-jsx-panorama-expressions",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "Modify from ryansolid/dom-expressions",
     "engines": {
         "node": ">=16.0.0"
@@ -15,10 +15,10 @@
         "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
     },
     "dependencies": {
-        "@babel/helper-module-imports": "7.16.0",
-        "@babel/plugin-syntax-jsx": "^7.16.5",
-        "@babel/types": "^7.16.0",
-        "html-entities": "2.3.2"
+        "@babel/helper-module-imports": "^7.18.6",
+        "@babel/plugin-syntax-jsx": "^7.18.6",
+        "@babel/types": "^7.20.2",
+        "html-entities": "^2.3.3"
     },
     "peerDependencies": {
         "@babel/core": "^7.0.0"
