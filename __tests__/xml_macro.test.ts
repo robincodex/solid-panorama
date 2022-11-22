@@ -22,7 +22,7 @@ describe('xml_macro', function () {
                     <scripts>
                         <include src="file://{resources}/scripts/custom_game/hud_main.js"/>
                     </scripts>
-                    <Panel>
+                    <Panel hittest={false} tab-index={0}>
                         <Panel id="app" />
                     </Panel>
                 </root>

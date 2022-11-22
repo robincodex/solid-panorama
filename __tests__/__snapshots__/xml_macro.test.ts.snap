@@ -15,7 +15,7 @@ exports[`xml_macro convert jsx to xml 2`] = `
   <scripts>
     <include src="file://{resources}/scripts/custom_game/hud_main.js"/>
   </scripts>
-  <Panel>
+  <Panel hittest="false" tab-index="0">
     <Panel id="app"/>
   </Panel>
 </root>"
@@ -62,7 +62,10 @@ exports[`xml_macro convert jsx to xml 3`] = `
         "type": "element",
       },
       {
-        "attributes": {},
+        "attributes": {
+          "hittest": "false",
+          "tab-index": "0",
+        },
         "elements": [
           {
             "attributes": {
