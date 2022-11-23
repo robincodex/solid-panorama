@@ -1,0 +1,17 @@
+name: Publish solid-panorama-polyfill
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+      - run: yarn build:polyfill
+      - run: cp packages/panorama-polyfill/README.md dist/solid-panorama-polyfill/
+      - run: yarn publish dist/solid-panorama-polyfill --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

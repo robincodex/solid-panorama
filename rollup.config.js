@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import json from '@rollup/plugin-json';
 import p from './package.json';
+import { terser } from 'rollup-plugin-terser';
 
 const external = Object.keys(p.dependencies);
 const compilerOptions = require('./tsconfig.json').compilerOptions;
@@ -44,7 +45,7 @@ const jsxConfig = {
         dir: 'dist/babel-plugin-jsx-panorama-expressions',
         format: 'cjs',
         exports: 'auto',
-        interop: "esModule"
+        interop: 'esModule'
     },
     plugins: [
         commonjs(),
@@ -100,12 +101,53 @@ const macroConfig = {
     ]
 };
 
+const polyfillConfig = {
+    output: {
+        dir: 'dist/solid-panorama-polyfill',
+        sourcemap: false,
+        format: 'iife',
+        exports: 'named'
+    },
+    plugins: [
+        json(),
+        rollupTypescript({
+            include: './packages/panorama-polyfill/**/*.ts',
+            exclude: ['**/types/console.d.ts', '**/types/timers.d.ts'],
+            compilerOptions:
+                require('./packages/panorama-polyfill/tsconfig.json')
+                    .compilerOptions
+        }),
+        commonjs({ extensions: ['.js', '.ts'] }),
+        nodeResolve({
+            moduleDirectories: ['node_modules', 'packages']
+        }),
+        copy({
+            targets: [
+                {
+                    src: 'packages/panorama-polyfill/types/*.d.ts',
+                    dest: 'dist/solid-panorama-polyfill'
+                }
+            ]
+        }),
+        terser()
+    ]
+};
+
 if (process.env['OnlyBuildRuntime']) {
     module.exports = runtimeConfig;
 } else if (process.env['OnlyBuildJSX']) {
     module.exports = jsxConfig;
 } else if (process.env['OnlyBuildMacros']) {
     module.exports = macroConfig;
+} else if (process.env['OnlyBuildPolyfill']) {
+    module.exports = [
+        Object.assign({}, polyfillConfig, {
+            input: './packages/panorama-polyfill/src/timers.ts'
+        }),
+        Object.assign({}, polyfillConfig, {
+            input: './packages/panorama-polyfill/src/console.ts'
+        })
+    ];
 } else {
     module.exports = [runtimeConfig, jsxConfig, macroConfig];
 }

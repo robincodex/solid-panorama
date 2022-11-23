@@ -1,0 +1,16 @@
+{
+    "include": ["**/*.ts"],
+    "exclude": ["**/types/console.d.ts", "**/types/timers.d.ts"],
+    "compilerOptions": {
+        "rootDir": ".",
+        "removeComments": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "strict": true,
+        "types": ["@moddota/panorama-types"],
+        "target": "ES2017",
+        "lib": ["ES2017"]
+    }
+}

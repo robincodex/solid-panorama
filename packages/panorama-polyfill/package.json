@@ -1,0 +1,17 @@
+{
+    "name": "solid-panorama-polyfill",
+    "version": "0.1.0",
+    "description": "",
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "engineStrict": true,
+    "main": "index.js",
+    "license": "MIT",
+    "author": "RobinCode",
+    "homepage": "https://github.com/RobinCodeX/solid-panorama",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
+    }
+}
