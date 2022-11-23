@@ -5,8 +5,8 @@ import copy from 'rollup-plugin-copy';
 import json from '@rollup/plugin-json';
 import p from './package.json';
 
-const external = Object.keys(p.dependencies)
-const compilerOptions = require('./tsconfig.json').compilerOptions
+const external = Object.keys(p.dependencies);
+const compilerOptions = require('./tsconfig.json').compilerOptions;
 
 const runtimeConfig = {
     input: 'packages/runtime/src/index.ts',
@@ -43,9 +43,11 @@ const jsxConfig = {
     output: {
         dir: 'dist/babel-plugin-jsx-panorama-expressions',
         format: 'cjs',
-        exports: 'auto'
+        exports: 'auto',
+        interop: "esModule"
     },
     plugins: [
+        commonjs(),
         nodeResolve({
             moduleDirectories: ['node_modules', 'packages']
         }),
@@ -73,7 +75,7 @@ const macroConfig = {
         dir: 'dist/panorama-all-in-jsx',
         sourcemap: false,
         format: 'cjs',
-        exports: 'auto'
+        exports: 'named'
     },
     external,
     plugins: [
@@ -92,7 +94,7 @@ const macroConfig = {
                 {
                     src: 'packages/panorama-all-in-jsx/package.json',
                     dest: 'dist/panorama-all-in-jsx'
-                },
+                }
             ]
         })
     ]

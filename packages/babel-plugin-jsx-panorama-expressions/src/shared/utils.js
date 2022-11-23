@@ -1,7 +1,6 @@
 import * as t from '@babel/types';
 import { addNamed } from '@babel/helper-module-imports';
 import panorama_elements from '../panorama_elements';
-import { NodePath } from '@babel/core';
 
 export const reservedNameSpaces = new Set([
     'class',
@@ -428,7 +427,7 @@ export function canNativeSpread(key, { checkNameSpaces } = {}) {
 }
 
 /**
- * @param {NodePath} path
+ * @param {import('@babel/core').NodePath} path
  * @param {import('@babel/types').Identifier} identifier
  */
 export function identifierIsFunction(path, identifier) {
