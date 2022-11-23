@@ -126,6 +126,10 @@ const polyfillConfig = {
                 {
                     src: 'packages/panorama-polyfill/types/*.d.ts',
                     dest: 'dist/solid-panorama-polyfill'
+                },
+                {
+                    src: 'packages/panorama-polyfill/package.json',
+                    dest: 'dist/solid-panorama-polyfill'
                 }
             ]
         }),
