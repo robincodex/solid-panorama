@@ -65,7 +65,7 @@ await bundlePanoramaPolyfill({
 
 ```js
 (function () {
-    const global: typeof globalThis = new Function('return this')();
+    const global = new Function('return this')();
     global.myTimer = function () {};
 })();
 ```

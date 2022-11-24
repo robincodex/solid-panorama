@@ -5,6 +5,7 @@ import copy from 'rollup-plugin-copy';
 import json from '@rollup/plugin-json';
 import p from './package.json';
 import { terser } from 'rollup-plugin-terser';
+import replace from '@rollup/plugin-replace';
 
 const external = Object.keys(p.dependencies);
 const compilerOptions = require('./tsconfig.json').compilerOptions;
@@ -109,6 +110,16 @@ const polyfillConfig = {
         exports: 'named'
     },
     plugins: [
+        replace({
+            preventAssignment: true,
+            'process.env.NODE_ENV': JSON.stringify('production'),
+            [`typeof process !== 'undefined' && process.noDeprecation === true`]: false,
+            'process.env.NODE_DEBUG': false,
+            'process.throwDeprecation': false,
+            'process.traceDeprecation': false,
+            'process.pid': -1
+            // 'process.env.NODE_ENV': JSON.stringify('development'),
+        }),
         json(),
         rollupTypescript({
             include: './packages/panorama-polyfill/**/*.ts',
