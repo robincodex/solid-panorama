@@ -48,3 +48,24 @@ async function run() {
     </scripts>
 </root>
 ```
+
+## 自定义
+
+如果你有自己的需求，可以通过`merges`选项合并代码到`output`。
+
+```js
+await bundlePanoramaPolyfill({
+    output: '<your addon content path>/panorama/scripts/custom_game/panorama-polyfill.js',
+    using: { console: true, timers: false },
+    merges: ['./my-polyfill/timers.js']
+});
+```
+
+建议将代码用 function 包裹：
+
+```js
+(function () {
+    const global: typeof globalThis = new Function('return this')();
+    global.myTimer = function () {};
+})();
+```
