@@ -137,6 +137,23 @@ const polyfillConfig = {
     ]
 };
 
+const polyfillIndexConfig = {
+    input: 'packages/panorama-polyfill/src/index.js',
+    external,
+    output: {
+        dir: 'dist/solid-panorama-polyfill',
+        format: 'cjs',
+        exports: 'auto',
+        interop: 'esModule'
+    },
+    plugins: [
+        commonjs(),
+        nodeResolve({
+            moduleDirectories: ['node_modules', 'packages']
+        })
+    ]
+};
+
 if (process.env['OnlyBuildRuntime']) {
     module.exports = runtimeConfig;
 } else if (process.env['OnlyBuildJSX']) {
@@ -145,6 +162,7 @@ if (process.env['OnlyBuildRuntime']) {
     module.exports = macroConfig;
 } else if (process.env['OnlyBuildPolyfill']) {
     module.exports = [
+        polyfillIndexConfig,
         Object.assign({}, polyfillConfig, {
             input: './packages/panorama-polyfill/src/timers.ts'
         }),
