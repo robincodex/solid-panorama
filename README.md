@@ -61,6 +61,11 @@ render(() => <HelloWorld />, $('#app'));
 
 Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/react-panorama), some of the code for this project was copied from react-panorama and adapted.
 
+## Optional Features
+
+-   If you want to use web functions such as `console.log` or `setTimeout`, you can refer to [solid-panorama-polyfill](./packages/panorama-polyfill/), or use [panorama-polyfill](https://github.com/ark120202/panorama-polyfill).
+-   If you want to write xml or css inside jsx/tsx, you can refer to [solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/).
+
 ## style
 
 The style is compatible. If the style is a string, an error will pop up if the semicolon is not written at the end of the style. Therefore, the semicolon will be automatically added to the parsing during compilation.
@@ -121,11 +126,21 @@ For example, the following is the correct way to write it:
 </Panel>
 ```
 
-# Custom Attribite
+## Custom Attribites
 
 ### snippet
 
-Specially properties for panorama, automatically loaded snippet，`<Panel snippet="MyBtton" />`
+Type: `string`
+
+Auto load snippet
+
+```jsx
+<Panel snippet="MyBtton" />
+```
+
+### vars 和 dialogVariables
+
+Type: `Record<string, string | number | Date>`
 
 ### vars and dialogVariables
 
@@ -138,5 +153,57 @@ Both are the same, `dialogVariables` is for compatibility [ark120202/react-panor
 Some adjustments have been made for Label, `vars` and `dialogVariables` will be written first and after set to `Label.text`, if the text starts with `#` it will call `$.Localize(text, Label)`
 
 ```jsx
-<Label vars={{ name: 'X.X' }} text="#name_of_x" />
+<Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
+```
+
+### tooltip_text
+
+Type: `string`
+
+Auto setting `onmouseover="DOTAShowTextTooltip(<token>)"`和`onmouseout="DOTAHideTextTooltip()"`
+
+> Note: Cannot coexist with onmouseover and onmouseout events
+
+```jsx
+<Panel tooltip_text="#addon_game_name" />
+```
+
+### custom_tooltip
+
+Type: `[string, string]`
+
+`[<tooltip name>, <xml file path>]`
+
+Auto setting `onmouseover="UIShowCustomLayoutParametersTooltip()"`和`onmouseout="UIHideCustomLayoutTooltip()"`
+
+> Note: Cannot coexist with onmouseover and onmouseout events
+
+```jsx
+<Panel custom_tooltip={['Item', 'file://{resources}/layout/custom_game/tooltip_example.xml']} custom_tooltip_params={{ name: 'item_xxx' }} />
+// OR
+<Panel custom_tooltip={['Item', 'tooltip_example']} custom_tooltip_params={{ name: 'item_xxx' }} />
+```
+
+### custom_tooltip_params
+
+Type: `Record<string, string | number>`
+
+### Drag events
+
+```ts
+onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
+onDragEnd?: (source: Panel, draggedPanel: Panel) => void;
+onDragEnter?: (source: Panel, draggedPanel: Panel) => void;
+onDragDrop?: (source: Panel, draggedPanel: Panel) => void;
+onDragLeave?: (source: Panel, draggedPanel: Panel) => void;
+```
+
+If listen `onDragStart`, `SetDraggable(true)` will be called automatically, so the `draggable` property can be ignored.
+
+```tsx
+function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
+    // ...
+}
+
+<Panel onDragStart={onItemDragStart} />;
 ```

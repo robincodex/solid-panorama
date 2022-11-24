@@ -58,6 +58,11 @@ render(() => <HelloWorld />, $('#app'));
 
 Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/react-panorama), some of the code for this project was copied from react-panorama and adapted.
 
+## 可选功能
+
+-   如果你想使用`console.log`或者`setTimeout`等 Web 函数，可以参考[solid-panorama-polyfill](./packages/panorama-polyfill/)，或者使用[panorama-polyfill](https://github.com/ark120202/panorama-polyfill)
+-   如果你想把 xml 或 css 放在 jsx/tsx 里面，可以参考[solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/)。
+
 ## style
 
 对 style 进行了兼容，如果 style 是字符串，在 PUI 里 style 末尾不写分号会弹出错误，所以在编译时会解析自动加上分号。
@@ -124,7 +129,7 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 
 类型：`string`
 
-专门给 PUI 定制的属性，自动载入 snippet
+自动载入 snippet
 
 ```jsx
 <Panel snippet="MyBtton" />
