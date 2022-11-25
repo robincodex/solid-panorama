@@ -197,22 +197,19 @@ export const {
     }
 });
 
-const renderPanoramaSymbol = Symbol('render');
-
 declare global {
     interface Panel {
-        __renderPanoramaSymbol: Symbol;
+        __renderPanorama: boolean;
     }
 }
 
 export function render(code: () => Panel, container: Panel) {
-    if (container.__renderPanoramaSymbol) {
-        if (container.__renderPanoramaSymbol === renderPanoramaSymbol) {
-            $.Msg('render() can only be called once');
-            return;
-        }
-        container.__renderPanoramaSymbol = renderPanoramaSymbol;
+    if (container.__renderPanorama) {
         container.RemoveAndDeleteChildren();
+    } else {
+        Object.defineProperty(container, '__renderPanorama', {
+            value: true
+        });
     }
     return _render(code, container);
 }
