@@ -1,6 +1,6 @@
 {
     "name": "solid-panorama-runtime",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Solid.js runtime for Valve's Panorama UI (for Dota 2 Custom Games).",
     "engines": {
         "node": ">=16.0.0"
