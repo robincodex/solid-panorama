@@ -199,19 +199,20 @@ export const {
 
 declare global {
     interface Panel {
-        __renderPanorama: boolean;
+        __renderPanorama?: () => void;
     }
 }
 
 export function render(code: () => Panel, container: Panel) {
     if (container.__renderPanorama) {
+        container.__renderPanorama();
         container.RemoveAndDeleteChildren();
-    } else {
-        Object.defineProperty(container, '__renderPanorama', {
-            value: true
-        });
     }
-    return _render(code, container);
+    Object.defineProperty(container, '__renderPanorama', {
+        configurable: true,
+        value: _render(code, container)
+    });
+    return container.__renderPanorama;
 }
 
 const splitClassName = /\s+/;
