@@ -35,6 +35,7 @@ function useGameEvent(
         if (!buildGameEvent) {
             continue;
         }
+        let deps: any;
         babel.traverse(buildGameEvent, {
             enter(eventPath) {
                 if (eventPath.isCallExpression()) {
@@ -47,7 +48,8 @@ function useGameEvent(
                             eventPath.node.callee.property.name === 'Subscribe'
                         ) {
                             eventPath.node.arguments =
-                                parentPath.node.arguments;
+                                parentPath.node.arguments.slice(0, 2);
+                            deps = parentPath.node.arguments[2];
                         }
                     } else if (
                         t.isIdentifier(eventPath.node.callee) &&
@@ -62,6 +64,16 @@ function useGameEvent(
                 }
             }
         });
-        parentPath.replaceWith(buildGameEvent.program.body[0]);
+
+        const body = buildGameEvent.program.body[0];
+        if (
+            t.isExpressionStatement(body) &&
+            t.isCallExpression(body.expression)
+        ) {
+            if (deps) {
+                body.expression.arguments.push(deps);
+            }
+            parentPath.replaceWith(body.expression);
+        }
     }
 }

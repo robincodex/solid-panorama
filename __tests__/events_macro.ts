@@ -11,7 +11,7 @@ describe('events_macro', function () {
                 let [enabled] = createSignal(false);
                 useGameEvent("custom_event", (data) => {
                     console.log(enabled())
-                })
+                }, enabled())
             }
 
             function App() {
