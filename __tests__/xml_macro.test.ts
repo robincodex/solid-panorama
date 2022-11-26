@@ -4,14 +4,14 @@ import {
     formatXML,
     getAllCacheXML,
     getXML
-} from '../packages/panorama-all-in-jsx/xml.macro';
+} from '../packages/panorama-all-in-jsx/src/xml.macro';
 import path from 'path';
 
 describe('xml_macro', function () {
     test('convert jsx to xml', function () {
         const result = parseMacros(
             `
-            import xml from '../packages/panorama-all-in-jsx/xml.macro';
+            import xml from '../packages/panorama-all-in-jsx/src/xml.macro';
             
             xml(
                 <root>

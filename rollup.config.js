@@ -19,7 +19,9 @@ const runtimeConfig = {
     },
     external,
     plugins: [
-        rollupTypescript(compilerOptions),
+        rollupTypescript({
+            include: /packages\/runtime\/src\/.*\.ts/,
+            compilerOptions}),
         commonjs({ extensions: ['.js', '.ts'] }),
         nodeResolve({
             moduleDirectories: ['node_modules', 'packages']
@@ -70,9 +72,9 @@ const jsxConfig = {
 
 const macroConfig = {
     input: [
-        'packages/panorama-all-in-jsx/xml.macro.ts',
-        'packages/panorama-all-in-jsx/css.macro.ts',
-        'packages/panorama-all-in-jsx/events.macro.ts'
+        'packages/panorama-all-in-jsx/src/xml.macro.ts',
+        'packages/panorama-all-in-jsx/src/css.macro.ts',
+        'packages/panorama-all-in-jsx/src/events.macro.ts'
     ],
     output: {
         dir: 'dist/panorama-all-in-jsx',
@@ -83,7 +85,10 @@ const macroConfig = {
     external,
     plugins: [
         json(),
-        rollupTypescript(compilerOptions),
+        rollupTypescript({
+            include: /packages\/panorama-all-in-jsx\/.*\.ts/,
+            compilerOptions
+        }),
         commonjs({ extensions: ['.js', '.ts'] }),
         nodeResolve({
             moduleDirectories: ['node_modules', 'packages']
@@ -123,8 +128,7 @@ const polyfillConfig = {
         }),
         json(),
         rollupTypescript({
-            include: './packages/panorama-polyfill/**/*.ts',
-            exclude: ['**/types/console.d.ts', '**/types/timers.d.ts'],
+            include: /packages\/panorama-polyfill\/src\/.*\.ts/,
             compilerOptions:
                 require('./packages/panorama-polyfill/tsconfig.json')
                     .compilerOptions

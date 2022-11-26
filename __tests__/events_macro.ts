@@ -1,12 +1,11 @@
 import { parseMacros } from './utils';
 import { describe, expect, test } from '@jest/globals';
-import path from 'path';
 
 describe('events_macro', function () {
     test('useGameEvent', function () {
         const result = parseMacros(
             `
-            import { useGameEvent } from '../packages/panorama-all-in-jsx/events.macro';
+            import { useGameEvent } from '../packages/panorama-all-in-jsx/src/events.macro';
 
             function Item() {
                 let [enabled] = createSignal(false);

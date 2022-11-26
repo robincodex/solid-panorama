@@ -19,8 +19,6 @@ export {
     ErrorBoundary
 } from 'solid-js';
 
-export { useGameEvent } from './event';
-
 const hasOwn = Object.prototype.hasOwnProperty;
 
 export const {

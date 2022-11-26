@@ -31,11 +31,6 @@ function useGameEvent(
         if (!parentPath?.isCallExpression()) {
             continue;
         }
-        // path.replaceWith(
-        //     registerImportMethod(path, 'createEffect', 'solid-js')
-        // );
-        // t.callExpression(t.identifier("GameEvents.Subscribe"))
-        // path.replaceWith(t.identifier('GameEvents.Subscribe'));
         const buildGameEvent = babel.parse(buildGameEventCode);
         if (!buildGameEvent) {
             continue;

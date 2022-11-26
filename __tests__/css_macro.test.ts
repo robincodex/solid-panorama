@@ -3,14 +3,14 @@ import { describe, expect, test } from '@jest/globals';
 import {
     getAllCacheCSS,
     getCSS
-} from '../packages/panorama-all-in-jsx/css.macro';
+} from '../packages/panorama-all-in-jsx/src/css.macro';
 import path from 'path';
 
 describe('css_macro', function () {
     test('pick css', function () {
         const result = parseMacros(
             `
-            import css from '../packages/panorama-all-in-jsx/css.macro';
+            import css from '../packages/panorama-all-in-jsx/src/css.macro';
             import { CommonButtonStyle } from './css_a';
             
             const ButtonStyle = css\`
