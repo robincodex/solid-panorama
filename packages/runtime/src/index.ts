@@ -21,6 +21,17 @@ export {
 
 const hasOwn = Object.prototype.hasOwnProperty;
 
+/** The deleted node will be moved to trash and then delete it */
+const nodeTrash = (function () {
+    let root = $.GetContextPanel();
+    while (root.GetParent()) {
+        root = root.GetParent()!;
+    }
+    return $.CreatePanelWithProperties('Panel', root, '', {
+        style: 'visibility: collapse;'
+    });
+})();
+
 export const {
     render: _render,
     effect,
@@ -113,6 +124,7 @@ export const {
         if (!parent || !parent.IsValid() || !node || !node.IsValid()) {
             return;
         }
+        node.SetParent(nodeTrash);
         node.DeleteAsync(0);
     },
 
