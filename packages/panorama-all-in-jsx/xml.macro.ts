@@ -1,4 +1,3 @@
-// @ts-check
 import { createMacro } from 'babel-plugin-macros';
 import * as t from '@babel/types';
 import xmljs from 'xml-js';

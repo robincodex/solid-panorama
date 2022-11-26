@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`events_macro useGameEvent 1`] = `
+""use strict";
+
+var _solidJs = require("solid-js");
+function Item() {
+  let [enabled] = createSignal(false);
+  (0, _solidJs.createEffect)(() => {
+    const id = GameEvents.Subscribe("custom_event", data => {
+      console.log(enabled());
+    });
+    return () => {
+      GameEvents.Unsubscribe(id);
+    };
+  });
+}
+function App() {
+  (0, _solidJs.createEffect)(() => {
+    const id = GameEvents.Subscribe("custom_event", data => {
+      console.log(data);
+    });
+    return () => {
+      GameEvents.Unsubscribe(id);
+    };
+  });
+}"
+`;
