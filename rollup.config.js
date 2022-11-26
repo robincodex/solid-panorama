@@ -71,7 +71,8 @@ const jsxConfig = {
 const macroConfig = {
     input: [
         'packages/panorama-all-in-jsx/xml.macro.ts',
-        'packages/panorama-all-in-jsx/css.macro.ts'
+        'packages/panorama-all-in-jsx/css.macro.ts',
+        'packages/panorama-all-in-jsx/events.macro.ts'
     ],
     output: {
         dir: 'dist/panorama-all-in-jsx',
