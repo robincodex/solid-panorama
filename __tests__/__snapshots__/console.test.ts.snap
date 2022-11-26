@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`console format 1`] = `"test: str 123 false test { a: 123 }"`;
+
+exports[`console format 2`] = `"test: 5 5 5 str 123 false test { a: 123 }"`;
+
+exports[`console format 3`] = `"{ x: 1, y: "123", c: "str", d: false, e: undefined, f: null, g: [Function], h: [Function], i: [Function], style: [VCSSStyleDeclaration] }"`;
+
+exports[`console format 4`] = `"{ obj: { x: 1, y: 2, c: [ 123, { b: null } ], style: [VCSSStyleDeclaration] }, ary: [ 1, 2, 3, "A", false, null, [ 4, 56, { g: 1, c: [  ] } ] ] }"`;
+
+exports[`console format 5`] = `
+"{
+    x: 1,
+    y: "123",
+    c: "str",
+    d: false,
+    e: undefined,
+    f: null,
+    g: [Function],
+    h: [Function],
+    i: [Function],
+    style: [VCSSStyleDeclaration],
+    s: Symbol(s),
+    int: [bigint 99999]
+} true"
+`;
+
+exports[`console format 6`] = `
+"{
+    obj: {
+        x: 1,
+        y: 2,
+        style: {
+
+        },
+        c: [
+            123,
+            {
+                b: null,
+                a: [
+                    null
+                ]
+            },
+            [
+                null
+            ]
+        ]
+    },
+    ary: [
+        1,
+        2,
+        3,
+        "A",
+        false,
+        null,
+        [
+            4,
+            56,
+            {
+                g: 1,
+                c: [
+                    {
+                        c: 45
+                    }
+                ]
+            }
+        ]
+    ]
+} true"
+`;

@@ -1,9 +1,48 @@
-import objectInspect from 'object-inspect';
-
 // Based on https://github.com/browserify/node-util/blob/4b1c0c79790d9968eabecd2e9c786454713e200f/util.js#L33
 export function format(value?: unknown, ...substitutions: unknown[]) {
     if (typeof value !== 'string') {
-        return [value, ...substitutions].map(inspect).join(' ');
+        return [value, ...substitutions].map(v => inspect(v)).join(' ');
+    }
+
+    let count = 0;
+    let result = String(value).replace(/%[sdj%]/g, x => {
+        count++;
+        if (x === '%%') return '%';
+        if (substitutions.length === 0) return x;
+
+        switch (x) {
+            case '%s':
+                return String(substitutions.shift());
+
+            case '%d':
+                return String(Number(substitutions.shift()));
+
+            case '%j':
+                try {
+                    return JSON.stringify(substitutions.shift());
+                } catch {
+                    return '[Circular]';
+                }
+
+            default:
+                return x;
+        }
+    });
+
+    for (const x of substitutions) {
+        if (typeof x !== 'object' || x === null) {
+            result += ` ${x}`;
+        } else {
+            result += ` ${inspect(x)}`;
+        }
+    }
+
+    return result;
+}
+
+export function formatx(value?: unknown, ...substitutions: unknown[]) {
+    if (typeof value !== 'string') {
+        return [value, ...substitutions].map(v => inspect(v, true)).join(' ');
     }
 
     let result = String(value).replace(/%[sdj%]/g, x => {
@@ -40,50 +79,62 @@ export function format(value?: unknown, ...substitutions: unknown[]) {
     return result;
 }
 
-const inspect = (value: unknown) =>
-    objectInspect(transformValueForFormat(value));
-
-function transformValueForFormat(originalValue: unknown): any {
-    const visitedValues = new Map();
-
-    return transform(originalValue);
-
-    function transform(value: unknown) {
-        if (visitedValues.has(value)) return visitedValues.get(value);
-
-        const result = rawTransform(value);
-        visitedValues.set(value, result);
-        return result;
+function inspect(value: unknown, expand?: boolean, tab = '') {
+    let result = '';
+    if (typeof value === 'string') {
+        result = `"${value}"`;
+    } else if (typeof value === 'number' || typeof value === 'boolean') {
+        result = `${value}`;
+    } else if (typeof value === 'function') {
+        result = `[Function]`;
+    } else if (typeof value === 'symbol') {
+        result = value.toString();
+    } else if (typeof value === 'undefined') {
+        result = `undefined`;
+    } else if (typeof value === 'bigint') {
+        result = `[bigint ${value.toString()}]`;
+    } else if (typeof value === 'object') {
+        if (value === null) {
+            result = 'null';
+        } else if (Array.isArray(value)) {
+            let list = [];
+            for (const v of value) {
+                list.push(
+                    tab + inspect(v, expand, expand ? tab + '    ' : tab)
+                );
+            }
+            if (expand) {
+                result += '[\n';
+                result += list.map(v => '    ' + v).join(',\n');
+                result += '\n' + tab + ']';
+            } else {
+                result = `[ ${list.join(', ')} ]`;
+            }
+        } else {
+            let list = [];
+            for (const [k, v] of Object.entries(value)) {
+                if (k === 'style' && isPanelBase(v)) {
+                    list.push(`${tab}${k}: [VCSSStyleDeclaration]`);
+                    continue;
+                }
+                list.push(
+                    `${tab}${k}: ${inspect(
+                        v,
+                        expand,
+                        expand ? tab + '    ' : tab
+                    )}`
+                );
+            }
+            if (expand) {
+                result += '{\n';
+                result += list.map(v => '    ' + v).join(',\n');
+                result += '\n' + tab + '}';
+            } else {
+                result = `{ ${list.join(', ')} }`;
+            }
+        }
     }
-
-    function rawTransform(value: unknown): unknown {
-        if (typeof value !== 'object' || value == null) return value;
-        if (value instanceof Date || value instanceof RegExp) return value;
-        if (Array.isArray(value)) return value.map(transform);
-        if (value instanceof Set) return new Set([...value].map(transform));
-        if (value instanceof Map) {
-            return new Map(
-                [...value].map(([k, v]) => [transform(k), transform(v)])
-            );
-        }
-
-        if (isPanelBase(value)) {
-            return {
-                ...value,
-                style: { inspect: () => '[VCSSStyleDeclaration]' }
-            };
-        }
-
-        const newObject: Record<string, any> = {};
-
-        for (const [k, v] of Object.entries(value)) {
-            newObject[k] = transform(v);
-        }
-
-        Object.setPrototypeOf(newObject, Object.getPrototypeOf(value));
-
-        return newObject;
-    }
+    return result;
 }
 
 const isPanelBase = (value: object): value is PanelBase =>

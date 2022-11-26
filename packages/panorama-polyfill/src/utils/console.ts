@@ -1,4 +1,4 @@
-import { format } from './format';
+import { format, formatx } from './format';
 
 function write(text: string) {
     for (const line of text.split('\n')) {
@@ -26,6 +26,10 @@ const warn = error;
 
 function log(...args: any[]) {
     write(format(...args));
+}
+
+function logx(...args: any[]) {
+    write(formatx(...args));
 }
 
 const debug = log;
@@ -114,6 +118,7 @@ function timeStamp() {
 }
 
 export const console = {
+    logx,
     assert,
     warn,
     error,
