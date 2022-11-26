@@ -54,7 +54,7 @@ console.log(getAllCacheXML());
 > 如果你用的 VSCode，建议安装 [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components)，可以高亮 css 部分的代码
 
 ```jsx
-import css from '../packages/solid-panorama-all-in-jsx/css.macro';
+import css from 'solid-panorama-all-in-jsx/css.macro';
 import { OtherButton } from './other_button';
 
 // 局部样式，这种写法会创建一个class id，如 styled-b934b0d3，根据路径和当前的顺序生成
@@ -97,4 +97,38 @@ render(() => <App />, $('#app'));
 ```ts
 function getCSS(filename: string): string | undefined;
 function getAllCacheCSS(): Record<string, string>;
+```
+
+# 事件
+
+## useGameEvent
+
+功能是自动转换为调用 solidjs 的`createEffect`
+
+原本`useGameEvent`是`solid-panorama-runtime`的一部分，在测试中发现如果事件的监听出现跨作用域调用会导致重载时无法自动取消监听，即使传递当前作用域的`GameEvents`到另外一个作用域也是一样，如果是相同作用域在重载时底层会自动清理掉注册的事件，虽然不知道底层如何实现的，但是目前这种做法是比较稳妥的，可以达到良好的重载效果。
+
+```jsx
+import { useGameEvent } from 'solid-panorama-all-in-jsx/events.macro';
+
+function App() {
+    useGameEvent('custom_event', data => {
+        console.log(data);
+    });
+}
+```
+
+将会转化为下面的代码
+
+```js
+var solid = require('solid-js');
+function App() {
+    solid.createEffect(() => {
+        const id = GameEvents.Subscribe('custom_event', data => {
+            console.log(data);
+        });
+        return () => {
+            GameEvents.Unsubscribe(id);
+        };
+    });
+}
 ```
