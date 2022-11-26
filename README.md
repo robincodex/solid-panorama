@@ -65,6 +65,7 @@ Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/r
 
 -   If you want to use web functions such as `console.log` or `setTimeout`, you can refer to [solid-panorama-polyfill](./packages/panorama-polyfill/), or use [panorama-polyfill](https://github.com/ark120202/panorama-polyfill).
 -   If you want to write xml or css inside jsx/tsx, you can refer to [solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/).
+-   If you want to using `useGameEvent`, you can refer to [solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/).
 
 ## style
 
