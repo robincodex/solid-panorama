@@ -139,11 +139,9 @@ Auto load snippet
 <Panel snippet="MyBtton" />
 ```
 
-### vars 和 dialogVariables
+### vars and dialogVariables
 
 Type: `Record<string, string | number | Date>`
-
-### vars and dialogVariables
 
 Both are the same, `dialogVariables` is for compatibility [ark120202/react-panorama](https://github.com/ark120202/react-panorama)
 
