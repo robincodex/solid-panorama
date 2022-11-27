@@ -152,6 +152,17 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 <Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
 ```
 
+### attrs
+
+类型：`Record<string, string | number>`
+
+-   当值为`string`时，调用`SetAttributeString`
+-   当值为`number`时，调用`SetAttributeInt`
+
+```jsx
+<Panel attrs={{ name: 'my name' }} />
+```
+
 ### tooltip_text
 
 类型：`string`

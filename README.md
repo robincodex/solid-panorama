@@ -157,6 +157,17 @@ Some adjustments have been made for Label, `vars` and `dialogVariables` will be 
 <Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
 ```
 
+### attrs
+
+Type: `Record<string, string | number>`
+
+-   When value is `string`, call`SetAttributeString`
+-   When value is `number`, call`SetAttributeInt`
+
+```jsx
+<Panel attrs={{ name: 'my name' }} />
+```
+
 ### tooltip_text
 
 Type: `string`

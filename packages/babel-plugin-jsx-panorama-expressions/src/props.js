@@ -10,12 +10,10 @@ export const CustomProperties = [
     'custom_tooltip_params',
     'className',
     'classList',
-    "enabled",
-    "visible",
-    "checked"
+    'enabled',
+    'visible',
+    'checked',
+    'attrs'
 ];
 
-export const AllowInitializePropperties = [
-    'vars',
-    'dialogVariables',
-]
+export const AllowInitializePropperties = ['vars', 'dialogVariables'];

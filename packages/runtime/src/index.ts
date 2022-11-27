@@ -174,6 +174,8 @@ export const {
             applyStyles(node, value, prev);
         } else if (name === 'vars' || name === 'dialogVariables') {
             setDialogVariables(node, value, prev);
+        } else if (name === 'attrs') {
+            setAttributes(node, value);
         } else if (name === 'inputnamespace') {
             node.SetInputNamespace(value || '');
         } else if (name === 'draggable') {
@@ -316,6 +318,17 @@ function setDialogVariables(
             node.SetDialogVariableInt(key, value);
         } else {
             node.SetDialogVariableTime(key, Math.floor(value.getTime() / 1000));
+        }
+    }
+}
+
+function setAttributes(node: Panel, attrs: Record<string, string | number>) {
+    for (const key in attrs) {
+        const value = attrs[key];
+        if (typeof value === 'number') {
+            node.SetAttributeInt(key, value);
+        } else {
+            node.SetAttributeString(key, value);
         }
     }
 }

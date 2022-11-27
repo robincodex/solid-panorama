@@ -88,6 +88,24 @@ function App() {
 (0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
 `;
 
+exports[`compile transform: attrs 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function HelloWorld() {
+  const [ability, setAbility] = createSignal("");
+  return (() => {
+    const _el$ = (0, _solidPanoramaRuntime.createElement)("Panel", {}, null),
+      _el$2 = (0, _solidPanoramaRuntime.createElement)("Panel", {}, _el$);
+    (0, _solidPanoramaRuntime.setProp)(_el$2, "attrs", {
+      name: 'robin'
+    });
+    return _el$;
+  })();
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(HelloWorld, {}), $('#app'));"
+`;
+
 exports[`compile transform: dynamic 1`] = `
 ""use strict";
 

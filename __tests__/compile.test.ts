@@ -211,6 +211,24 @@ describe('compile', function () {
         expect(result).toMatchSnapshot();
     });
 
+    test('transform: attrs', function () {
+        const result = parseSolid(`
+            import { render } from 'solid-panorama-runtime';
+
+            function HelloWorld() {
+                const [ability, setAbility] = createSignal("");
+                return (
+                    <Panel>
+                        <Panel attrs={{name: 'robin'}} />
+                    </Panel>
+                );
+            }
+            
+            render(() => <HelloWorld />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
+
     test('custom properties: initialize', function () {
         const result = parseSolid(`
             import { render } from 'solid-panorama-runtime';
