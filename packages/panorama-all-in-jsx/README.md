@@ -132,3 +132,81 @@ function App() {
     });
 }
 ```
+
+## useNetTable
+
+```js
+import { useNetTable } from 'solid-panorama-all-in-jsx/events.macro';
+
+function Item() {
+    let [enabled] = createSignal(false);
+    useNetTable(
+        'table_name',
+        (tableName, key, value) => {
+            console.log('Item', tableName, key, value);
+        },
+        enabled()
+    );
+}
+
+function App() {
+    useNetTable('table_name', (tableName, key, value) => {
+        console.log(tableName, key, value);
+    });
+}
+```
+
+将会转化为下面的代码
+
+```js
+var solid = require('solid-js');
+function Item() {
+    let [enabled] = createSignal(false);
+    solid.createEffect(() => {
+        const id = CustomNetTables.SubscribeNetTableListener(
+            'table_name',
+            (tableName, key, value) => {
+                console.log('Item', tableName, key, value);
+            }
+        );
+        return () => {
+            CustomNetTables.UnsubscribeNetTableListener(id);
+        };
+    }, enabled());
+}
+function App() {
+    solid.createEffect(() => {
+        const id = CustomNetTables.SubscribeNetTableListener(
+            'table_name',
+            (tableName, key, value) => {
+                console.log(tableName, key, value);
+            }
+        );
+        return () => {
+            CustomNetTables.UnsubscribeNetTableListener(id);
+        };
+    });
+}
+```
+
+## useNetTableEx
+
+该函数的功能是精确到 key 的变动。
+
+```js
+import { useNetTableEx } from 'solid-panorama-all-in-jsx/events.macro';
+
+const tableKey = 'key';
+
+function Item() {
+    useNetTableEx('table_name', tableKey, v => {
+        console.log('Item', v);
+    });
+}
+
+function App() {
+    useNetTableEx('table_name', 'key', value => {
+        console.log(value);
+    });
+}
+```

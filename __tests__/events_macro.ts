@@ -10,7 +10,7 @@ describe('events_macro', function () {
             function Item() {
                 let [enabled] = createSignal(false);
                 useGameEvent("custom_event", (data) => {
-                    console.log(enabled())
+                    console.log('Item', enabled())
                 }, enabled())
             }
 
@@ -18,6 +18,40 @@ describe('events_macro', function () {
                 useGameEvent("custom_event", (data) => {
                     console.log(data)
                 })
+            }
+        `,
+            __filename
+        );
+        expect(result).toMatchSnapshot();
+    });
+
+    test('useNetTable', function () {
+        const result = parseMacros(
+            `
+            import { useNetTable } from '../packages/panorama-all-in-jsx/src/events.macro';
+
+            function Item() {
+                const A = useNetTable("table_a", "key_of_one");
+                const B = useNetTable("table_b", "key_of_two");
+                const BB = useNetTable("table_b", "key_of_bb");
+            }
+
+            function App() {
+                const one = useNetTable("table_name", "key_of_one");
+                const two = useNetTable("table_name", "key_of_two");
+
+                return <Label text={JSON.stringify(one())} />
+            }
+
+            function Root() {
+                const one = useNetTable("table_name", "key_of_one");
+                const [two, setTwo] = createSignal("");
+
+                return <Label text={JSON.stringify(one())} />
+
+                function test() {
+                    return 0;
+                }
             }
         `,
             __filename

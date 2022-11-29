@@ -8,7 +8,7 @@ function Item() {
   let [enabled] = createSignal(false);
   (0, _solidJs.createEffect)(() => {
     const id = GameEvents.Subscribe("custom_event", data => {
-      console.log(enabled());
+      console.log('Item', enabled());
     });
     return () => {
       GameEvents.Unsubscribe(id);
@@ -24,5 +24,75 @@ function App() {
       GameEvents.Unsubscribe(id);
     };
   });
+}"
+`;
+
+exports[`events_macro useNetTable 1`] = `
+""use strict";
+
+var _solidJs = require("solid-js");
+function Item() {
+  const [A, $$setA] = (0, _solidJs.createSignal)(null);
+  const [B, $$setB] = (0, _solidJs.createSignal)(null);
+  const [BB, $$setBB] = (0, _solidJs.createSignal)(null);
+  (0, _solidJs.createEffect)(() => {
+    const id = CustomNetTables.SubscribeNetTableListener("table_a", function (_, $$key, $$value) {
+      if ($$key === "key_of_one") {
+        $$setA($$value);
+      }
+    });
+    return () => {
+      CustomNetTables.UnsubscribeNetTableListener(id);
+    };
+  });
+  (0, _solidJs.createEffect)(() => {
+    const id = CustomNetTables.SubscribeNetTableListener("table_b", function (_, $$key, $$value) {
+      if ($$key === "key_of_two") {
+        $$setB($$value);
+      }
+      if ($$key === "key_of_bb") {
+        $$setBB($$value);
+      }
+    });
+    return () => {
+      CustomNetTables.UnsubscribeNetTableListener(id);
+    };
+  });
+}
+function App() {
+  const [one, $$setOne] = (0, _solidJs.createSignal)(null);
+  const [two, $$setTwo] = (0, _solidJs.createSignal)(null);
+  (0, _solidJs.createEffect)(() => {
+    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, $$key, $$value) {
+      if ($$key === "key_of_one") {
+        $$setOne($$value);
+      }
+      if ($$key === "key_of_two") {
+        $$setTwo($$value);
+      }
+    });
+    return () => {
+      CustomNetTables.UnsubscribeNetTableListener(id);
+    };
+  });
+  return <Label text={JSON.stringify(one())} />;
+}
+function Root() {
+  const [one, $$setOne] = (0, _solidJs.createSignal)(null);
+  const [two, setTwo] = createSignal("");
+  (0, _solidJs.createEffect)(() => {
+    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, $$key, $$value) {
+      if ($$key === "key_of_one") {
+        $$setOne($$value);
+      }
+    });
+    return () => {
+      CustomNetTables.UnsubscribeNetTableListener(id);
+    };
+  });
+  return <Label text={JSON.stringify(one())} />;
+  function test() {
+    return 0;
+  }
 }"
 `;
