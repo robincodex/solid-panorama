@@ -173,8 +173,8 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
                                     t.identifier(''),
                                     [
                                         t.identifier('_'),
-                                        t.identifier('$$key'),
-                                        t.identifier('$$value')
+                                        t.identifier('k'),
+                                        t.identifier('v')
                                     ],
                                     cache!.block
                                 )
@@ -214,14 +214,15 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
                 );
             }
             const name = parentPath.parentPath.node.id.name;
-            setterName = '$$set' + name[0].toUpperCase() + name.slice(1);
+            setterName = 'set' + name[0].toUpperCase() + name.slice(1);
+            const id = path.scope.generateUidIdentifier(setterName);
+            setterName = id.name;
             parentPath.parentPath.node.id = t.arrayPattern([
                 parentPath.parentPath.node.id,
-                t.identifier(setterName)
+                id
             ]);
         }
 
-        const parentArguments = parentPath.node.arguments;
         const argTableName = parentPath.node.arguments[0];
         const argKey = parentPath.node.arguments[1];
         // check tableName
@@ -237,32 +238,24 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
         if (!cache) {
             continue;
         }
+        const callStat = t.ifStatement(
+            t.binaryExpression('===', t.identifier('k'), argKey),
+            t.blockStatement([
+                t.expressionStatement(
+                    t.callExpression(t.identifier(setterName), [
+                        t.identifier('v')
+                    ])
+                )
+            ])
+        );
         if (cache.block.body.length === 0) {
-            cache.block.body.push(
-                t.ifStatement(
-                    t.binaryExpression('===', t.identifier('$$key'), argKey),
-                    t.blockStatement([
-                        t.expressionStatement(
-                            t.callExpression(t.identifier(setterName), [
-                                t.identifier('$$value')
-                            ])
-                        )
-                    ])
-                )
-            );
+            cache.block.body.push(callStat);
         } else {
-            cache.block.body.push(
-                t.ifStatement(
-                    t.binaryExpression('===', t.identifier('$$key'), argKey),
-                    t.blockStatement([
-                        t.expressionStatement(
-                            t.callExpression(t.identifier(setterName), [
-                                t.identifier('$$value')
-                            ])
-                        )
-                    ])
-                )
-            );
+            let stat = cache.block.body[0] as t.IfStatement;
+            while (t.isIfStatement(stat.alternate)) {
+                stat = stat.alternate;
+            }
+            stat.alternate = callStat;
         }
 
         parentPath.replaceWith(
@@ -271,159 +264,5 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
                 [t.nullLiteral()]
             )
         );
-
-        // const body = ast.program.body[0];
-        // if (
-        //     t.isExpressionStatement(body) &&
-        //     t.isCallExpression(body.expression)
-        // ) {
-        //     if (deps) {
-        //         body.expression.arguments.push(deps);
-        //     }
-        //     parentPath.replaceWith(body.expression);
-        // }
-    }
-}
-
-function useNetTableEx(
-    refs: NodePath[],
-    state: PluginPass,
-    babel: typeof Babel
-) {
-    for (const path of refs) {
-        const parentPath = path.parentPath;
-        if (!parentPath?.isCallExpression()) {
-            continue;
-        }
-        const ast = babel.parse(useNetTableCode);
-        if (!ast) {
-            continue;
-        }
-        let deps: any;
-        babel.traverse(ast, {
-            enter(eventPath) {
-                if (eventPath.isCallExpression()) {
-                    if (t.isMemberExpression(eventPath.node.callee)) {
-                        if (
-                            t.isIdentifier(eventPath.node.callee.object) &&
-                            eventPath.node.callee.object.name ===
-                                'CustomNetTables' &&
-                            t.isIdentifier(eventPath.node.callee.property) &&
-                            eventPath.node.callee.property.name ===
-                                'SubscribeNetTableListener'
-                        ) {
-                            let argKey = parentPath.node.arguments[1];
-                            const argCallback = parentPath.node.arguments[2];
-                            const isFunc =
-                                t.isArrowFunctionExpression(argCallback) ||
-                                t.isFunctionExpression(argCallback);
-
-                            // check callback
-                            if (!isFunc && !t.isIdentifier(argCallback)) {
-                                throw new Error(
-                                    '[useNetTableEx] The callback must be a function.'
-                                );
-                            }
-
-                            // check key
-                            if (
-                                !t.isStringLiteral(argKey) &&
-                                !t.isIdentifier(argKey)
-                            ) {
-                                throw new Error(
-                                    '[useNetTableEx] The key must be a string.'
-                                );
-                            }
-
-                            if (isFunc) {
-                                // convert body to blockStatement
-                                if (t.isExpression(argCallback.body)) {
-                                    argCallback.body = t.blockStatement([
-                                        t.expressionStatement(argCallback.body)
-                                    ]);
-                                }
-                                // Merge callback body to ifStatement
-                                eventPath.node.arguments = [
-                                    parentPath.node.arguments[0],
-                                    t.functionExpression(
-                                        t.identifier(''),
-                                        [
-                                            t.identifier('_'),
-                                            t.identifier('$$key'),
-                                            ...argCallback.params
-                                        ],
-                                        t.blockStatement([
-                                            t.ifStatement(
-                                                t.binaryExpression(
-                                                    '===',
-                                                    t.identifier('$$key'),
-                                                    argKey
-                                                ),
-                                                argCallback.body
-                                            )
-                                        ])
-                                    )
-                                ];
-                            } else {
-                                // call the callback
-                                eventPath.node.arguments = [
-                                    parentPath.node.arguments[0],
-                                    t.functionExpression(
-                                        t.identifier(''),
-                                        [
-                                            t.identifier('_'),
-                                            t.identifier('$$key'),
-                                            t.identifier('$$value')
-                                        ],
-                                        t.blockStatement([
-                                            t.ifStatement(
-                                                t.binaryExpression(
-                                                    '===',
-                                                    t.identifier('$$key'),
-                                                    argKey
-                                                ),
-                                                t.blockStatement([
-                                                    t.expressionStatement(
-                                                        t.callExpression(
-                                                            argCallback,
-                                                            [
-                                                                t.identifier(
-                                                                    '$$value'
-                                                                )
-                                                            ]
-                                                        )
-                                                    )
-                                                ])
-                                            )
-                                        ])
-                                    )
-                                ];
-                            }
-                            deps = parentPath.node.arguments[3];
-                        }
-                    } else if (
-                        t.isIdentifier(eventPath.node.callee) &&
-                        eventPath.node.callee.name === 'createEffect'
-                    ) {
-                        eventPath.node.callee = registerImportMethod(
-                            path,
-                            'createEffect',
-                            'solid-js'
-                        );
-                    }
-                }
-            }
-        });
-
-        const body = ast.program.body[0];
-        if (
-            t.isExpressionStatement(body) &&
-            t.isCallExpression(body.expression)
-        ) {
-            if (deps) {
-                body.expression.arguments.push(deps);
-            }
-            parentPath.replaceWith(body.expression);
-        }
     }
 }

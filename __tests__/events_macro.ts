@@ -39,6 +39,7 @@ describe('events_macro', function () {
             function App() {
                 const one = useNetTable("table_name", "key_of_one");
                 const two = useNetTable("table_name", "key_of_two");
+                const three = useNetTable("table_name", "key_of_three");
 
                 return <Label text={JSON.stringify(one())} />
             }
@@ -46,6 +47,7 @@ describe('events_macro', function () {
             function Root() {
                 const one = useNetTable("table_name", "key_of_one");
                 const [two, setTwo] = createSignal("");
+                const [one2, _setOne2] = createSignal("");
 
                 return <Label text={JSON.stringify(one())} />
 

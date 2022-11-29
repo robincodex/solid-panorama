@@ -32,13 +32,13 @@ exports[`events_macro useNetTable 1`] = `
 
 var _solidJs = require("solid-js");
 function Item() {
-  const [A, $$setA] = (0, _solidJs.createSignal)(null);
-  const [B, $$setB] = (0, _solidJs.createSignal)(null);
-  const [BB, $$setBB] = (0, _solidJs.createSignal)(null);
+  const [A, _setA] = (0, _solidJs.createSignal)(null);
+  const [B, _setB] = (0, _solidJs.createSignal)(null);
+  const [BB, _setBB] = (0, _solidJs.createSignal)(null);
   (0, _solidJs.createEffect)(() => {
-    const id = CustomNetTables.SubscribeNetTableListener("table_a", function (_, $$key, $$value) {
-      if ($$key === "key_of_one") {
-        $$setA($$value);
+    const id = CustomNetTables.SubscribeNetTableListener("table_a", function (_, k, v) {
+      if (k === "key_of_one") {
+        _setA(v);
       }
     });
     return () => {
@@ -46,12 +46,11 @@ function Item() {
     };
   });
   (0, _solidJs.createEffect)(() => {
-    const id = CustomNetTables.SubscribeNetTableListener("table_b", function (_, $$key, $$value) {
-      if ($$key === "key_of_two") {
-        $$setB($$value);
-      }
-      if ($$key === "key_of_bb") {
-        $$setBB($$value);
+    const id = CustomNetTables.SubscribeNetTableListener("table_b", function (_, k, v) {
+      if (k === "key_of_two") {
+        _setB(v);
+      } else if (k === "key_of_bb") {
+        _setBB(v);
       }
     });
     return () => {
@@ -60,15 +59,17 @@ function Item() {
   });
 }
 function App() {
-  const [one, $$setOne] = (0, _solidJs.createSignal)(null);
-  const [two, $$setTwo] = (0, _solidJs.createSignal)(null);
+  const [one, _setOne] = (0, _solidJs.createSignal)(null);
+  const [two, _setTwo] = (0, _solidJs.createSignal)(null);
+  const [three, _setThree] = (0, _solidJs.createSignal)(null);
   (0, _solidJs.createEffect)(() => {
-    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, $$key, $$value) {
-      if ($$key === "key_of_one") {
-        $$setOne($$value);
-      }
-      if ($$key === "key_of_two") {
-        $$setTwo($$value);
+    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, k, v) {
+      if (k === "key_of_one") {
+        _setOne(v);
+      } else if (k === "key_of_two") {
+        _setTwo(v);
+      } else if (k === "key_of_three") {
+        _setThree(v);
       }
     });
     return () => {
@@ -78,12 +79,13 @@ function App() {
   return <Label text={JSON.stringify(one())} />;
 }
 function Root() {
-  const [one, $$setOne] = (0, _solidJs.createSignal)(null);
+  const [one, _setOne3] = (0, _solidJs.createSignal)(null);
   const [two, setTwo] = createSignal("");
+  const [one2, _setOne2] = createSignal("");
   (0, _solidJs.createEffect)(() => {
-    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, $$key, $$value) {
-      if ($$key === "key_of_one") {
-        $$setOne($$value);
+    const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, k, v) {
+      if (k === "key_of_one") {
+        _setOne3(v);
       }
     });
     return () => {
