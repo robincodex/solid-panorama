@@ -261,7 +261,15 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
         parentPath.replaceWith(
             t.callExpression(
                 registerImportMethod(path, 'createSignal', 'solid-js'),
-                [t.nullLiteral()]
+                [
+                    t.callExpression(
+                        t.memberExpression(
+                            t.identifier('CustomNetTables'),
+                            t.identifier('GetTableValue')
+                        ),
+                        [argTableName, argKey]
+                    )
+                ]
             )
         );
     }

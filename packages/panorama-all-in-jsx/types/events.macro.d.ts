@@ -12,4 +12,4 @@ export function useGameEvent<
 export function useNetTable<
     TName extends keyof CustomNetTableDeclarations,
     T extends CustomNetTableDeclarations[TName]
->(tableName: TName, key: keyof T): Accessor<T | null>;
+>(tableName: TName, key: keyof T): Accessor<T | undefined>;

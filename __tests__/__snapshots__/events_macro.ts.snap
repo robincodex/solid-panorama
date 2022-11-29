@@ -32,9 +32,9 @@ exports[`events_macro useNetTable 1`] = `
 
 var _solidJs = require("solid-js");
 function Item() {
-  const [A, _setA] = (0, _solidJs.createSignal)(null);
-  const [B, _setB] = (0, _solidJs.createSignal)(null);
-  const [BB, _setBB] = (0, _solidJs.createSignal)(null);
+  const [A, _setA] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_a", "key_of_one"));
+  const [B, _setB] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_b", "key_of_two"));
+  const [BB, _setBB] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_b", "key_of_bb"));
   (0, _solidJs.createEffect)(() => {
     const id = CustomNetTables.SubscribeNetTableListener("table_a", function (_, k, v) {
       if (k === "key_of_one") {
@@ -59,9 +59,9 @@ function Item() {
   });
 }
 function App() {
-  const [one, _setOne] = (0, _solidJs.createSignal)(null);
-  const [two, _setTwo] = (0, _solidJs.createSignal)(null);
-  const [three, _setThree] = (0, _solidJs.createSignal)(null);
+  const [one, _setOne] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_name", "key_of_one"));
+  const [two, _setTwo] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_name", "key_of_two"));
+  const [three, _setThree] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_name", "key_of_three"));
   (0, _solidJs.createEffect)(() => {
     const id = CustomNetTables.SubscribeNetTableListener("table_name", function (_, k, v) {
       if (k === "key_of_one") {
@@ -79,7 +79,7 @@ function App() {
   return <Label text={JSON.stringify(one())} />;
 }
 function Root() {
-  const [one, _setOne3] = (0, _solidJs.createSignal)(null);
+  const [one, _setOne3] = (0, _solidJs.createSignal)(CustomNetTables.GetTableValue("table_name", "key_of_one"));
   const [two, setTwo] = createSignal("");
   const [one2, _setOne2] = createSignal("");
   (0, _solidJs.createEffect)(() => {

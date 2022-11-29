@@ -150,8 +150,12 @@ function App() {
 ```js
 var solid = require('solid-js');
 function App() {
-    const [one, _setOne] = solid.createSignal(null);
-    const [two, _setTwo] = solid.createSignal(null);
+    const [one, _setOne] = solid.createSignal(
+        CustomNetTables.GetTableValue('table_name', 'key_of_one')
+    );
+    const [two, _setTwo] = solid.createSignal(
+        CustomNetTables.GetTableValue('table_name', 'key_of_two')
+    );
     solid.createEffect(() => {
         const id = CustomNetTables.SubscribeNetTableListener(
             'table_name',
