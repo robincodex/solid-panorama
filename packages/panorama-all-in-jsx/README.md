@@ -138,21 +138,10 @@ function App() {
 ```js
 import { useNetTable } from 'solid-panorama-all-in-jsx/events.macro';
 
-function Item() {
-    let [enabled] = createSignal(false);
-    useNetTable(
-        'table_name',
-        (tableName, key, value) => {
-            console.log('Item', tableName, key, value);
-        },
-        enabled()
-    );
-}
-
 function App() {
-    useNetTable('table_name', (tableName, key, value) => {
-        console.log(tableName, key, value);
-    });
+    const one = useNetTable('table_name', 'key_of_one');
+    const two = useNetTable('table_name', 'key_of_two');
+    return <Label text={JSON.stringify(one())} />;
 }
 ```
 
@@ -160,53 +149,24 @@ function App() {
 
 ```js
 var solid = require('solid-js');
-function Item() {
-    let [enabled] = createSignal(false);
-    solid.createEffect(() => {
-        const id = CustomNetTables.SubscribeNetTableListener(
-            'table_name',
-            (tableName, key, value) => {
-                console.log('Item', tableName, key, value);
-            }
-        );
-        return () => {
-            CustomNetTables.UnsubscribeNetTableListener(id);
-        };
-    }, enabled());
-}
 function App() {
+    const [one, _setOne] = solid.createSignal(null);
+    const [two, _setTwo] = solid.createSignal(null);
     solid.createEffect(() => {
         const id = CustomNetTables.SubscribeNetTableListener(
             'table_name',
-            (tableName, key, value) => {
-                console.log(tableName, key, value);
+            function (_, k, v) {
+                if (k === 'key_of_one') {
+                    _setOne(v);
+                } else if (k === 'key_of_two') {
+                    _setTwo(v);
+                }
             }
         );
         return () => {
             CustomNetTables.UnsubscribeNetTableListener(id);
         };
     });
-}
-```
-
-## useNetTableEx
-
-该函数的功能是精确到 key 的变动。
-
-```js
-import { useNetTableEx } from 'solid-panorama-all-in-jsx/events.macro';
-
-const tableKey = 'key';
-
-function Item() {
-    useNetTableEx('table_name', tableKey, v => {
-        console.log('Item', v);
-    });
-}
-
-function App() {
-    useNetTableEx('table_name', 'key', value => {
-        console.log(value);
-    });
+    return <Label text={JSON.stringify(one())} />;
 }
 ```
