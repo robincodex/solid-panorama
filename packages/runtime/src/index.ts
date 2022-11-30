@@ -336,5 +336,16 @@ function setAttributes(node: Panel, attrs: Record<string, string | number>) {
 }
 
 function setData(node: Panel, key: string, v: unknown) {
+    if (!node.Data) {
+        const data: object = {};
+        Object.defineProperty(node, 'Data', {
+            configurable: true,
+            enumerable: true,
+            writable: true,
+            value: function () {
+                return data;
+            }
+        });
+    }
     (node.Data() as any)[key] = v;
 }
