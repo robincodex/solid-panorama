@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-jsx-panorama-expressions",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "Modify from ryansolid/dom-expressions",
     "engines": {
         "node": ">=16.0.0"

@@ -22,13 +22,15 @@ function App() {
         _v$3 = enabled(),
         _v$4 = enabled(),
         _v$5 = enabled(),
-        _v$6 = enabled();
+        _v$6 = enabled(),
+        _v$7 = enabled();
       _v$ !== _p$._v$ && (_p$._v$ = (0, _solidPanoramaRuntime.setProp)(_el$, "class", _v$, _p$._v$));
       _v$2 !== _p$._v$2 && (_p$._v$2 = (0, _solidPanoramaRuntime.setProp)(_el$, "className", _v$2, _p$._v$2));
       _v$3 !== _p$._v$3 && (_p$._v$3 = (0, _solidPanoramaRuntime.setProp)(_el$, "hittest", _v$3, _p$._v$3));
       _v$4 !== _p$._v$4 && (_p$._v$4 = (0, _solidPanoramaRuntime.setProp)(_el$, "enabled", _v$4, _p$._v$4));
       _v$5 !== _p$._v$5 && (_p$._v$5 = (0, _solidPanoramaRuntime.setProp)(_el$, "visible", _v$5, _p$._v$5));
       _v$6 !== _p$._v$6 && (_p$._v$6 = (0, _solidPanoramaRuntime.setProp)(_el$, "checked", _v$6, _p$._v$6));
+      _v$7 !== _p$._v$7 && (_p$._v$7 = (0, _solidPanoramaRuntime.setProp)(_el$, "data-checked", _v$7, _p$._v$7));
       return _p$;
     }, {
       _v$: undefined,
@@ -36,7 +38,8 @@ function App() {
       _v$3: undefined,
       _v$4: undefined,
       _v$5: undefined,
-      _v$6: undefined
+      _v$6: undefined,
+      _v$7: undefined
     });
     return _el$;
   })();
@@ -82,6 +85,9 @@ function App() {
     (0, _solidPanoramaRuntime.setProp)(_el$, "onDragDrop", onDragDrop);
     (0, _solidPanoramaRuntime.setProp)(_el$, "onDragEnter", function () {});
     (0, _solidPanoramaRuntime.setProp)(_el$, "onDragLeave", onDragLeave);
+    (0, _solidPanoramaRuntime.setProp)(_el$, "data-name", "string");
+    (0, _solidPanoramaRuntime.setProp)(_el$, "data-namex", "string" + "x");
+    (0, _solidPanoramaRuntime.setProp)(_el$, "data-list", []);
     return _el$;
   })();
 }

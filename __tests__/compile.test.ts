@@ -269,6 +269,10 @@ describe('compile', function () {
                         onDragDrop={onDragDrop}
                         onDragEnter={function() {}}
                         onDragLeave={onDragLeave}
+
+                        data-name="string"
+                        data-namex={"string" + "x"}
+                        data-list={[]}
                         >
                     </Panel>
                 );
@@ -295,6 +299,7 @@ describe('compile', function () {
                         enabled={enabled()}
                         visible={enabled()}
                         checked={enabled()}
+                        data-checked={enabled()}
                         >
                     </Panel>
                 );

@@ -361,9 +361,13 @@ export function getElementProps(path) {
                 );
             } else {
                 const value = node.value || t.booleanLiteral(true),
-                    id = convertJSXIdentifier(node.name),
-                    key = id.name;
+                    id = convertJSXIdentifier(node.name);
+                let key = id.name;
+                if (!key && t.isStringLiteral(id)) {
+                    key = id.value;
+                }
                 if (hasChildren && key === 'children') return;
+                if (key && key.startsWith('data-')) return;
                 if (
                     CustomProperties.includes(key) &&
                     !AllowInitializePropperties.includes(key)

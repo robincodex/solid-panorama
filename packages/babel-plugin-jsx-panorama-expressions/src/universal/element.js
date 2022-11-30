@@ -227,7 +227,13 @@ function transformAttributes(path, results) {
                         value: value.expression
                     });
                 } else {
-                    if (
+                    if (key.startsWith('data-')) {
+                        results.exprs.push(
+                            t.expressionStatement(
+                                setAttr(attribute, elem, key, value.expression)
+                            )
+                        );
+                    } else if (
                         !t.isStringLiteral(value.expression) &&
                         !t.isBooleanLiteral(value.expression) &&
                         !t.isNumericLiteral(value.expression)
@@ -241,9 +247,15 @@ function transformAttributes(path, results) {
                 }
             } else {
                 if (value === null) {
-                    return
+                    return;
                 }
-                if (
+                if (key.startsWith('data-')) {
+                    results.exprs.push(
+                        t.expressionStatement(
+                            setAttr(attribute, elem, key, value)
+                        )
+                    );
+                } else if (
                     (!t.isStringLiteral(value) &&
                         !t.isNumericLiteral(value) &&
                         !t.isBooleanLiteral(value)) ||
