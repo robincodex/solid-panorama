@@ -196,6 +196,8 @@ export const {
             name === 'onDragLeave'
         ) {
             setDragEvent(node, name, value);
+        } else if (name.startsWith('data-')) {
+            setData(node, name.slice(5), value);
         } else if (name.startsWith('on')) {
             setPanelEvent(node, name as PanelEvent, value);
         } else {
@@ -331,4 +333,8 @@ function setAttributes(node: Panel, attrs: Record<string, string | number>) {
             node.SetAttributeString(key, value);
         }
     }
+}
+
+function setData(node: Panel, key: string, v: unknown) {
+    (node.Data() as any)[key] = v;
 }

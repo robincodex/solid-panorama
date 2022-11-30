@@ -163,6 +163,14 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 <Panel attrs={{ name: 'my name' }} />
 ```
 
+### data-\*
+
+支持`data-*`属性，注意这里跟 HTML 的不一样，这里是将这些属性存储在`Panel.Data()`中，所以可以很方便的存储 JS 的数据对象，比如`data-list={['name']}`，那么可以通过`Panel.Data()['list'][0]`获得该值。
+
+```jsx
+<Panel data-my-data={{ name: 'my name' }} />
+```
+
 ### tooltip_text
 
 类型：`string`
