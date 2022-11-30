@@ -166,6 +166,14 @@ Type: `Record<string, string | number>`
 <Panel attrs={{ name: 'my name' }} />
 ```
 
+### data-\*
+
+Support `data-*` property, note that here is different from HTML, the `data-*` properties are stored in `Panel.Data()`, so you can easily store JS data objects, for example `data-list={['name']}`, then you can get the value by `Panel.Data()['list'][0]`.
+
+```jsx
+<Panel data-my-data={{ name: 'my name' }} />
+```
+
 ### tooltip_text
 
 Type: `string`
