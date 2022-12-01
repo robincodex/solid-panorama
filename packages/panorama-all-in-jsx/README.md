@@ -31,12 +31,76 @@ xml(
 );
 ```
 
+## snippet
+
+支持合并多个文件的 snippet
+
+例如：
+
+-   文件 A
+
+```jsx
+import xml from 'solid-panorama-all-in-jsx/xml.macro';
+
+xml(
+    <snippet name="Item">
+        <Panel class="Item">
+            <Image />
+        </Panel>
+    </snippet>
+);
+
+xml(
+    <root>
+        <Panel></Panel>
+    </root>
+);
+```
+
+-   文件 B
+
+```jsx
+import xml from 'solid-panorama-all-in-jsx/xml.macro';
+
+xml(
+    <snippet name="Ability">
+        <Panel class="Ability">
+            <Image />
+        </Panel>
+    </snippet>
+);
+```
+
+可以通过`formatXML`API 合并为：
+
+```xml
+<root>
+    <snippets>
+        <snippet name="Item">
+            <Panel class="Item">
+                <Image />
+            </Panel>
+        </snippet>
+        <snippet name="Ability">
+            <Panel class="Ability">
+                <Image />
+            </Panel>
+        </snippet>
+    </snippets>
+    <Panel></Panel>
+</root>
+```
+
 ## API
 
 ```ts
-function getXML(filename: string): xmljs.Element | undefined;
-function getAllCacheXML(): Record<string, xmljs.Element>;
-function formatXML(root: xmljs.Element): string;
+interface XMLFile {
+    root?: xmljs.Element;
+    snippets: xmljs.Element[];
+}
+function getXML(filename: string): XMLFile | undefined;
+function getAllCacheXML(): Record<string, XMLFile>;
+function formatXML(files: XMLFile[]): string;
 
 // 例如
 import { getAllCacheXML } from 'solid-panorama-all-in-jsx/xml.macro';

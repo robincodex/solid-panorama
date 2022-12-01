@@ -2,7 +2,14 @@ import { createMacro } from 'babel-plugin-macros';
 import * as t from '@babel/types';
 import xmljs from 'xml-js';
 
-const xmlCache: Record<string, xmljs.Element> = {};
+interface XMLFile {
+    root?: xmljs.Element;
+    snippets: xmljs.Element[];
+
+    _rootSnippets?: xmljs.Element[];
+}
+
+const xmlCache: Record<string, XMLFile> = {};
 
 export default createMacro(function ({ references, state, babel }) {
     if (!state.filename) {
@@ -14,27 +21,79 @@ export default createMacro(function ({ references, state, babel }) {
             path.parentPath?.remove();
             continue;
         }
-        const el = path.parentPath.node.arguments[0];
-        if (!el || !t.isJSXElement(el)) {
-            path.parentPath?.remove();
-            continue;
+        for (const el of path.parentPath.node.arguments) {
+            if (!t.isJSXElement(el)) {
+                throw new Error('the xml arguments must be jsx element');
+            }
+            const result = convertJSXtoXML(el);
+            if (!xmlCache[filename]) {
+                xmlCache[filename] = {
+                    root: {},
+                    snippets: []
+                };
+            }
+            if (isRoot(result)) {
+                xmlCache[filename].root = result;
+            } else if (isSnippet(result)) {
+                xmlCache[filename].snippets.push(result);
+            } else {
+                throw new Error(
+                    'Root element only support <root> or <snippet>'
+                );
+            }
         }
-        const result = convertJSXtoXML(el);
-        xmlCache[filename] = result;
         path.parentPath?.remove();
     }
 });
 
-export function getXML(filename: string): xmljs.Element | undefined {
+export function getXML(filename: string): XMLFile | undefined {
     return xmlCache[filename];
 }
 
-export function getAllCacheXML(): Record<string, xmljs.Element> {
+export function getAllCacheXML(): Record<string, XMLFile> {
     return xmlCache;
 }
 
-export function formatXML(root: xmljs.Element): string {
-    return xmljs.js2xml({ elements: [root] }, { compact: false, spaces: '  ' });
+export function formatXML(files: XMLFile[]): string {
+    let rootFile = files.find(v => v.root && isRoot(v.root));
+    if (!rootFile?.root) {
+        throw new Error('Not found <root>');
+    }
+
+    let snippets = rootFile.root.elements!.find(v => v.name === 'snippets');
+    if (!snippets) {
+        snippets = {
+            type: 'element',
+            name: 'snippets',
+            elements: []
+        };
+        let index = rootFile.root.elements!.findIndex(v => v.name === 'Panel');
+        rootFile.root.elements!.splice(index, 0, snippets);
+    }
+    if (!rootFile._rootSnippets) {
+        rootFile._rootSnippets = snippets.elements || [];
+    }
+    snippets.elements = [
+        ...rootFile._rootSnippets,
+        ...rootFile.snippets,
+        ...files
+            .filter(v => v !== rootFile)
+            .map(v => v.snippets)
+            .flat()
+    ];
+
+    return xmljs.js2xml(
+        { elements: [rootFile.root] },
+        { compact: false, spaces: '  ' }
+    );
+}
+
+function isRoot(el: xmljs.Element): boolean {
+    return el.name === 'root';
+}
+
+function isSnippet(el: xmljs.Element): boolean {
+    return el.name === 'snippet';
 }
 
 /**

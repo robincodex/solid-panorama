@@ -15,72 +15,149 @@ exports[`xml_macro convert jsx to xml 2`] = `
   <scripts>
     <include src="file://{resources}/scripts/custom_game/hud_main.js"/>
   </scripts>
+  <snippets/>
   <Panel hittest="false" tabindex="0">
-    <Panel id="app"/>
+    <Panel id="app" class="test"/>
   </Panel>
 </root>"
 `;
 
 exports[`xml_macro convert jsx to xml 3`] = `
 {
-  "xml_macro.test.ts": {
-    "attributes": {},
-    "elements": [
-      {
-        "attributes": {},
-        "elements": [
-          {
-            "attributes": {
-              "src": "s2r://panorama/styles/dotastyles.vcss_c",
+  "xml_macro.test.ts1": {
+    "_rootSnippets": [],
+    "root": {
+      "attributes": {},
+      "elements": [
+        {
+          "attributes": {},
+          "elements": [
+            {
+              "attributes": {
+                "src": "s2r://panorama/styles/dotastyles.vcss_c",
+              },
+              "name": "include",
+              "type": "element",
             },
-            "name": "include",
-            "type": "element",
-          },
-          {
-            "attributes": {
-              "src": "file://{resources}/styles/custom_game/hud_main.css",
+            {
+              "attributes": {
+                "src": "file://{resources}/styles/custom_game/hud_main.css",
+              },
+              "name": "include",
+              "type": "element",
             },
-            "name": "include",
-            "type": "element",
-          },
-        ],
-        "name": "styles",
-        "type": "element",
-      },
-      {
-        "attributes": {},
-        "elements": [
-          {
-            "attributes": {
-              "src": "file://{resources}/scripts/custom_game/hud_main.js",
-            },
-            "name": "include",
-            "type": "element",
-          },
-        ],
-        "name": "scripts",
-        "type": "element",
-      },
-      {
-        "attributes": {
-          "hittest": "false",
-          "tabindex": "0",
+          ],
+          "name": "styles",
+          "type": "element",
         },
-        "elements": [
-          {
-            "attributes": {
-              "id": "app",
+        {
+          "attributes": {},
+          "elements": [
+            {
+              "attributes": {
+                "src": "file://{resources}/scripts/custom_game/hud_main.js",
+              },
+              "name": "include",
+              "type": "element",
             },
-            "name": "Panel",
-            "type": "element",
+          ],
+          "name": "scripts",
+          "type": "element",
+        },
+        {
+          "elements": [],
+          "name": "snippets",
+          "type": "element",
+        },
+        {
+          "attributes": {
+            "hittest": "false",
+            "tabindex": "0",
           },
-        ],
-        "name": "Panel",
-        "type": "element",
-      },
-    ],
-    "name": "root",
-    "type": "element",
+          "elements": [
+            {
+              "attributes": {
+                "class": "test",
+                "id": "app",
+              },
+              "name": "Panel",
+              "type": "element",
+            },
+          ],
+          "name": "Panel",
+          "type": "element",
+        },
+      ],
+      "name": "root",
+      "type": "element",
+    },
+    "snippets": [],
   },
 }
+`;
+
+exports[`xml_macro merge snippet 1`] = `""use strict";"`;
+
+exports[`xml_macro merge snippet 2`] = `
+"<root>
+  <snippets>
+    <snippet name="Ability">
+      <Panel class="Ability">
+        <Image/>
+      </Panel>
+    </snippet>
+    <snippet name="Item">
+      <Panel class="Item">
+        <Image/>
+      </Panel>
+    </snippet>
+  </snippets>
+  <Panel/>
+</root>"
+`;
+
+exports[`xml_macro merge snippet multi files 1`] = `
+"<root>
+  <snippets>
+    <snippet name="Root">
+      <Panel class="Item">
+        <Image/>
+      </Panel>
+    </snippet>
+    <snippet name="FileA">
+      <Panel class="Ability">
+        <Image/>
+      </Panel>
+    </snippet>
+    <snippet name="FileB">
+      <Panel class="Item">
+        <Image/>
+      </Panel>
+    </snippet>
+  </snippets>
+  <Panel/>
+</root>"
+`;
+
+exports[`xml_macro merge snippet multi files 2`] = `
+"<root>
+  <snippets>
+    <snippet name="Root">
+      <Panel class="Item">
+        <Image/>
+      </Panel>
+    </snippet>
+    <snippet name="FileA">
+      <Panel class="Ability">
+        <Image/>
+      </Panel>
+    </snippet>
+    <snippet name="FileB">
+      <Panel class="Item">
+        <Image/>
+      </Panel>
+    </snippet>
+  </snippets>
+  <Panel/>
+</root>"
 `;
