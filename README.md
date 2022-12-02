@@ -2,9 +2,9 @@
 
 [简体中文](./README-CN.md)
 
-[solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example)
+Before using this library, you need to learn [SolidJS](https://www.solidjs.com/).
 
-> Still in the experimental stage
+At present, it can be used normally. Please refer to [solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example).
 
 The compiler has been modified and the API of panorama has been optimized.  
 For example, adding attribute and parent element to `createElement` greatly reduces the number of API calls and solves the problem that `$. CreatePanelWithProperties` cannot be called.
