@@ -49,6 +49,10 @@ async function run() {
 </root>
 ```
 
+### 关于console
+
+在`ark120202/panorama-polyfill`中是使用`object-inspect`这个库对object等参数进行格式化，由于引入了太多的代码，所以移除了`object-inspect`，并对object等参数其进行了简单的格式化，另外也加入了`console.logx`，跟`console.log`不一样的地方是打印object或者array等会垂直展开，而不是打印在同一行。
+
 ## 自定义
 
 如果你有自己的需求，可以通过`merges`选项合并代码到`output`。
