@@ -86,7 +86,9 @@ function inspect(value: unknown, expand?: boolean, tab = '') {
     } else if (typeof value === 'number' || typeof value === 'boolean') {
         result = `${value}`;
     } else if (typeof value === 'function') {
-        result = `[Function]`;
+        result = isClass(value)
+            ? `[class ${value.name}]`
+            : `[function ${value.name}]`;
     } else if (typeof value === 'symbol') {
         result = value.toString();
     } else if (typeof value === 'undefined') {
@@ -111,26 +113,59 @@ function inspect(value: unknown, expand?: boolean, tab = '') {
                 result = `[ ${list.join(', ')} ]`;
             }
         } else {
-            let list = [];
-            for (const [k, v] of Object.entries(value)) {
-                if (k === 'style' && isPanelBase(v)) {
-                    list.push(`${tab}${k}: [VCSSStyleDeclaration]`);
-                    continue;
+            let list: string[] = [];
+            let prefix = '';
+            // Map
+            if (value instanceof Map) {
+                prefix = '[Map]';
+                for (const [k, v] of value.entries()) {
+                    let key = '';
+                    if (typeof k === 'object') {
+                        key = Array.isArray(k) ? '[Array]' : '[Object]';
+                    } else if (k.toString) {
+                        key = k.toString();
+                    }
+                    list.push(
+                        `${tab}${key}: ${inspect(
+                            v,
+                            expand,
+                            expand ? tab + '    ' : tab
+                        )}`
+                    );
                 }
-                list.push(
-                    `${tab}${k}: ${inspect(
-                        v,
-                        expand,
-                        expand ? tab + '    ' : tab
-                    )}`
-                );
+            } else if (value instanceof Set) {
+                prefix = '[Set]';
+                for (const v of value.values()) {
+                    list.push(
+                        `${tab}${inspect(
+                            v,
+                            expand,
+                            expand ? tab + '    ' : tab
+                        )}`
+                    );
+                }
+            } else {
+                for (const [k, v] of Object.entries(value)) {
+                    if (k === 'style' && isPanelBase(v)) {
+                        list.push(`${tab}${k}: [VCSSStyleDeclaration]`);
+                        continue;
+                    }
+                    list.push(
+                        `${tab}${k}: ${inspect(
+                            v,
+                            expand,
+                            expand ? tab + '    ' : tab
+                        )}`
+                    );
+                }
             }
+
             if (expand) {
-                result += '{\n';
+                result += prefix + '{\n';
                 result += list.map(v => '    ' + v).join(',\n');
                 result += '\n' + tab + '}';
             } else {
-                result = `{ ${list.join(', ')} }`;
+                result = prefix + `{ ${list.join(', ')} }`;
             }
         }
     }
@@ -142,3 +177,10 @@ const isPanelBase = (value: object): value is PanelBase =>
     'rememberchildfocus' in value &&
     'SetPanelEvent' in value &&
     'RunScriptInPanelContext' in value;
+
+function isClass(value: unknown) {
+    if (typeof value !== 'function') return false;
+    const descriptor = Object.getOwnPropertyDescriptor(value, 'prototype');
+    if (!descriptor) return false;
+    return !descriptor.writable;
+}

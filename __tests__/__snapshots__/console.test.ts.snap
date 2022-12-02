@@ -4,7 +4,7 @@ exports[`console format 1`] = `"test: str 123 false test { a: 123 }"`;
 
 exports[`console format 2`] = `"test: 5 5 5 str 123 false test { a: 123 }"`;
 
-exports[`console format 3`] = `"{ x: 1, y: "123", c: "str", d: false, e: undefined, f: null, g: [Function], h: [Function], i: [Function], style: [VCSSStyleDeclaration] }"`;
+exports[`console format 3`] = `"{ x: 1, y: "123", c: "str", d: false, e: undefined, f: null, g: [function g], h: [function h], i: [function test], style: [VCSSStyleDeclaration], map: [Map]{ a: 2, b: 1 }, map2: [Map]{ [Array]: 2, [Array]: 1 }, map3: [Map]{ [Object]: 2 }, map4: [Map]{ Symbol(a): 2 }, set: [Set]{ 1, 2, 3 }, testClass: [class testClass], testFunc: [function testFunc] }"`;
 
 exports[`console format 4`] = `"{ obj: { x: 1, y: 2, c: [ 123, { b: null } ], style: [VCSSStyleDeclaration] }, ary: [ 1, 2, 3, "A", false, null, [ 4, 56, { g: 1, c: [  ] } ] ] }"`;
 
@@ -16,12 +16,33 @@ exports[`console format 5`] = `
     d: false,
     e: undefined,
     f: null,
-    g: [Function],
-    h: [Function],
-    i: [Function],
+    g: [function g],
+    h: [function h],
+    i: [function test],
     style: [VCSSStyleDeclaration],
     s: Symbol(s),
-    int: [bigint 99999]
+    int: [bigint 99999],
+    map: [Map]{
+        a: 2,
+        b: 1
+    },
+    map2: [Map]{
+        [Array]: 2,
+        [Array]: 1
+    },
+    map3: [Map]{
+        [Object]: 2
+    },
+    map4: [Map]{
+        Symbol(a): 2
+    },
+    set: [Set]{
+        1,
+        2,
+        3
+    },
+    test: [class testClass],
+    func: [function testFunc]
 } true"
 `;
 

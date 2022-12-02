@@ -15,6 +15,9 @@ describe('console', function () {
         const s = Symbol('s');
         const int = BigInt(99999);
 
+        class testClass {}
+        function testFunc() {}
+
         expect(
             format('test: %s %d %j', 'str', 123, false, 'test', { a: 123 })
         ).toMatchSnapshot();
@@ -34,7 +37,20 @@ describe('console', function () {
                 g: function () {},
                 h: () => {},
                 i: test,
-                style
+                style,
+                map: new Map([
+                    ['a', 2],
+                    ['b', 1]
+                ]),
+                map2: new Map([
+                    [[], 2],
+                    [[], 1]
+                ]),
+                map3: new Map([[{}, 2]]),
+                map4: new Map([[Symbol('a'), 2]]),
+                set: new Set([1, 2, 3]),
+                testClass,
+                testFunc
             })
         ).toMatchSnapshot();
 
@@ -59,7 +75,20 @@ describe('console', function () {
                     i: test,
                     style,
                     s,
-                    int
+                    int,
+                    map: new Map([
+                        ['a', 2],
+                        ['b', 1]
+                    ]),
+                    map2: new Map([
+                        [[], 2],
+                        [[], 1]
+                    ]),
+                    map3: new Map([[{}, 2]]),
+                    map4: new Map([[Symbol('a'), 2]]),
+                    set: new Set([1, 2, 3]),
+                    test: testClass,
+                    func: testFunc
                 },
                 true
             )
