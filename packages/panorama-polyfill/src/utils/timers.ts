@@ -35,7 +35,10 @@ function clearTimer(handle?: number) {
         // $.CancelScheduled throws on expired or non-existent timer handles
         try {
             if (handle < -100000) {
-                $.CancelScheduled(intervals.get(handle)!);
+                if (intervals.has(handle)) {
+                    $.CancelScheduled(intervals.get(handle)!);
+                    intervals.delete(handle);
+                }
             } else {
                 $.CancelScheduled(handle as ScheduleID);
             }

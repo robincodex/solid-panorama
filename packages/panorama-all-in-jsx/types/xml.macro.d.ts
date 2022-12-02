@@ -1,6 +1,6 @@
 import type xmljs from 'xml-js';
 
-interface XMLFile {
+export interface XMLFile {
     root?: xmljs.Element;
     snippets: xmljs.Element[];
     _rootSnippets?: xmljs.Element[];
