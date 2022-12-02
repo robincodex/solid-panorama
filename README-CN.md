@@ -1,10 +1,8 @@
 # Solid.js for Valve's Panorama UI
 
-尚在实验阶段
+目前可正常使用，可参考[solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example)。
 
-[solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example)
-
-魔改了编译，针对 PUI 的 API 进行了优化，比如`createElement`加入属性和父元素两个参数，就极大减少了过多的 API 调用，也解决了无法调用`$.CreatePanelWithProperties`的问题。
+针对 PUI 的 API 进行了优化，比如`createElement`加入属性和父元素两个参数，就极大减少了过多的 API 调用，也解决了无法调用`$.CreatePanelWithProperties`的问题，加入了许多便利功能，兼容了 [react-panorama](https://github.com/ark120202/react-panorama) 的部分代码。
 
 ## 安装
 
@@ -62,7 +60,7 @@ Thanks to ark120202 for creating [react-panorama](https://github.com/ark120202/r
 
 -   如果你想使用`console.log`或者`setTimeout`等 Web 函数，可以参考[solid-panorama-polyfill](./packages/panorama-polyfill/)，或者使用[panorama-polyfill](https://github.com/ark120202/panorama-polyfill)
 -   如果你想把 xml 或 css 放在 jsx/tsx 里面，可以参考[solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/)。
--   如果你想用`useGameEvent`，可以参考[solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/)。
+-   如果你想用`useGameEvent`和`useNetTable`，可以参考[solid-panorama-all-in-jsx](./packages/panorama-all-in-jsx/)。
 
 ## style
 
