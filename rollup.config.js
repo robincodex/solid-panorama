@@ -7,7 +7,8 @@ import p from './package.json';
 import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 
-const external = Object.keys(p.dependencies);
+const external = [...Object.keys(p.dependencies), 'solid-js/universal'];
+external.splice(external.indexOf('tslib'), 1);
 const compilerOptions = require('./tsconfig.json').compilerOptions;
 
 const runtimeConfig = {
@@ -21,7 +22,8 @@ const runtimeConfig = {
     plugins: [
         rollupTypescript({
             include: /packages\/runtime\/src\/.*\.ts/,
-            compilerOptions}),
+            compilerOptions
+        }),
         commonjs({ extensions: ['.js', '.ts'] }),
         nodeResolve({
             moduleDirectories: ['node_modules', 'packages']
