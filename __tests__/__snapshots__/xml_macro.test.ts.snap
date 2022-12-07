@@ -18,6 +18,7 @@ exports[`xml_macro convert jsx to xml 2`] = `
   <snippets/>
   <Panel hittest="false" tabindex="0">
     <Panel id="app" class="test"/>
+    <Label id="name" html="true"/>
   </Panel>
 </root>"
 `;
@@ -81,6 +82,14 @@ exports[`xml_macro convert jsx to xml 3`] = `
                 "id": "app",
               },
               "name": "Panel",
+              "type": "element",
+            },
+            {
+              "attributes": {
+                "html": "true",
+                "id": "name",
+              },
+              "name": "Label",
               "type": "element",
             },
           ],

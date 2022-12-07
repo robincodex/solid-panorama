@@ -28,6 +28,7 @@ describe('xml_macro', function () {
                     </scripts>
                     <Panel hittest={false} tabindex={0}>
                         <Panel id="app" class={"test"} />
+                        <Label id="name" html />
                     </Panel>
                 </root>
             )

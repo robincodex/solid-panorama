@@ -111,8 +111,8 @@ function convertJSXtoXML(root: t.JSXElement): xmljs.Element {
     el.attributes = attrs;
 
     for (const attrNode of root.openingElement.attributes) {
-        if (t.isJSXAttribute(attrNode) && attrNode.value) {
-            if (t.isJSXIdentifier(attrNode.name)) {
+        if (t.isJSXAttribute(attrNode) && t.isJSXIdentifier(attrNode.name)) {
+            if (attrNode.value) {
                 if (t.isStringLiteral(attrNode.value)) {
                     attrs[attrNode.name.name] = attrNode.value.value;
                 } else if (t.isJSXExpressionContainer(attrNode.value)) {
@@ -126,6 +126,8 @@ function convertJSXtoXML(root: t.JSXElement): xmljs.Element {
                         );
                     }
                 }
+            } else {
+                attrs[attrNode.name.name] = 'true';
             }
         }
     }
