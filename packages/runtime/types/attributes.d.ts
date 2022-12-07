@@ -47,20 +47,20 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     custom_tooltip?: [string, string];
     custom_tooltip_params?: Record<string, string | number>;
 
-    onload?: EventHandler<T>;
-    onfocus?: EventHandler<T>;
-    onactivate?: EventHandler<T>;
-    onmouseactivate?: EventHandler<T>;
-    ondblclick?: EventHandler<T>;
-    oncontextmenu?: EventHandler<T>;
-    onmouseover?: EventHandler<T>;
-    onmouseout?: EventHandler<T>;
-    onmovedown?: EventHandler<T>;
-    onmoveleft?: EventHandler<T>;
-    onmoveright?: EventHandler<T>;
-    onmoveup?: EventHandler<T>;
-    oncancel?: EventHandler<T>;
-    ontabforward?: EventHandler<T>;
+    onload?: string | EventHandler<T>;
+    onfocus?: string | EventHandler<T>;
+    onactivate?: string | EventHandler<T>;
+    onmouseactivate?: string | EventHandler<T>;
+    ondblclick?: string | EventHandler<T>;
+    oncontextmenu?: string | EventHandler<T>;
+    onmouseover?: string | EventHandler<T>;
+    onmouseout?: string | EventHandler<T>;
+    onmovedown?: string | EventHandler<T>;
+    onmoveleft?: string | EventHandler<T>;
+    onmoveright?: string | EventHandler<T>;
+    onmoveup?: string | EventHandler<T>;
+    oncancel?: string | EventHandler<T>;
+    ontabforward?: string | EventHandler<T>;
 
     // custom events
     onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;

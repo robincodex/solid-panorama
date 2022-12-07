@@ -47,6 +47,19 @@ function App() {
 (0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
 `;
 
+exports[`compile custom properties: event string 1`] = `
+""use strict";
+
+var _solidPanoramaRuntime = require("solid-panorama-runtime");
+function App() {
+  return (0, _solidPanoramaRuntime.createElement)("Panel", {
+    id: "root",
+    onactivate: "ToggleStyle(root, Disabled)"
+  }, null);
+}
+(0, _solidPanoramaRuntime.render)(() => (0, _solidPanoramaRuntime.createComponent)(App, {}), $('#app'));"
+`;
+
 exports[`compile custom properties: initialize 1`] = `
 ""use strict";
 

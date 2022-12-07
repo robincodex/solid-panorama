@@ -309,4 +309,20 @@ describe('compile', function () {
         `);
         expect(result).toMatchSnapshot();
     });
+
+    test('custom properties: event string', function () {
+        const result = parseSolid(`
+            import { render } from 'solid-panorama-runtime';
+
+            function App() {
+                return (
+                    <Panel id="root" onactivate="ToggleStyle(root, Disabled)" >
+                    </Panel>
+                );
+            }
+            
+            render(() => <App />, $('#app'));
+        `);
+        expect(result).toMatchSnapshot();
+    });
 });
