@@ -33,12 +33,12 @@ export {
 declare module 'solid-js' {
     namespace JSX {
         interface IntrinsicElements {
-            root: { children: any };
-            styles: { children: any };
-            scripts: { children: any };
+            root: { children?: any };
+            styles: { children?: any };
+            scripts: { children?: any };
             include: { src: string };
-            snippets: { children: any };
-            snippet: { name: string; children: any };
+            snippets: { children?: any };
+            snippet: { name: string; children?: any };
         }
     }
 }

@@ -131,9 +131,14 @@ declare interface EconItemImageAttributes extends ImageAttributes {
 }
 
 declare interface AnimatedImageStripAttributes extends ImageAttributes {
+    src?: string;
     frametime?: string;
-    defaultframe?: number;
+    defaultframe?: number | string;
     animating?: boolean;
+    /** pixels */
+    framewidth?: string;
+    /** pixels */
+    frameheight?: string;
 }
 
 declare interface DOTAEmoticonAttributes extends AnimatedImageStripAttributes {
@@ -178,9 +183,9 @@ declare interface DOTAScenePanelAttributes extends PanelAttributes<ScenePanel> {
 
     // acceleration?: number;
     antialias?: boolean;
-    // deferredalpha?: any;
-    // drawbackground?: boolean;
-    // environment?: any;
+    deferredalpha?: boolean;
+    drawbackground?: boolean;
+    environment?: string;
     // 'live-mode'?: any;
     panoramasurfaceheight?: number;
     panoramasurfacewidth?: number;
@@ -190,6 +195,16 @@ declare interface DOTAScenePanelAttributes extends PanelAttributes<ScenePanel> {
     renderdeferred?: boolean;
     rendershadows?: boolean;
     // renderwaterreflections?: boolean;
+}
+
+declare interface DOTAParticleScenePanelAttributes
+    extends PanelAttributes<ParticleScenePanel> {
+    particleonly?: boolean;
+    squarePixels?: boolean;
+    particleName: string;
+    cameraOrigin?: string;
+    lookAt?: string;
+    fov?: number | string;
 }
 
 declare interface DOTAEconItemAttributes
@@ -357,3 +372,5 @@ declare interface HTMLAttributes extends PanelAttributes<HTML> {
 declare interface CustomLayoutPanelAttributes extends PanelAttributes {
     layout: string;
 }
+
+declare interface DOTAPortraitAttributes extends PanelAttributes {}

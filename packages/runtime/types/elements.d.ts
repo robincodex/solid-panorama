@@ -2,7 +2,7 @@ import { ParentComponent, VoidComponent } from 'solid-js';
 
 declare global {
     const Panel: ParentComponent<PanelAttributes<Panel>>;
-    const Label: VoidComponent<LabelAttributes>;
+    const Label: ParentComponent<LabelAttributes>;
     const Image: ParentComponent<ImageAttributes>;
 
     const DOTAAbilityImage: ParentComponent<DOTAAbilityImageAttributes>;
@@ -19,6 +19,7 @@ declare global {
     const DOTAHeroMovie: ParentComponent<DOTAHeroMovieAttributes>;
 
     const DOTAScenePanel: ParentComponent<DOTAScenePanelAttributes>;
+    const DOTAParticleScenePanel: ParentComponent<DOTAParticleScenePanelAttributes>;
     const DOTAEconItem: ParentComponent<DOTAEconItemAttributes>;
 
     const ProgressBar: ParentComponent<ProgressBarAttributes>;
@@ -51,6 +52,8 @@ declare global {
     const DOTAMinimap: ParentComponent<PanelAttributes>;
 
     const HTML: ParentComponent<HTMLAttributes>;
+
+    const DOTAPortrait: ParentComponent<DOTAPortraitAttributes>;
 
     const CustomLayoutPanel: ParentComponent<CustomLayoutPanelAttributes>;
 }
