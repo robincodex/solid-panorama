@@ -14,7 +14,7 @@ export async function bundlePanoramaPolyfill(options) {
             }
             bundle += await readFile(resolve(__dirname, `${name}.js`), 'utf8');
             bundle += '\n';
-            bundle += `polyfillModule.default(this)`
+            bundle += `polyfillModule.default(this);`
             bundle += '\n';
         }
     }
@@ -26,10 +26,13 @@ export async function bundlePanoramaPolyfill(options) {
             }
             bundle += await readFile(filename);
             bundle += '\n';
-            bundle += `polyfillModule.default(this)`
+            bundle += `polyfillModule.default(this);`
             bundle += '\n';
         }
     }
+
+    bundle += `polyfillModule = undefined;`
+    bundle += '\n';
 
     await writeFile(options.output, bundle, 'utf8');
 }
