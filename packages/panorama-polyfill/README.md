@@ -65,14 +65,10 @@ await bundlePanoramaPolyfill({
 });
 ```
 
-代码格式要求：
+建议代码用函数包裹：
 
 ```js
-var polyfillModule = (function () {
-    return {
-        default: global => {
-            // global.x = 1
-        }
-    };
+(function () {
+    globalThis.myFunc = function () {};
 })();
 ```

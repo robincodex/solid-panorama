@@ -4,6 +4,6 @@ declare global {
     var console: typeof Console;
 }
 
-export default function (g: typeof globalThis) {
-    g.console = Console;
-}
+(function () {
+    globalThis.console = Console;
+})();

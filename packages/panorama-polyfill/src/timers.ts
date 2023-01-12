@@ -22,11 +22,11 @@ declare global {
     function clearImmediate(handle?: number): void;
 }
 
-export default function (g: typeof globalThis) {
-    g.setInterval = timers.setInterval;
-    g.clearInterval = timers.clearInterval;
-    g.setTimeout = timers.setTimeout;
-    g.clearTimeout = timers.clearTimeout;
-    g.setImmediate = timers.setImmediate;
-    g.clearImmediate = timers.clearImmediate;
-}
+(function () {
+    globalThis.setInterval = timers.setInterval;
+    globalThis.clearInterval = timers.clearInterval;
+    globalThis.setTimeout = timers.setTimeout;
+    globalThis.clearTimeout = timers.clearTimeout;
+    globalThis.setImmediate = timers.setImmediate;
+    globalThis.clearImmediate = timers.clearImmediate;
+})();
