@@ -115,8 +115,11 @@ const polyfillConfig = {
         dir: 'dist/solid-panorama-polyfill',
         sourcemap: false,
         format: 'iife',
-        exports: 'named'
+        exports: 'named',
+        name: 'polyfillModule'
     },
+    context: 'this',
+    moduleContext: 'this',
     plugins: [
         replace({
             preventAssignment: true,

@@ -14,6 +14,8 @@ export async function bundlePanoramaPolyfill(options) {
             }
             bundle += await readFile(resolve(__dirname, `${name}.js`), 'utf8');
             bundle += '\n';
+            bundle += `polyfillModule.default(this)`
+            bundle += '\n';
         }
     }
 
@@ -23,6 +25,8 @@ export async function bundlePanoramaPolyfill(options) {
                 bundle += '\n';
             }
             bundle += await readFile(filename);
+            bundle += '\n';
+            bundle += `polyfillModule.default(this)`
             bundle += '\n';
         }
     }
