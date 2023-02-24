@@ -11,6 +11,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: pnpm --frozen-lockfile
       - run: pnpm build:jsx
-      - run: pnpm publish dist/babel-plugin-jsx-panorama-expressions --access public
+      - run: pnpm publish dist/babel-plugin-jsx-panorama-expressions --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

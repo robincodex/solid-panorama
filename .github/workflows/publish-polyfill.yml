@@ -12,6 +12,6 @@ jobs:
       - run: pnpm --frozen-lockfile
       - run: pnpm build:polyfill
       - run: cp packages/panorama-polyfill/README.md dist/solid-panorama-polyfill/
-      - run: pnpm publish dist/solid-panorama-polyfill --access public
+      - run: pnpm publish dist/solid-panorama-polyfill --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

@@ -9,6 +9,6 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: pnpm publish packages/babel-preset-solid-panorama --access public
+      - run: pnpm publish packages/babel-preset-solid-panorama --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
