@@ -318,10 +318,9 @@ function applyStyles(
                 node.style[k] = `${styles[k]}px`;
                 continue;
             }
-            throw new Error(`style key ${k} not support number`);
         }
         // @ts-ignore
-        node.style[k] = String(styles[k]);
+        node.style[k] = styles[k];
     }
 }
 
