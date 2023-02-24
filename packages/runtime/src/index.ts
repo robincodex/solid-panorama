@@ -1,3 +1,5 @@
+/// <reference path="../types/jsx.d.ts" />
+
 import {
     Accessor,
     ComponentProps,

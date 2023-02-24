@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/@moddota/panorama-types/index.d.ts" />
+
 import { describe, expect, test } from '@jest/globals';
 import {
     format,

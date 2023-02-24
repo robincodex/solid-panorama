@@ -39,7 +39,7 @@ export function parseMacros(code: string, filename?: string) {
             [
                 '@babel/preset-env',
                 {
-                    targets: 'node 18.0'
+                    targets: 'node 18.12'
                 }
             ]
         ],
