@@ -7,11 +7,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn --frozen-lockfile
-      - run: yarn build:polyfill
+      - run: pnpm --frozen-lockfile
+      - run: pnpm build:polyfill
       - run: cp packages/panorama-polyfill/README.md dist/solid-panorama-polyfill/
-      - run: yarn publish dist/solid-panorama-polyfill --access public
+      - run: pnpm publish dist/solid-panorama-polyfill --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

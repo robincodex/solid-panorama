@@ -7,11 +7,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn --frozen-lockfile
-      - run: yarn build:runtime
+      - run: pnpm --frozen-lockfile
+      - run: pnpm build:runtime
       - run: cp README.md dist/runtime/
-      - run: yarn publish dist/runtime --access public
+      - run: pnpm publish dist/runtime --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
