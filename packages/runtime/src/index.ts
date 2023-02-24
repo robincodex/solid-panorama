@@ -1,3 +1,11 @@
+import {
+    Accessor,
+    ComponentProps,
+    createMemo,
+    splitProps,
+    untrack,
+    ValidComponent
+} from 'solid-js';
 import { createRenderer } from 'solid-js/universal';
 import { StyleKeyAutoConvertToPixelList } from './config';
 import { setDragEvent } from './event';
@@ -210,6 +218,43 @@ export const {
         }
     }
 });
+
+export type DynamicProps<T extends ValidComponent, P = ComponentProps<T>> = {
+    [K in keyof P]: P[K];
+} & {
+    component: T | undefined;
+};
+
+/**
+ * Note: Copy from solid-js/types/jsx.d.ts
+ *
+ * renders an arbitrary custom or native component and passes the other props
+ * ```typescript
+ * <Dynamic component={isLabel? 'Panel' : 'Label'} text={value()} />
+ * ```
+ * @description https://www.solidjs.com/docs/latest/api#dynamic
+ */
+export function Dynamic<T extends ValidComponent>(
+    props: DynamicProps<T>
+): Accessor<JSX.Element> {
+    const [p, others] = splitProps(props, ['component']);
+    const cached = createMemo<Function | string>(() => p.component);
+    return createMemo(() => {
+        const component = cached();
+        switch (typeof component) {
+            case 'function':
+                return untrack(() => component(others));
+
+            case 'string':
+                const el = createElement(component);
+                spread(el, others);
+                return el;
+
+            default:
+                break;
+        }
+    });
+}
 
 declare global {
     interface Panel {
