@@ -1,6 +1,6 @@
 # Solid.js for Valve's Panorama UI
 
-在使用这个库前你需要学习[SolidJS](https://www.solidjs.com/)，虽然写起来跟react很像，但是功能方面是有很大不同的。
+在使用这个库前你需要学习[SolidJS](https://www.solidjs.com/)，虽然写起来跟 react 很像，但是功能方面是有很大不同的。
 
 目前可正常使用，可参考[solid-panorama-example](https://github.com/RobinCodeX/solid-panorama-example)。
 
@@ -221,4 +221,26 @@ function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
 }
 
 <Panel onDragStart={onItemDragStart} />;
+```
+
+# 注意事项
+
+-   在组件需要处理 children 时，不要在 Object 展开语法（Spread syntax）中获取 children，这会导致多次创建元素的 BUG，从而导致渲染错误，原因是编译后 children 是个 getter 函数。
+
+```tsx
+interface MyButtonProps {
+    children: JSX.Element;
+}
+
+// ❌ 这样会导致渲染错误
+function MyButton({ children, className, ...props }: MyButtonProps) {
+    return <Button {...props}>{children}</Button>;
+}
+
+// ✅ 正确做法
+function MyButton({ className, ...props }: MyButtonProps) {
+    const children = doSomething(props.children);
+    delete props.children;
+    return <Button {...props}>{children}</Button>;
+}
 ```

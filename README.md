@@ -225,3 +225,25 @@ function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
 
 <Panel onDragStart={onItemDragStart} />;
 ```
+
+# NOTES
+
+-   Don't get children in the **Object spread syntax** from props, as this can lead to a bug that creates elements multiple times.
+
+```tsx
+interface MyButtonProps {
+    children: JSX.Element;
+}
+
+// ❌ Render incorrect
+function MyButton({ children, className, ...props }: MyButtonProps) {
+    return <Button {...props}>{children}</Button>;
+}
+
+// ✅ Correct
+function MyButton({ className, ...props }: MyButtonProps) {
+    const children = doSomething(props.children);
+    delete props.children;
+    return <Button {...props}>{children}</Button>;
+}
+```
