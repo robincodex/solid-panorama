@@ -59,13 +59,21 @@ export const {
 } = createRenderer<Panel>({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
-        const { id, snippet, vars, dialogVariables, text, ..._props } = props;
+        const { id, snippet, vars, dialogVariables, text, style, ..._props } =
+            props;
+        const styleIsString = typeof style === 'string';
+        if (styleIsString) {
+            props.style = style;
+        }
         const el = $.CreatePanelWithProperties(
             type,
             parent || $.GetContextPanel(),
             id || '',
             _props
         );
+        if (!styleIsString) {
+            applyStyles(el, style);
+        }
         if (snippet) {
             el.BLoadLayoutSnippet(snippet);
         }
@@ -307,7 +315,7 @@ function applyStyles(
 ) {
     prev = prev || {};
     for (const k in prev) {
-        if (!styles[k]) {
+        if (!hasOwn.call(styles, k)) {
             node.style[k as keyof VCSSStyleDeclaration] = null;
         }
     }
