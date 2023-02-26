@@ -234,7 +234,7 @@ interface MyButtonProps {
     children?: JSX.Element;
 }
 
-function MyButton({ className, ...props }: MyButtonProps) {
+function MyButton(props: MyButtonProps) {
     const [local, others] = splitProps(props, ['children']);
     const resolved = children(() => local.children);
 
@@ -256,22 +256,21 @@ function MyButton({ className, ...props }: MyButtonProps) {
 }
 ```
 
--   在组件需要处理 children 时，不要在 Object 展开语法（Spread syntax）中获取 children，这会导致多次创建元素的 BUG，从而导致渲染错误，原因是编译后 children 是个 getter 函数。
+-   函数组件的参数尽量不要使用 Object 展开语法（Spread syntax），如果需要分割 props，应当用`splitProps`，主要是这种语法会导致无法更新属性。
 
 ```tsx
-interface MyButtonProps {
-    children?: JSX.Element;
+import { splitProps } from 'solid-js';
+
+// ✅ 推荐
+function MyButton(props: MyButtonProps) {
+    const [local, others] = splitProps(props, ['class', 'children']);
+    return (
+        <Button class={local.class + ' MyButtonStyle'} {...others}>
+            <Label text={local.class} />
+        </Button>
+    );
 }
 
-// ❌ 这样会导致渲染错误
-function MyButton({ children, className, ...props }: MyButtonProps) {
-    return <Button {...props}>{children}</Button>;
-}
-
-// ✅ 正确做法
-function MyButton({ className, ...props }: MyButtonProps) {
-    const [local, others] = splitProps(props, ['children']);
-    const resolved = children(() => local.children);
-    return <Button {...others}>{resolved()}</Button>;
-}
+// 😞 这是不推荐的，即使没有分割出属性也一样会导致属性无法更新
+function MyButton({ ...props }: MyButtonProps);
 ```

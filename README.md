@@ -259,22 +259,23 @@ function MyButton({ className, ...props }: MyButtonProps) {
 }
 ```
 
--   Don't get children in the **Object spread syntax** from props, as this can lead to a bug that creates elements multiple times.
+-   Try not to use object spread syntax for the arguments of function components, this syntax will make it impossible to update properties, if you need to split props, you should use `splitProps`.
 
 ```tsx
-interface MyButtonProps {
-    children: JSX.Element;
+import { splitProps } from 'solid-js';
+
+// ✅ Recommend
+function MyButton(props: MyButtonProps) {
+    const [local, others] = splitProps(props, ['class', 'children']);
+    return (
+        <Button class={local.class + ' MyButtonStyle'} {...others}>
+            <Label text={local.class} />
+        </Button>
+    );
 }
 
-// ❌ Render incorrect
-function MyButton({ children, className, ...props }: MyButtonProps) {
-    return <Button {...props}>{children}</Button>;
-}
-
-// ✅ Correct
-function MyButton({ className, ...props }: MyButtonProps) {
-    const [local, others] = splitProps(props, ['children']);
-    const resolved = children(() => local.children);
-    return <Button {...others}>{resolved()}</Button>;
-}
+// 😞 This is not recommended,
+// even if the properties are not split,
+// the properties will not be updated.
+function MyButton({ ...props }: MyButtonProps);
 ```
