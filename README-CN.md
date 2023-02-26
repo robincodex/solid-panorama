@@ -225,11 +225,42 @@ function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
 
 # 注意事项
 
+-   如何正确使用 children，可参考[https://www.solidjs.com/docs/latest/api#children](https://www.solidjs.com/docs/latest/api#children)
+
+```tsx
+import { children, splitProps } from 'solid-js';
+
+interface MyButtonProps {
+    children?: JSX.Element;
+}
+
+function MyButton({ className, ...props }: MyButtonProps) {
+    const [local, others] = splitProps(props, ['children']);
+    const resolved = children(() => local.children);
+
+    createEffect(() => {
+        const list = resolved.toArray();
+        for (const [index, child] of list.entries()) {
+            (child as Panel).SetHasClass(
+                'LastChild',
+                index === list.length - 1
+            );
+        }
+    });
+
+    return (
+        <Button className={className || 'ButtonBevel'} {...others}>
+            {resolved()}
+        </Button>
+    );
+}
+```
+
 -   在组件需要处理 children 时，不要在 Object 展开语法（Spread syntax）中获取 children，这会导致多次创建元素的 BUG，从而导致渲染错误，原因是编译后 children 是个 getter 函数。
 
 ```tsx
 interface MyButtonProps {
-    children: JSX.Element;
+    children?: JSX.Element;
 }
 
 // ❌ 这样会导致渲染错误
@@ -239,8 +270,8 @@ function MyButton({ children, className, ...props }: MyButtonProps) {
 
 // ✅ 正确做法
 function MyButton({ className, ...props }: MyButtonProps) {
-    const children = doSomething(props.children);
-    delete props.children;
-    return <Button {...props}>{children}</Button>;
+    const [local, others] = splitProps(props, ['children']);
+    const resolved = children(() => local.children);
+    return <Button {...others}>{resolved()}</Button>;
 }
 ```

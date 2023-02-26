@@ -228,6 +228,37 @@ function onItemDragStart(source: Panel, dragCallbacks: IDragCallbacks) {
 
 # NOTES
 
+-   For more information on how to use children correctly, refer [https://www.solidjs.com/docs/latest/api#children](https://www.solidjs.com/docs/latest/api#children)
+
+```tsx
+import { children, splitProps } from 'solid-js';
+
+interface MyButtonProps {
+    children?: JSX.Element;
+}
+
+function MyButton({ className, ...props }: MyButtonProps) {
+    const [local, others] = splitProps(props, ['children']);
+    const resolved = children(() => local.children);
+
+    createEffect(() => {
+        const list = resolved.toArray();
+        for (const [index, child] of list.entries()) {
+            (child as Panel).SetHasClass(
+                'LastChild',
+                index === list.length - 1
+            );
+        }
+    });
+
+    return (
+        <Button className={className || 'ButtonBevel'} {...others}>
+            {resolved()}
+        </Button>
+    );
+}
+```
+
 -   Don't get children in the **Object spread syntax** from props, as this can lead to a bug that creates elements multiple times.
 
 ```tsx
@@ -242,8 +273,8 @@ function MyButton({ children, className, ...props }: MyButtonProps) {
 
 // ✅ Correct
 function MyButton({ className, ...props }: MyButtonProps) {
-    const children = doSomething(props.children);
-    delete props.children;
-    return <Button {...props}>{children}</Button>;
+    const [local, others] = splitProps(props, ['children']);
+    const resolved = children(() => local.children);
+    return <Button {...others}>{resolved()}</Button>;
 }
 ```
