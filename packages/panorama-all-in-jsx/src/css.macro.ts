@@ -60,7 +60,7 @@ export default createMacro(function ({ references, state, babel }) {
 
         const id = isForceClass
             ? index
-            : 'styled-' + generateCssID(filename, index);
+            : generateCssID(filename, varName, index);
 
         if (varName) {
             className[varName] = id;
@@ -72,12 +72,16 @@ export default createMacro(function ({ references, state, babel }) {
     }
 });
 
-function generateCssID(filename: string, varName: string): string {
+function generateCssID(
+    filename: string,
+    varName: string,
+    index: string
+): string {
     filename = filename.replace(process.cwd(), '').replace(/\\/g, '/');
     const h = createHash('sha256')
-        .update(filename + varName)
+        .update(filename + varName + index)
         .digest('hex');
-    return h.slice(0, 8);
+    return (varName || 'styled') + '-' + h.slice(0, 8);
 }
 
 export function getCSS(filename: string): string | undefined {
