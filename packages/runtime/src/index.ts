@@ -83,7 +83,7 @@ export const {
         if (dialogVariables) {
             setDialogVariables(el, dialogVariables, {});
         }
-        if (text && el.paneltype === 'Label') {
+        if (text) {
             if (text[0] === '#') {
                 (el as LabelPanel).text = $.Localize(text, el);
             } else {
@@ -186,6 +186,12 @@ export const {
         }
         if (name === 'class' || name === 'className') {
             applyClassNames(node, value, prev || '');
+        } else if (name === 'text') {
+            if (value[0] === '#') {
+                (node as LabelPanel).text = $.Localize(value, node);
+            } else {
+                (node as LabelPanel).text = value;
+            }
         } else if (name === 'classList') {
             updateClassList(node, value);
         } else if (name === 'style') {

@@ -148,6 +148,8 @@ PUI 的元素事件与 WEB 的完全不同，PUI 是较为简单的，而且绝�
 
 针对 Label 做了一些调整，vars 和 dialogVariables 会先写入，然后再写入`Label.text`, 如果 text 以`#`开头会调用`$.Localize(text, Label)`。
 
+如果 text 是动态改变的，则应当将 vars 和 dialogVariables 放在 text 前面。
+
 ```jsx
 <Label vars={{ name: '#addon_game_name' }} text="Welcome {d:name}" />
 ```
