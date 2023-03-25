@@ -192,6 +192,8 @@ export const {
             } else {
                 (node as LabelPanel).text = value;
             }
+        } else if (name === 'src' && (node as ImagePanel).SetImage) {
+            (node as ImagePanel).SetImage(value);
         } else if (name === 'classList') {
             updateClassList(node, value);
         } else if (name === 'style') {
