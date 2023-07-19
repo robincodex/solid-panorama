@@ -3,8 +3,8 @@ import * as t from '@babel/types';
 import { createHash } from 'crypto';
 import { NodePath, PluginPass } from '@babel/core';
 import * as Babel from '@babel/core';
-import { join } from 'path';
-import { existsSync } from 'fs';
+import { dirname, join } from 'path';
+import { existsSync, lstatSync } from 'fs';
 
 const cssCache: Record<string, string> = {};
 const cssIndex: Record<string, number> = {};
@@ -143,7 +143,10 @@ function searchStaticValueFromModules(
     state: PluginPass,
     babel: typeof Babel
 ) {
-    let filename = join(state.cwd, moduleName);
+    let filename = join(dirname(state.filename || ''), moduleName);
+    if (existsSync(filename) && lstatSync(filename).isDirectory()) {
+        filename = join(filename, 'index');
+    }
     if (existsSync(filename + '.tsx')) {
         filename += '.tsx';
     } else if (existsSync(filename + '.jsx')) {
