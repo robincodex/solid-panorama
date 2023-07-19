@@ -195,7 +195,7 @@ export const {
         } else if (name === 'src' && (node as ImagePanel).SetImage) {
             (node as ImagePanel).SetImage(value);
         } else if (name === 'classList') {
-            updateClassList(node, value);
+            updateClassList(node, value, prev);
         } else if (name === 'style') {
             applyStyles(node, value, prev);
         } else if (name === 'vars' || name === 'dialogVariables') {
@@ -310,7 +310,18 @@ function applyClassNames(node: Panel, names: string, prev: string) {
     }
 }
 
-function updateClassList(node: Panel, state: Record<string, boolean>) {
+function updateClassList(
+    node: Panel,
+    state: Record<string, boolean>,
+    prev?: Record<string, boolean>
+) {
+    if (prev) {
+        for (const k in prev) {
+            if (state[k] === undefined) {
+                node.RemoveClass(k);
+            }
+        }
+    }
     for (const k in state) {
         node.SetHasClass(k, state[k] === true);
     }
