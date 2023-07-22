@@ -61,6 +61,7 @@ declare interface PanelAttributes<T extends PanelBase = Panel> {
     onmoveup?: string | EventHandler<T>;
     oncancel?: string | EventHandler<T>;
     ontabforward?: string | EventHandler<T>;
+    ontooltiploaded?: string | EventHandler<T>;
 
     // custom events
     onDragStart?: (source: Panel, dragCallbacks: IDragCallbacks) => void;
