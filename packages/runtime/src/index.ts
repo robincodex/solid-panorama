@@ -85,6 +85,7 @@ export const {
         }
         if (text) {
             if (text[0] === '#') {
+                el.__solidText = text;
                 (el as LabelPanel).text = $.Localize(text, el);
             } else {
                 (el as LabelPanel).text = text;
@@ -98,9 +99,9 @@ export const {
             value = String(value);
         }
         if (value[0] === '#') {
-            value = $.Localize(value);
+            value = $.Localize(value, parent);
         }
-        return $.CreatePanelWithProperties(
+        const child = $.CreatePanelWithProperties(
             'Label',
             parent || $.GetContextPanel(),
             '',
@@ -109,6 +110,10 @@ export const {
                 html: 'true'
             }
         );
+        if (value[0] === '#') {
+            child.__solidText = value;
+        }
+        return child;
     },
 
     replaceText(textNode: LabelPanel, value) {
@@ -116,7 +121,8 @@ export const {
             return;
         }
         if (value[0] === '#') {
-            value = $.Localize(value);
+            textNode.__solidText = value;
+            value = $.Localize(value, textNode);
         }
         textNode.text = value;
     },
@@ -188,6 +194,7 @@ export const {
             applyClassNames(node, value, prev || '');
         } else if (name === 'text') {
             if (value[0] === '#') {
+                node.__solidText = value;
                 (node as LabelPanel).text = $.Localize(value, node);
             } else {
                 (node as LabelPanel).text = value;
@@ -277,6 +284,7 @@ export function Dynamic<T extends ValidComponent>(
 declare global {
     interface Panel {
         __solidDisposer?: () => void;
+        __solidText?: string;
     }
 }
 
@@ -394,6 +402,9 @@ function setDialogVariables(
         } else {
             node.SetDialogVariableTime(key, Math.floor(value.getTime() / 1000));
         }
+    }
+    if (node.__solidText) {
+        (node as LabelPanel).text = $.Localize(node.__solidText, node);
     }
 }
 
