@@ -43,5 +43,6 @@ export default [
     'DOTAAccountLinkHTML',
     'DOTAHTMLPanel',
     'DOTAStoreCustomControls',
-    'CustomLayoutPanel'
+    'CustomLayoutPanel',
+    'DOTAPortrait'
 ];
