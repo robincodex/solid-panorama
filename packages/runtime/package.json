@@ -15,6 +15,7 @@
         "url": "git+https://github.com/RobinCodeX/solid-panorama.git"
     },
     "dependencies": {
-        "@moddota/panorama-types": "^1.21.0"
+        "@moddota/panorama-types": "^1.26.0",
+        "solid-js": "^1.7.8"
     }
 }
