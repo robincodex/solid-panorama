@@ -35,11 +35,7 @@ export default createMacro(function ({ references, state, babel }) {
             if (isRoot(result)) {
                 xmlCache[filename].root = result;
             } else if (isSnippet(result)) {
-                if (existsSnippet(xmlCache[filename].snippets, result)) {
-                    console.warn(
-                        `${filename}: snippet ${result.attributes?.name} is exists`
-                    );
-                } else {
+                if (!existsSnippet(xmlCache[filename].snippets, result)) {
                     xmlCache[filename].snippets.push(result);
                 }
             } else {
