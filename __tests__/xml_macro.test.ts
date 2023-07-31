@@ -71,6 +71,14 @@ describe('xml_macro', function () {
             )
 
             xml(
+                <snippet name="Item">
+                    <Panel class="Item">
+                        <Image />
+                    </Panel>
+                </snippet>
+            )
+
+            xml(
                 <root>
                     <Panel>
                     </Panel>
