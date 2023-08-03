@@ -35,9 +35,11 @@ export default createMacro(function ({ references, state, babel }) {
             if (isRoot(result)) {
                 xmlCache[filename].root = result;
             } else if (isSnippet(result)) {
-                if (!existsSnippet(xmlCache[filename].snippets, result)) {
-                    xmlCache[filename].snippets.push(result);
-                }
+                xmlCache[filename].snippets = removeExistsSnippet(
+                    xmlCache[filename].snippets,
+                    result
+                );
+                xmlCache[filename].snippets.push(result);
             } else {
                 throw new Error(
                     'Root element only support <root> or <snippet>'
@@ -98,16 +100,15 @@ function isSnippet(el: xmljs.Element): boolean {
     return el.name === 'snippet';
 }
 
-function existsSnippet(snippets: xmljs.Element[], el: xmljs.Element): boolean {
-    if (!isSnippet(el)) {
-        return false;
+function removeExistsSnippet(
+    snippets: xmljs.Element[],
+    el: xmljs.Element
+): xmljs.Element[] {
+    if (!isSnippet(el) || !el.attributes?.name) {
+        return snippets;
     }
-    const name = el.attributes?.name;
-    return (
-        snippets.some(
-            v => v.name === 'snippet' && v.attributes?.name === name
-        ) === true
-    );
+    const name = el.attributes.name;
+    return snippets.filter(v => v.attributes?.name !== name);
 }
 
 /**
