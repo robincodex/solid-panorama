@@ -190,6 +190,10 @@ export const {
         if (!node || !node.IsValid()) {
             return;
         }
+        // id is readonly
+        if (name === 'id') {
+            return;
+        }
         if (name === 'class' || name === 'className') {
             applyClassNames(node, value, prev || '');
         } else if (name === 'text') {
