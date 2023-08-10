@@ -145,8 +145,9 @@ function inspect(value: unknown, expand?: boolean, tab = '') {
                     );
                 }
             } else {
+                const isPanel = isPanelBase(value);
                 for (const [k, v] of Object.entries(value)) {
-                    if (k === 'style' && isPanelBase(v)) {
+                    if (k === 'style' && isPanel) {
                         list.push(`${tab}${k}: [VCSSStyleDeclaration]`);
                         continue;
                     }
@@ -175,8 +176,7 @@ function inspect(value: unknown, expand?: boolean, tab = '') {
 const isPanelBase = (value: object): value is PanelBase =>
     'paneltype' in value &&
     'rememberchildfocus' in value &&
-    'SetPanelEvent' in value &&
-    'RunScriptInPanelContext' in value;
+    'SetPanelEvent' in value;
 
 function isClass(value: unknown) {
     if (typeof value !== 'function') return false;
