@@ -279,3 +279,7 @@ function MyButton(props: MyButtonProps) {
 // the properties will not be updated.
 function MyButton({ ...props }: MyButtonProps);
 ```
+
+-   UI focus issues
+
+The UI by default will cause focus to be obtained if any element is clicked on, which will cause shortcuts etc. to be disabled, and generally there is no need to focus on elements of the UI, so any element will call `SetDisableFocusOnMouseDown(true)` when it is created.

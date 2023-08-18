@@ -276,3 +276,7 @@ function MyButton(props: MyButtonProps) {
 // 😞 这是不推荐的，即使没有分割出属性也一样会导致属性无法更新
 function MyButton({ ...props }: MyButtonProps);
 ```
+
+-   UI的焦点问题
+
+PUI在默认情况如果点击任意元素之后会导致获得聚焦，从而导致快捷键等失效，一般情况下都不需要将焦点聚焦在UI的元素上，所以任何元素在创建时都会调用`SetDisableFocusOnMouseDown(true)`。

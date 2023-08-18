@@ -71,6 +71,7 @@ export const {
             id || '',
             _props
         );
+        el.SetDisableFocusOnMouseDown(true);
         if (!styleIsString) {
             applyStyles(el, style);
         }
@@ -110,6 +111,7 @@ export const {
                 html: 'true'
             }
         );
+        child.SetDisableFocusOnMouseDown(true);
         if (value[0] === '#') {
             child.__solidText = value;
         }
