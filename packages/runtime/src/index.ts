@@ -37,7 +37,7 @@ const nodeTrash = (function () {
     while (root.GetParent()) {
         root = root.GetParent()!;
     }
-    return $.CreatePanelWithProperties('Panel', root, '', {
+    return $.CreatePanel('Panel', root, '', {
         style: 'visibility: collapse;'
     });
 })();
@@ -65,12 +65,12 @@ export const {
         if (styleIsString) {
             props.style = style;
         }
-        const el = $.CreatePanelWithProperties(
+        const el = $.CreatePanel(
             type,
             parent || $.GetContextPanel(),
             id || '',
             _props
-        );
+        ) as LabelPanel;
         el.SetDisableFocusOnMouseDown(true);
         if (!styleIsString) {
             applyStyles(el, style);
@@ -87,9 +87,9 @@ export const {
         if (text) {
             if (text[0] === '#') {
                 el.__solidText = text;
-                (el as LabelPanel).text = $.Localize(text, el);
+                el.text = $.Localize(text, el);
             } else {
-                (el as LabelPanel).text = text;
+                el.text = text;
             }
         }
         return el;
@@ -102,7 +102,7 @@ export const {
         if (value[0] === '#') {
             value = $.Localize(value, parent);
         }
-        const child = $.CreatePanelWithProperties(
+        const child = $.CreatePanel(
             'Label',
             parent || $.GetContextPanel(),
             '',
