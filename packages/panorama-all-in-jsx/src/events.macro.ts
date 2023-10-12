@@ -27,9 +27,9 @@ export default createMacro(function ({ references, state, babel }) {
 const buildGameEventCode = `
 createEffect(() => {
     const id = GameEvents.Subscribe();
-    return () => {
+    onCleanup(() => {
         GameEvents.Unsubscribe(id);
-    };
+    });
 });`;
 
 function useGameEvent(
@@ -71,6 +71,15 @@ function useGameEvent(
                             'createEffect',
                             'solid-js'
                         );
+                    } else if (
+                        t.isIdentifier(eventPath.node.callee) &&
+                        eventPath.node.callee.name === 'onCleanup'
+                    ) {
+                        eventPath.node.callee = registerImportMethod(
+                            path,
+                            'onCleanup',
+                            'solid-js'
+                        );
                     }
                 }
             }
@@ -92,9 +101,9 @@ function useGameEvent(
 const useNetTableCode = `
 createEffect(() => {
     const id = CustomNetTables.SubscribeNetTableListener();
-    return () => {
+    onCleanup(() => {
         CustomNetTables.UnsubscribeNetTableListener(id);
-    };
+    });
 });`;
 
 function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
@@ -187,6 +196,15 @@ function useNetTable(refs: NodePath[], state: PluginPass, babel: typeof Babel) {
                         eventPath.node.callee = registerImportMethod(
                             path,
                             'createEffect',
+                            'solid-js'
+                        );
+                    } else if (
+                        t.isIdentifier(eventPath.node.callee) &&
+                        eventPath.node.callee.name === 'onCleanup'
+                    ) {
+                        eventPath.node.callee = registerImportMethod(
+                            path,
+                            'onCleanup',
                             'solid-js'
                         );
                     }
