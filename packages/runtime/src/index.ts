@@ -42,6 +42,12 @@ const nodeTrash = (function () {
     });
 })();
 
+function isLabelPanel(node: Panel): node is LabelPanel {
+    return node.paneltype === 'Label';
+}
+
+type MaybeTextPanel = Panel & { text?: string };
+
 export const {
     render: _render,
     effect,
@@ -70,7 +76,7 @@ export const {
             parent || $.GetContextPanel(),
             id || '',
             _props
-        ) as LabelPanel;
+        ) as MaybeTextPanel;
         el.SetDisableFocusOnMouseDown(true);
         if (!styleIsString) {
             applyStyles(el, style);
@@ -85,7 +91,9 @@ export const {
             setDialogVariables(el, dialogVariables, {});
         }
         if (text) {
-            if (text[0] === '#') {
+            if (isLabelPanel(el)) {
+                el.SetAlreadyLocalizedText(text);
+            } else if (text[0] === '#') {
                 el.__solidText = text;
                 el.text = $.Localize(text, el);
             } else {
@@ -99,9 +107,6 @@ export const {
         if (typeof value !== 'string') {
             value = String(value);
         }
-        if (value[0] === '#') {
-            value = $.Localize(value, parent);
-        }
         const child = $.CreatePanel(
             'Label',
             parent || $.GetContextPanel(),
@@ -112,9 +117,6 @@ export const {
             }
         );
         child.SetDisableFocusOnMouseDown(true);
-        if (value[0] === '#') {
-            child.__solidText = value;
-        }
         return child;
     },
 
@@ -199,11 +201,13 @@ export const {
         if (name === 'class' || name === 'className') {
             applyClassNames(node, value, prev || '');
         } else if (name === 'text') {
-            if (value[0] === '#') {
+            if (isLabelPanel(node)) {
+                node.SetAlreadyLocalizedText(value);
+            } else if (value[0] === '#') {
                 node.__solidText = value;
-                (node as LabelPanel).text = $.Localize(value, node);
+                (node as MaybeTextPanel).text = $.Localize(value, node);
             } else {
-                (node as LabelPanel).text = value;
+                (node as MaybeTextPanel).text = value;
             }
         } else if (name === 'src' && (node as ImagePanel).SetImage) {
             (node as ImagePanel).SetImage(value);
@@ -410,7 +414,7 @@ function setDialogVariables(
         }
     }
     if (node.__solidText) {
-        (node as LabelPanel).text = $.Localize(node.__solidText, node);
+        (node as MaybeTextPanel).text = $.Localize(node.__solidText, node);
     }
 }
 
