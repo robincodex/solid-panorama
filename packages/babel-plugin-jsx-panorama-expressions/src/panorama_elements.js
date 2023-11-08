@@ -11,6 +11,7 @@ export default [
     'AnimatedImageStrip',
     'DOTAEmoticon',
     'Movie',
+    'MoviePanel',
     'DOTAHeroMovie',
     'DOTAScenePanel',
     'DOTAParticleScenePanel',
