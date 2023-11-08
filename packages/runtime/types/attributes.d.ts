@@ -158,6 +158,12 @@ declare interface MovieAttributes extends PanelAttributes<MoviePanel> {
     autoplay?: MovieAutoPlay;
 }
 
+declare interface MoviePanelAttributes extends PanelAttributes<MoviePanel> {
+    src?: string;
+    repeat?: boolean;
+    autoplay?: MovieAutoPlay;
+}
+
 declare interface DOTAHeroMovieAttributes extends PanelAttributes<HeroMovie> {
     heroid?: HeroID;
     heroname?: string;

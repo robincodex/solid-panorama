@@ -17,6 +17,7 @@ declare global {
 
     const Movie: ParentComponent<MovieAttributes>;
     const DOTAHeroMovie: ParentComponent<DOTAHeroMovieAttributes>;
+    const MoviePanel: ParentComponent<MoviePanelAttributes>;
 
     const DOTAScenePanel: ParentComponent<DOTAScenePanelAttributes>;
     const DOTAParticleScenePanel: ParentComponent<DOTAParticleScenePanelAttributes>;
