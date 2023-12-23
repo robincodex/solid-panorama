@@ -22,7 +22,7 @@ export function setCustomTooltip(
         return;
     }
     let path = args[1];
-    if (path.startsWith('file://')) {
+    if (!path.startsWith('file://')) {
         path = `file://{resources}/layout/custom_game/${path.replace(
             '.xml',
             ''
