@@ -15,4 +15,4 @@ export function useNetTable<
 >(
     tableName: TName,
     key: TKey
-): Accessor<CustomNetTableDeclarations[TName][TKey] | undefined>;
+): Accessor<NetworkedData<CustomNetTableDeclarations[TName][TKey]> | undefined>;
