@@ -12,7 +12,7 @@ For example, adding attribute and parent element to `createElement` greatly redu
 ## Installation
 
 ```
-yarn add solid.js \
+yarn add solid-js \
          solid-panorama-runtime \
          babel-plugin-jsx-panorama-expressions \
          babel-preset-solid-panorama
