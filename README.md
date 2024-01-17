@@ -239,6 +239,7 @@ interface MyButtonProps {
 
 function MyButton({ className, ...props }: MyButtonProps) {
     const [local, others] = splitProps(props, ['children']);
+    // Note that if your children have a fixed layout and are not changing, you should use `{local.children}` directly.
     const resolved = children(() => local.children);
 
     createEffect(() => {

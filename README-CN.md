@@ -238,6 +238,7 @@ interface MyButtonProps {
 
 function MyButton(props: MyButtonProps) {
     const [local, others] = splitProps(props, ['children']);
+    // 注意，如果你的 children 是固定的布局，不是变化的，则应该直接使用`{local.children}`
     const resolved = children(() => local.children);
 
     createEffect(() => {
