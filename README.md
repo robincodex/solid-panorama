@@ -24,7 +24,7 @@ babel.config.js
 
 ```js
 module.exports = {
-    targets: 'node 8.2',
+    targets: 'node 18.12',
     presets: [
         '@babel/preset-env',
         '@babel/preset-typescript',
