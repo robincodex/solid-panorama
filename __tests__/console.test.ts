@@ -8,7 +8,7 @@ import {
 
 describe('console', function () {
     test('format', function () {
-        const style = {
+        const panelBase = {
             paneltype: '',
             rememberchildfocus: '',
             SetPanelEvent: '',
@@ -30,6 +30,7 @@ describe('console', function () {
 
         expect(
             format({
+                ...panelBase,
                 x: 1,
                 y: '123',
                 c: 'str',
@@ -39,7 +40,7 @@ describe('console', function () {
                 g: function () {},
                 h: () => {},
                 i: test,
-                style,
+                style: { width: '100%' },
                 map: new Map([
                     ['a', 2],
                     ['b', 1]
@@ -58,7 +59,13 @@ describe('console', function () {
 
         expect(
             format({
-                obj: { x: 1, y: 2, c: [123, { b: null }], style },
+                obj: {
+                    x: 1,
+                    y: 2,
+                    c: [123, { b: null }],
+                    style: { width: '100%' },
+                    ...panelBase
+                },
                 ary: [1, 2, 3, 'A', false, null, [4, 56, { g: 1, c: [] }]]
             })
         ).toMatchSnapshot();
@@ -66,6 +73,7 @@ describe('console', function () {
         expect(
             formatx(
                 {
+                    ...panelBase,
                     x: 1,
                     y: '123',
                     c: 'str',
@@ -75,7 +83,7 @@ describe('console', function () {
                     g: function () {},
                     h: () => {},
                     i: test,
-                    style,
+                    style: { width: '100%' },
                     s,
                     int,
                     map: new Map([
@@ -102,7 +110,7 @@ describe('console', function () {
                     obj: {
                         x: 1,
                         y: 2,
-                        style: {},
+                        style: { width: '100%' },
                         c: [123, { b: null, a: [null] }, [null]]
                     },
                     ary: [

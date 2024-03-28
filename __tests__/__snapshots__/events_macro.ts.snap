@@ -10,9 +10,9 @@ function Item() {
     const id = GameEvents.Subscribe("custom_event", data => {
       console.log('Item', enabled());
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       GameEvents.Unsubscribe(id);
-    };
+    });
   }, enabled());
 }
 function App() {
@@ -20,9 +20,9 @@ function App() {
     const id = GameEvents.Subscribe("custom_event", data => {
       console.log(data);
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       GameEvents.Unsubscribe(id);
-    };
+    });
   });
 }"
 `;
@@ -41,9 +41,9 @@ function Item() {
         _setA(v);
       }
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       CustomNetTables.UnsubscribeNetTableListener(id);
-    };
+    });
   });
   (0, _solidJs.createEffect)(() => {
     const id = CustomNetTables.SubscribeNetTableListener("table_b", function (_, k, v) {
@@ -53,9 +53,9 @@ function Item() {
         _setBB(v);
       }
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       CustomNetTables.UnsubscribeNetTableListener(id);
-    };
+    });
   });
 }
 function App() {
@@ -72,9 +72,9 @@ function App() {
         _setThree(v);
       }
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       CustomNetTables.UnsubscribeNetTableListener(id);
-    };
+    });
   });
   return <Label text={JSON.stringify(one())} />;
 }
@@ -88,9 +88,9 @@ function Root() {
         _setOne3(v);
       }
     });
-    return () => {
+    (0, _solidJs.onCleanup)(() => {
       CustomNetTables.UnsubscribeNetTableListener(id);
-    };
+    });
   });
   return <Label text={JSON.stringify(one())} />;
   function test() {
