@@ -1,4 +1,4 @@
-export default function localize(token: string, ...args: string[]): void;
+export default function localize(token: string, ...args: string[]): string;
 
 export interface LocalizationData {
     brazilian?: string;
