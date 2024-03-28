@@ -147,9 +147,6 @@ function inspect(value: unknown, expand?: boolean, tab = '') {
             } else {
                 const isPanel = isPanelBase(value);
                 for (const [k, v] of Object.entries(value)) {
-                    if (isPanel) {
-                        console.log(value, k, v);
-                    }
                     if (k === 'style' && isPanel) {
                         list.push(`${tab}${k}: [VCSSStyleDeclaration]`);
                         continue;

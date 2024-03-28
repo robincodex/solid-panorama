@@ -238,3 +238,54 @@ function App() {
     return <Label text={JSON.stringify(one())} />;
 }
 ```
+
+# 本地化文本宏
+
+这个宏是为了实现在代码里面写本地化文本，编译后只在代码里留下字段值，同时可通过函数获得所有的本地化文本。
+
+localize的声明，第一个是字段值，后面的参数都是各类语言的文本，另外参数对应的语言顺序参考下面的`配置语言顺序`。
+
+```ts
+function localize(token: string, ...args: string[]): void;
+```
+
+使用也很简单：
+
+```js
+import localize from 'solid-panorama-all-in-jsx/localize.macro';
+
+// 定义字段
+const token_a = localize('token_a', 'this is a', '这是a');
+
+// 编译结果，另外第一个参数是字段值，无论有没有带`#`，都会自动加上`#`
+const token_a = '#token_a';
+```
+
+### 配置语言顺序
+
+以下是 babel-plugin-macros 的配置，如不懂可参考[官方配置文档](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md)
+
+如定义 英语，简体中文，俄语
+
+```js
+[
+    'macros',
+    {
+        'panorama-all-in-jsx': {
+            localize_language_argv: ['english', 'schinese', 'russian']
+        }
+    }
+];
+```
+
+### 获取文本
+
+返回的字段不会带有`#`，即使`localize`的第一个参数是带有`#`也会自动忽略掉。
+
+```js
+import { getLocalizationList } from 'solid-panorama-all-in-jsx/localize.macro';
+
+for (const [token, data] of Object.entries(getLocalizationList)) {
+    console.log(token, data.english, data.schinese);
+}
+```

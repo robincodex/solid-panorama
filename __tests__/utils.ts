@@ -31,7 +31,11 @@ export function parseSolid(code: string) {
     return result?.code;
 }
 
-export function parseMacros(code: string, filename?: string) {
+export function parseMacros(
+    code: string,
+    filename?: string,
+    config?: Record<string, any>
+) {
     const result = babel.transformSync(code, {
         cwd: __dirname,
         filename,
@@ -43,7 +47,7 @@ export function parseMacros(code: string, filename?: string) {
                 }
             ]
         ],
-        plugins: [['@babel/plugin-syntax-jsx'], [macros]]
+        plugins: [['@babel/plugin-syntax-jsx'], [macros, config]]
     });
     return result?.code;
 }
