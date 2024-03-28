@@ -261,6 +261,23 @@ const token_a = localize('token_a', 'this is a', '这是a');
 const token_a = '#token_a';
 ```
 
+### 匿名字段
+
+上面是指定了明确的字段值，但是有些字段是具有重复性的，比如`localize("button_ok", "确定")`，如果你忘了写过这个字段能会写出别的，例如`localize("confirm_ok", "确定")`。
+
+为了解决这个问题引入了匿名字段，只需要把第一个参数写成`#`或者空字符串即可，字段名称是根据参数中的所有文本拼合在一起取哈希值，例如 `token_76ebf07e63de6f75`
+
+例如：
+
+```js
+import localize from 'solid-panorama-all-in-jsx/localize.macro';
+const token_a = localize('', 'this is a', '这是a');
+// const token_a = localize('#', 'this is a', '这是a'); // 一样的
+
+// 编译结果
+const token_a = '#token_76ebf07e63de6f75';
+```
+
 ### 配置语言顺序
 
 以下是 babel-plugin-macros 的配置，如不懂可参考[官方配置文档](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md)

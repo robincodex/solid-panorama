@@ -1,4 +1,5 @@
 import { createMacro } from 'babel-plugin-macros';
+import { createHash } from 'crypto';
 
 let localizationList: Record<string, Record<string, string>> = {};
 
@@ -19,6 +20,7 @@ export default createMacro(
 
                 // fetch token and localization data
                 let token = '';
+                let isAnonymous = false;
                 let localizationData: Record<string, string> = {};
                 for (const [
                     i,
@@ -33,10 +35,14 @@ export default createMacro(
                     // first argument is token
                     if (i === 0) {
                         token = arg.value;
-                        if (token[0] === '#') {
-                            token = token.slice(1);
+                        if (token === '' || token[0] === '#') {
+                            if (token.length <= 1) {
+                                isAnonymous = true;
+                                token = '';
+                            } else {
+                                token = token.slice(1);
+                            }
                         }
-                        localizationList[token] = localizationData;
                     } else {
                         // arguments must be defined in config
                         const lang = argv[i - 1];
@@ -46,8 +52,19 @@ export default createMacro(
                             );
                         }
                         localizationData[lang] = arg.value;
+                        if (isAnonymous) {
+                            token += arg.value;
+                        }
                     }
                 }
+
+                // if token is anonymous, hash it
+                if (isAnonymous) {
+                    const hash = createHash('sha256');
+                    hash.update(token);
+                    token = `token_${hash.digest('hex').slice(0, 16)}`;
+                }
+                localizationList[token] = localizationData;
 
                 // replace localize call with token
                 path.parentPath.replaceWith(

@@ -4,5 +4,7 @@ exports[`localize_macro getLocalizationList 1`] = `
 ""use strict";
 
 const token_a = "#test_token_a";
-const token_b = "#test_token_b";"
+const token_b = "#test_token_b";
+const token_c = "#token_f780dc967d9b71be";
+const token_d = "#token_fa636963348fd7d0";"
 `;
