@@ -76,7 +76,8 @@ const macroConfig = {
     input: [
         'packages/panorama-all-in-jsx/src/xml.macro.ts',
         'packages/panorama-all-in-jsx/src/css.macro.ts',
-        'packages/panorama-all-in-jsx/src/events.macro.ts'
+        'packages/panorama-all-in-jsx/src/events.macro.ts',
+        'packages/panorama-all-in-jsx/src/localize.macro.ts'
     ],
     output: {
         dir: 'dist/panorama-all-in-jsx',
