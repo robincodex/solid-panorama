@@ -278,6 +278,8 @@ const token_a = localize('', 'this is a', '这是a');
 const token_a = '#token_76ebf07e63de6f75';
 ```
 
+> 注意：不支持动态的字符串
+
 ### 配置语言顺序
 
 以下是 babel-plugin-macros 的配置，如不懂可参考[官方配置文档](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md)
