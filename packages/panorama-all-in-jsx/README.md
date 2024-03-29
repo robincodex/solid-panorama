@@ -300,9 +300,9 @@ const token_a = '#token_76ebf07e63de6f75';
 返回的字段不会带有`#`，即使`localize`的第一个参数是带有`#`也会自动忽略掉。
 
 ```js
-import { getLocalizationList } from 'solid-panorama-all-in-jsx/localize.macro';
+import { getLocalizationTable } from 'solid-panorama-all-in-jsx/localize.macro';
 
-for (const [token, data] of Object.entries(getLocalizationList)) {
+for (const [token, data] of Object.entries(getLocalizationTable)) {
     console.log(token, data.english, data.schinese);
 }
 ```
