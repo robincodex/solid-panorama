@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`localize_macro getLocalizationList 1`] = `
+exports[`localize_macro getLocalizationTable 1`] = `
 ""use strict";
 
 const token_a = "#test_token_a";

@@ -1,11 +1,17 @@
 import { createMacro } from 'babel-plugin-macros';
 import { createHash } from 'crypto';
 
-let localizationList: Record<string, Record<string, string>> = {};
+type LocalizationTable = Record<string, Record<string, string>>;
+
+let fileLocalization: Record<string, LocalizationTable> = {};
 
 export default createMacro(
     function ({ references, state, babel, config }) {
-        localizationList = {};
+        if (!state.filename) {
+            throw new Error('state.filename is not defined');
+        }
+        const localizationTable: LocalizationTable = {};
+        fileLocalization[state.filename] = localizationTable;
         const argv = config ? config['localize_language_argv'] : ['english'];
 
         for (const path of references.default) {
@@ -64,7 +70,7 @@ export default createMacro(
                     hash.update(token);
                     token = `token_${hash.digest('hex').slice(0, 16)}`;
                 }
-                localizationList[token] = localizationData;
+                localizationTable[token] = localizationData;
 
                 // replace localize call with token
                 path.parentPath.replaceWith(
@@ -76,6 +82,10 @@ export default createMacro(
     { configName: 'panorama-all-in-jsx' }
 );
 
-export function getLocalizationList() {
-    return localizationList;
+export function getLocalizationTable() {
+    const localizationTable: LocalizationTable = {};
+    for (const [_, table] of Object.entries(fileLocalization)) {
+        Object.assign(localizationTable, table);
+    }
+    return localizationTable;
 }

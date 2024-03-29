@@ -1,9 +1,9 @@
 import { parseMacros } from './utils';
 import { describe, expect, test } from '@jest/globals';
-import { getLocalizationList } from '../packages/panorama-all-in-jsx/src/localize.macro';
+import { getLocalizationTable } from '../packages/panorama-all-in-jsx/src/localize.macro';
 
 describe('localize_macro', function () {
-    test('getLocalizationList', function () {
+    test('getLocalizationTable', function () {
         const result = parseMacros(
             `
             import localize from '../packages/panorama-all-in-jsx/src/localize.macro';
@@ -21,7 +21,7 @@ describe('localize_macro', function () {
         );
         expect(result).toMatchSnapshot();
 
-        expect(getLocalizationList()).toStrictEqual({
+        expect(getLocalizationTable()).toStrictEqual({
             test_token_a: {
                 english: 'this is a',
                 schinese: '这是a',

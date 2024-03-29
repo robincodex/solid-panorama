@@ -31,7 +31,7 @@ export interface LocalizationData {
     ukrainian?: string;
     vietnamese?: string;
 }
-export function getLocalizationList<T extends LocalizationData>(): Record<
+export function getLocalizationTable<T extends LocalizationData>(): Record<
     string,
     T
 >;
