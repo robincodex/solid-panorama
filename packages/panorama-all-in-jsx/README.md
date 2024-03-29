@@ -304,7 +304,7 @@ const token_a = '#token_76ebf07e63de6f75';
 ```js
 import { getLocalizationTable } from 'solid-panorama-all-in-jsx/localize.macro';
 
-for (const [token, data] of Object.entries(getLocalizationTable)) {
+for (const [token, data] of Object.entries(getLocalizationTable())) {
     console.log(token, data.english, data.schinese);
 }
 ```
