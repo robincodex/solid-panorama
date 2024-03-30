@@ -1,0 +1,4 @@
+"lang"
+{
+    "addon_game_name"       "My Game"
+}

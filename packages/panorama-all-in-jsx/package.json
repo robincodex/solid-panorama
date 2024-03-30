@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "babel-plugin-macros": "^3.1.0",
+        "easy-keyvalues": "^1.2.2",
         "xml-js": "^1.6.11"
     },
     "peerDependencies": {

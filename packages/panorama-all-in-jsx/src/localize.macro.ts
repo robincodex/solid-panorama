@@ -1,5 +1,8 @@
 import { createMacro } from 'babel-plugin-macros';
 import { createHash } from 'crypto';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { KeyValues } from 'easy-keyvalues';
 
 type LocalizationTable = Record<string, Record<string, string>>;
 
@@ -88,4 +91,48 @@ export function getLocalizationTable() {
         Object.assign(localizationTable, table);
     }
     return localizationTable;
+}
+
+/**
+ * Apply localization table to localization file
+ * @param dir localization file directory, `dota 2 beta\game\dota_addons\<you project>\panorama\localization`
+ */
+export async function autoApplyToLocalizationFile(dir: string) {
+    // merge localization table
+    let localizationTable: Record<string, Record<string, string>> = {};
+    for (const [_, table] of Object.entries(fileLocalization)) {
+        for (const [token, data] of Object.entries(table)) {
+            for (const [lang, text] of Object.entries(data)) {
+                if (!localizationTable[lang]) {
+                    localizationTable[lang] = {};
+                }
+                localizationTable[lang][token] = text;
+            }
+        }
+    }
+
+    // apply to localization file
+    for (const [language, table] of Object.entries(localizationTable)) {
+        const filePath = join(dir, `addon_${language}.txt`);
+        let kv: KeyValues;
+        if (existsSync(filePath)) {
+            kv = await KeyValues.Load(filePath);
+        } else {
+            kv = KeyValues.CreateRoot();
+            kv.CreateChild('lang', []);
+        }
+        const lang = kv.FindKey('lang');
+        if (!lang) {
+            throw new Error('lang key not found');
+        }
+        for (const token of Object.keys(table).sort()) {
+            const tokenKV = lang.FindKey(token);
+            if (!tokenKV) {
+                lang.CreateChild(token, table[token]);
+            } else {
+                tokenKV.SetValue(table[token]);
+            }
+        }
+        await kv.Save(filePath);
+    }
 }

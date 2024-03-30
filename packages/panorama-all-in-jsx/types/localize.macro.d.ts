@@ -35,3 +35,9 @@ export function getLocalizationTable<T extends LocalizationData>(): Record<
     string,
     T
 >;
+
+/**
+ * Apply localization table to localization file
+ * @param dir localization file directory, `dota 2 beta\game\dota_addons\<you project>\panorama\localization`
+ */
+export function autoApplyToLocalizationFile(dir: string): Promise<void>;
