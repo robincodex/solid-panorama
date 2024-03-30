@@ -116,7 +116,7 @@ export async function autoApplyToLocalizationFile(dir: string) {
         const filePath = join(dir, `addon_${language}.txt`);
         let kv: KeyValues;
         if (existsSync(filePath)) {
-            kv = await KeyValues.Load(filePath);
+            kv = await KeyValues.Load(filePath, 'utf8');
         } else {
             kv = KeyValues.CreateRoot();
             kv.CreateChild('lang', []);
@@ -133,6 +133,6 @@ export async function autoApplyToLocalizationFile(dir: string) {
                 tokenKV.SetValue(table[token]);
             }
         }
-        await kv.Save(filePath);
+        await kv.Save(filePath, 'utf8');
     }
 }
