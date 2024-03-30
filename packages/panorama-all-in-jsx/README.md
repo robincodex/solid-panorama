@@ -308,3 +308,15 @@ for (const [token, data] of Object.entries(getLocalizationTable())) {
     console.log(token, data.english, data.schinese);
 }
 ```
+
+### 自动添加到KV文件
+
+可以使用`autoApplyToLocalizationFile()`函数自动导出到KV文件，只需将该函数放到构建结束的触发之中（根据你的框架使用）。
+
+```js
+import { autoApplyToLocalizationFile } from 'solid-panorama-all-in-jsx/localize.macro';
+
+await autoApplyToLocalizationFile(
+    '<你的DOTA2路径>/game/dota_addons/<你的项目>/panorama/localization'
+);
+```
