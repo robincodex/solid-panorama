@@ -241,44 +241,53 @@ function App() {
 
 # 本地化文本宏
 
-这个宏是为了实现在代码里面写本地化文本，编译后只在代码里留下字段值，同时可通过函数获得所有的本地化文本。
+这个宏是为了实现在代码里面写本地化文本，编译后只在代码里留下字段值，同时可通过函数获得或导出所有的本地化文本。
 
-localize的声明，第一个是字段值，后面的参数都是各类语言的文本，另外参数对应的语言顺序参考下面的`配置语言顺序`。
+localize有两种用法，一种是匿名字段名称，一种是指定字段名称。
+
+如果你不需要明确知道字段名称，一般使用匿名方式即可。
+
+另外参数对应的语言顺序参考下面的`配置语言顺序`。
+
+> 注意：不支持动态的字符串
+
+### 匿名字段
+
+匿名字段是为了解决重复性的语句，也是一个比较方便（偷懒）的写法，比如`localize("button_ok", "确定")`，如果你忘了写过这个字段能会写出别的，例如`localize("confirm_ok", "确定")`。
+
+为了解决这个问题引入了匿名字段，当第一个参数不以`#`开头或者第一个参数只有一个`#`则会被认为是匿名字段，字段名称是根据参数中的所有文本拼合在一起取哈希值，例如 `token_76ebf07e63de6f75`
+
+匿名字段用法：
 
 ```ts
-function localize(token: string, ...args: string[]): void;
+import localize from 'solid-panorama-all-in-jsx/localize.macro';
+
+const token_a = localize('this is a', '这是a');
+// const token_a = localize('#', 'this is a', '这是a'); // 一样的
+
+// 编译结果
+const token_a = '#token_76ebf07e63de6f75';
+
+// 如果你有其他人帮助你翻译，也可以省略其它语言，只写你自己的语言
+const token_a = localize('this is a');
+
+// 编译结果
+const token_a = '#token_46c17b9343c831a6';
 ```
 
-使用也很简单：
+### 指定字段名称
+
+第一个参数一定要以`#`开头
 
 ```js
 import localize from 'solid-panorama-all-in-jsx/localize.macro';
 
 // 定义字段
-const token_a = localize('token_a', 'this is a', '这是a');
-
-// 编译结果，另外第一个参数是字段值，无论有没有带`#`，都会自动加上`#`
-const token_a = '#token_a';
-```
-
-### 匿名字段
-
-上面是指定了明确的字段值，但是有些字段是具有重复性的，比如`localize("button_ok", "确定")`，如果你忘了写过这个字段能会写出别的，例如`localize("confirm_ok", "确定")`。
-
-为了解决这个问题引入了匿名字段，只需要把第一个参数写成`#`或者空字符串即可，字段名称是根据参数中的所有文本拼合在一起取哈希值，例如 `token_76ebf07e63de6f75`
-
-例如：
-
-```js
-import localize from 'solid-panorama-all-in-jsx/localize.macro';
-const token_a = localize('', 'this is a', '这是a');
-// const token_a = localize('#', 'this is a', '这是a'); // 一样的
+const token_a = localize('#token_a', 'this is a', '这是a');
 
 // 编译结果
-const token_a = '#token_76ebf07e63de6f75';
+const token_a = '#token_a';
 ```
-
-> 注意：不支持动态的字符串
 
 ### 配置语言顺序
 

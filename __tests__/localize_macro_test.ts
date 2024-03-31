@@ -14,10 +14,10 @@ describe('localize_macro', function () {
         const result = parseMacros(
             `
             import localize from '../packages/panorama-all-in-jsx/src/localize.macro';
-            const token_a = localize('test_token_a', 'this is a', '这是a', 'Это a')
+            const token_a = localize('#test_token_a', 'this is a', '这是a', 'Это a')
             const token_b = localize('#test_token_b', 'this is b', '这是b', 'Это b')
             const token_c = localize('#', 'this is c', '这是c', 'Это c')
-            const token_d = localize('', 'this is d', '这是d', 'Это d')
+            const token_d = localize('this is d', '这是d', 'Это d')
         `,
             __filename,
             {

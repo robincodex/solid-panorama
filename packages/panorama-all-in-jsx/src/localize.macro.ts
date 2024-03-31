@@ -31,6 +31,7 @@ export default createMacro(
                 let token = '';
                 let isAnonymous = false;
                 let localizationData: Record<string, string> = {};
+                let offset = 1;
                 for (const [
                     i,
                     arg
@@ -44,17 +45,31 @@ export default createMacro(
                     // first argument is token
                     if (i === 0) {
                         token = arg.value;
-                        if (token === '' || token[0] === '#') {
-                            if (token.length <= 1) {
+                        if (token === '') {
+                            throw new Error('localize first argument is empty');
+                        }
+                        if (token[0] === '#') {
+                            if (token.length === 1) {
                                 isAnonymous = true;
                                 token = '';
                             } else {
                                 token = token.slice(1);
                             }
+                        } else {
+                            isAnonymous = true;
+                            token = arg.value;
+                            offset = 0;
+                            const lang = argv[0];
+                            if (!lang) {
+                                throw new Error(
+                                    `localize argument ${i} is not defined in config, please define it in babel-plugin-macros config, example: { "language_argv": ["english", "schinese", "russian"] }`
+                                );
+                            }
+                            localizationData[lang] = arg.value;
                         }
                     } else {
                         // arguments must be defined in config
-                        const lang = argv[i - 1];
+                        const lang = argv[i - offset];
                         if (!lang) {
                             throw new Error(
                                 `localize argument ${i} is not defined in config, please define it in babel-plugin-macros config, example: { "language_argv": ["english", "schinese", "russian"] }`
