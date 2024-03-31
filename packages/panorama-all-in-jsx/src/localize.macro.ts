@@ -20,7 +20,7 @@ export default createMacro(
         for (const path of references.default) {
             if (path.parentPath && path.parentPath.isCallExpression()) {
                 // arguments must be more than 1
-                if (path.parentPath.node.arguments.length <= 1) {
+                if (path.parentPath.node.arguments.length < 1) {
                     console.warn(
                         `${state.filename} localize arguments must be more than 1`
                     );
