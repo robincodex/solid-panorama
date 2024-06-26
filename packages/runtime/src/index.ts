@@ -59,8 +59,16 @@ export const {
 } = createRenderer<Panel>({
     // @ts-ignore
     createElement(type: string, props: any, parent?: Panel) {
-        const { id, snippet, vars, dialogVariables, text, style, ..._props } =
-            props;
+        const {
+            id,
+            snippet,
+            vars,
+            dialogVariables,
+            text,
+            style,
+            visible,
+            ..._props
+        } = props;
         const styleIsString = typeof style === 'string';
         if (styleIsString) {
             props.style = style;
@@ -71,6 +79,9 @@ export const {
             id || '',
             _props
         ) as LabelPanel;
+        if (visible === false) {
+            el.visible = false;
+        }
         el.SetDisableFocusOnMouseDown(true);
         if (!styleIsString) {
             applyStyles(el, style);
