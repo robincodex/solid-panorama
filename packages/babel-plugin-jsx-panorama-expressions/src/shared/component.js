@@ -11,7 +11,11 @@ import {
     identifierIsFunction
 } from './utils';
 import { transformNode, getCreateTemplate } from './transform';
-import { AllowInitializePropperties, CustomProperties, OnlyInitializePureValueProperties } from '../props';
+import {
+    AllowInitializePropperties,
+    CustomProperties,
+    OnlyInitializePureValueProperties
+} from '../props';
 
 function convertComponentIdentifier(node) {
     if (t.isJSXIdentifier(node)) {
@@ -375,9 +379,6 @@ export function getElementProps(path) {
                     return;
                 }
                 if (t.isJSXExpressionContainer(value)) {
-                    if (OnlyInitializePureValueProperties.includes(key)) {
-                        return;
-                    }
                     if (key === 'ref') {
                         if (config.generate === 'ssr') return;
                         // Normalize expressions for non-null and type-as
@@ -488,6 +489,9 @@ export function getElementProps(path) {
                         if (t.isArrowFunctionExpression(value.expression)) {
                             return;
                         }
+                        if (OnlyInitializePureValueProperties.includes(key)) {
+                            return;
+                        }
                         let expr =
                             config.wrapConditionals &&
                             config.generate !== 'ssr' &&
@@ -524,9 +528,23 @@ export function getElementProps(path) {
                         if (key === 'style') {
                             return;
                         } else {
-                            runningObject.push(
-                                t.objectProperty(id, value.expression)
-                            );
+                            if (
+                                OnlyInitializePureValueProperties.includes(key)
+                            ) {
+                                if (
+                                    t.isStringLiteral(value.expression) ||
+                                    t.isNumericLiteral(value.expression) ||
+                                    t.isBooleanLiteral(value.expression)
+                                ) {
+                                    runningObject.push(
+                                        t.objectProperty(id, value.expression)
+                                    );
+                                }
+                            } else {
+                                runningObject.push(
+                                    t.objectProperty(id, value.expression)
+                                );
+                            }
                         }
                     }
                 } else {
@@ -541,13 +559,7 @@ export function getElementProps(path) {
                             t.objectProperty(id, t.stringLiteral(v))
                         );
                     } else {
-                        if (OnlyInitializePureValueProperties.includes(key)) {
-                            if (t.isStringLiteral(value) || t.isNumericLiteral(value) || t.isBooleanLiteral(value)) {
-                                runningObject.push(t.objectProperty(id, value));
-                            }
-                        } else {
-                            runningObject.push(t.objectProperty(id, value));
-                        }
+                        runningObject.push(t.objectProperty(id, value));
                     }
                 }
             }
