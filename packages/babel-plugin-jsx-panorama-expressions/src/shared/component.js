@@ -11,7 +11,7 @@ import {
     identifierIsFunction
 } from './utils';
 import { transformNode, getCreateTemplate } from './transform';
-import { AllowInitializePropperties, CustomProperties } from '../props';
+import { AllowInitializePropperties, CustomProperties, OnlyInitializePureValueProperties } from '../props';
 
 function convertComponentIdentifier(node) {
     if (t.isJSXIdentifier(node)) {
@@ -375,6 +375,9 @@ export function getElementProps(path) {
                     return;
                 }
                 if (t.isJSXExpressionContainer(value)) {
+                    if (OnlyInitializePureValueProperties.includes(key)) {
+                        return;
+                    }
                     if (key === 'ref') {
                         if (config.generate === 'ssr') return;
                         // Normalize expressions for non-null and type-as
@@ -538,7 +541,13 @@ export function getElementProps(path) {
                             t.objectProperty(id, t.stringLiteral(v))
                         );
                     } else {
-                        runningObject.push(t.objectProperty(id, value));
+                        if (OnlyInitializePureValueProperties.includes(key)) {
+                            if (t.isStringLiteral(value) || t.isNumericLiteral(value) || t.isBooleanLiteral(value)) {
+                                runningObject.push(t.objectProperty(id, value));
+                            }
+                        } else {
+                            runningObject.push(t.objectProperty(id, value));
+                        }
                     }
                 }
             }

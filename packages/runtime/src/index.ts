@@ -104,9 +104,6 @@ export const {
         if (dialogVariables) {
             setDialogVariables(el, dialogVariables, {});
         }
-        if (attrs) {
-            setAttributes(el, attrs);
-        }
         if (text) {
             if (text[0] === '#') {
                 el.__solidText = text;
