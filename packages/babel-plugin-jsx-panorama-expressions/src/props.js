@@ -16,4 +16,4 @@ export const CustomProperties = [
     'attrs'
 ];
 
-export const AllowInitializePropperties = ['vars', 'dialogVariables'];
+export const AllowInitializePropperties = ['vars', 'dialogVariables', 'visible', 'enabled', 'checked', 'attrs'];

@@ -67,6 +67,9 @@ export const {
             text,
             style,
             visible,
+            enabled,
+            checked,
+            attrs,
             ..._props
         } = props;
         const styleIsString = typeof style === 'string';
@@ -79,8 +82,14 @@ export const {
             id || '',
             _props
         ) as LabelPanel;
-        if (visible === false) {
-            el.visible = false;
+        if (typeof visible === 'boolean') {
+            el.visible = visible;
+        }
+        if (typeof enabled === 'boolean') {
+            el.enabled = enabled;
+        }
+        if (typeof checked === 'boolean') {
+            el.checked = checked;
         }
         el.SetDisableFocusOnMouseDown(true);
         if (!styleIsString) {
@@ -94,6 +103,9 @@ export const {
         }
         if (dialogVariables) {
             setDialogVariables(el, dialogVariables, {});
+        }
+        if (attrs) {
+            setAttributes(el, attrs);
         }
         if (text) {
             if (text[0] === '#') {
