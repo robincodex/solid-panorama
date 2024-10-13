@@ -381,7 +381,7 @@ function applyStyles(
             }
         }
         // @ts-ignore
-        node.style[k] = styles[k];
+        node.style[k] = styles[k] === undefined ? null : styles[k];
     }
 }
 

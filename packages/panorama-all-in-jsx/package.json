@@ -1,6 +1,6 @@
 {
     "name": "solid-panorama-all-in-jsx",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "",
     "engines": {
         "node": ">=16.0.0"
@@ -15,10 +15,10 @@
     },
     "dependencies": {
         "babel-plugin-macros": "^3.1.0",
-        "easy-keyvalues": "^1.2.2",
+        "easy-keyvalues": "^1.2.5",
         "xml-js": "^1.6.11"
     },
     "peerDependencies": {
-        "@babel/core": "^7.24.3"
+        "@babel/core": "^7.25.8"
     }
 }
