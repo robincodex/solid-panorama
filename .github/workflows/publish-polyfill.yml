@@ -13,7 +13,7 @@ jobs:
         with:
           version: 9
           run_install:
-            args: [--frozen-lockfile]
+            - args: [--frozen-lockfile]
       - run: pnpm build:polyfill
       - run: cp packages/panorama-polyfill/README.md dist/solid-panorama-polyfill/
       - run: pnpm publish dist/solid-panorama-polyfill --no-git-checks --access public
