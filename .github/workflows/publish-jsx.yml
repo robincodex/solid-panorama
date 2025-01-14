@@ -7,13 +7,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
-          version: latest
-          run_install: false
-      - run: pnpm install --frozen-lockfile
+          version: 9
+          run_install:
+            args: [--frozen-lockfile]
       - run: pnpm build:jsx
       - run: pnpm publish dist/babel-plugin-jsx-panorama-expressions --no-git-checks --access public
         env:
