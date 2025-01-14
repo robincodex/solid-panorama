@@ -11,7 +11,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: latest
           run_install: |
             - args: [--frozen-lockfile]
       - run: pnpm build:jsx
