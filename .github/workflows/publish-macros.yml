@@ -12,7 +12,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 9
-          run_install:
+          run_install: |
             - args: [--frozen-lockfile]
       - run: pnpm build:macros
       - run: cp packages/panorama-all-in-jsx/README.md dist/panorama-all-in-jsx/

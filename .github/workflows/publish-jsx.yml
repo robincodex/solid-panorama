@@ -12,7 +12,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 9
-          run_install:
+          run_install: |
             - args: [--frozen-lockfile]
       - run: pnpm build:jsx
       - run: pnpm publish dist/babel-plugin-jsx-panorama-expressions --no-git-checks --access public
