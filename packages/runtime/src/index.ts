@@ -171,7 +171,11 @@ export const {
             return;
         }
         node.SetParent(nodeTrash);
-        node.DeleteAsync(0);
+        $.Schedule(0, () => {
+            if (node.GetParent() === nodeTrash) {
+                node.DeleteAsync(0);
+            }
+        });
     },
 
     getParentNode(node: Panel) {
