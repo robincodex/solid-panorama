@@ -57,4 +57,10 @@ declare global {
     const DOTAPortrait: ParentComponent<DOTAPortraitAttributes>;
 
     const CustomLayoutPanel: ParentComponent<CustomLayoutPanelAttributes>;
+
+    interface GenericPanelAttributes extends PanelAttributes {
+        type: string;
+        [key: string]: any;
+    }
+    const GenericPanel: ParentComponent<GenericPanelAttributes>;
 }

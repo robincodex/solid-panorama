@@ -70,11 +70,15 @@ export const {
             enabled,
             checked,
             attrs,
+            type: _type,
             ..._props
         } = props;
         const styleIsString = typeof style === 'string';
         if (styleIsString) {
             props.style = style;
+        }
+        if (_type === 'GenericPanel') {
+            type = _type;
         }
         const el = $.CreatePanel(
             type,
