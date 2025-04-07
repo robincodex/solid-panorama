@@ -77,7 +77,7 @@ export const {
         if (styleIsString) {
             props.style = style;
         }
-        if (_type === 'GenericPanel') {
+        if (type === 'GenericPanel') {
             type = _type;
         }
         const el = $.CreatePanel(
